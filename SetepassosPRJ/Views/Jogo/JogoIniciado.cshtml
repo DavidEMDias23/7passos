@@ -1,0 +1,52 @@
+﻿@model SetepassosPRJ.Models.Perfil
+@{
+}
+
+<div>
+    <strong>Nome: </strong>@Model.Nome
+</div>
+
+<div>
+    <strong>Moedas de Ouro: </strong>@Model.MoedasOuro
+</div>
+
+<div>
+    <strong>Pontos de Vida: </strong>@Model.PontosVida
+</div>
+
+<div>
+    <strong>Pontos de Ataque:</strong>@Model.PontosAtaque
+</div>
+
+<div>
+    <strong>Pontos de Sorte: </strong>@Model.PontosSorte
+</div>
+
+<div>
+    <strong>Poções de Vida: </strong>@Model.PocoesVida
+</div>
+
+<div>
+    <strong>Chave?: </strong>@Model.Chave
+</div>
+<div class="text-right">
+    <div>
+        <a asp-action="" class="btn btn-primary" role="button">Avançar</a>
+    </div>
+    <div>
+        <a asp-action="" class="btn btn-primary" role="button">Recuar</a>
+    </div>
+    <div>
+        <a asp-action="" class="btn btn-primary" role="button">Examinar Área</a>
+    </div>
+    <div>
+        <a asp-action="" class="btn btn-primary" role="button">Beber Poção de Vida</a>
+    </div>
+    <div>
+        <a asp-action="" class="btn btn-primary" role="button">Desistir</a>
+     </div>
+            <div>
+                <a asp-action="CriarJogo" class="btn btn-primary" role="button">Iniciar novo jogo</a>
+            </div>
+    <a asp-action="JogoMonstro">Pagina do Monstro</a>
+</div>

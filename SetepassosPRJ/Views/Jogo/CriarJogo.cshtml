@@ -1,0 +1,15 @@
+﻿@model SetepassosPRJ.Models.Perfil
+@{
+}
+<form asp-action="CriarJogo" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Nome">Nome</label>
+        <input class="form-control" asp-for="Nome" />
+    </div>
+    <div>
+        <button type="submit">Iniciar Jogo</button>
+    </div>
+
+    @* colocar imagens dos tipos de perfis e alterar*@
+</form>
