@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿using System.ComponentModel.DataAnnotations;
 namespace SetepassosPRJ.Models
 {
     public class Perfil
     {
-        private string nome;
-        private int moedasOuro;
-        private int pontosVida;
-        private int pontosAtaque;
-        private int pontosSorte;
-        private int pocoesVida;
-        private bool chave;
-
-        [Required(ErrorMessage ="Introduza um nome")]
+        [Required(ErrorMessage = "Por favor introduza o seu nome")]
         public string Nome { get; set; }
-
         public int MoedasOuro { get; set; }
         public int PontosVida { get; set; }
         public int PontosAtaque { get; set; }
