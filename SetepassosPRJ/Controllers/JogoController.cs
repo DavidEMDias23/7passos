@@ -31,6 +31,7 @@ namespace SetepassosPRJ.Controllers
                 NovoPerfil = new Perfil
                 {
                     Nome = NovoPerfil.Nome,
+                    PerfilTipo = NovoPerfil.PerfilTipo,
                     MoedasOuro = 0,
                     PontosAtaque = 4,
                     PontosSorte = 3,

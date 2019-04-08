@@ -61,9 +61,9 @@ label {
 input[type='radio'] {
     width: 27px;
     height: 27px;
-    background: white;
-    border-radius: 5px;
-    border: 2px solid #555;
+    background: black;
+    border-radius: 1px;
+    border: 1px solid black;
 }
 
  
