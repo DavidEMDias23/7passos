@@ -57,3 +57,13 @@ label {
         display: none;
     }
 }
+
+input[type='radio'] {
+    width: 27px;
+    height: 27px;
+    background: white;
+    border-radius: 5px;
+    border: 2px solid #555;
+}
+
+ 
