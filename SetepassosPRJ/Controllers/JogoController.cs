@@ -28,17 +28,6 @@ namespace SetepassosPRJ.Controllers
         {
             if (ModelState.IsValid)
             {
-                NovoPerfil = new Perfil
-                {
-                    Nome = NovoPerfil.Nome,
-                    PerfilTipo = NovoPerfil.PerfilTipo,
-                    MoedasOuro = 0,
-                    PontosAtaque = 4,
-                    PontosSorte = 3,
-                    PontosVida = 2,
-                    PocoesVida = 1,
-                    Chave = false
-                };
                 return View("JogoIniciado", NovoPerfil);
             }
             else

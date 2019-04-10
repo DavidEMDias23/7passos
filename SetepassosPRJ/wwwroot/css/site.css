@@ -34,16 +34,18 @@ label {
     padding-right: 15px;
 }
 
-/* Carousel */
+/* Carousel 
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
 }
+*/
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
+    
 
 /* QR code generator */
 #qrCode {
@@ -52,10 +54,12 @@ label {
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    /* Hide captions */
+    
+    /* Hide captions
     .carousel-caption {
         display: none;
     }
+    */
 }
 
 input[type='radio'] {
@@ -66,4 +70,45 @@ input[type='radio'] {
     border: 1px solid black;
 }
 
- 
+#tabela {
+    margin-top: 20px
+}
+
+
+.classe1 {
+    color: yellow;
+    font-weight: bold;
+}
+
+.classe2 {
+    color: lightgrey;
+    font-weight: bold;
+}
+
+.carousel-caption {
+    display: none;
+}
+
+
+
+/*
+.carousel-inner {
+    height: auto;
+}
+
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 100%;
+        margin: auto;
+        min-height: initial;
+    }
+*/
+.carousel-inner > .item > img {
+    width: 640px;
+    height: 360px;
+}
+
+.carousel {
+    width: 640px;
+    height: 360px;
+}
