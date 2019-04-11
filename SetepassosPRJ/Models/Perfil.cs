@@ -31,7 +31,31 @@ namespace SetepassosPRJ.Models
                 PocoesVida = 1;
                 Chave = false;
             }
-               
+
+            if (perfilTipoEscolhido == "Fat")
+            {
+                Nome = nomeEscolhido;
+                PerfilTipo = perfilTipoEscolhido;
+                MoedasOuro = 0;
+                PontosVida = 3;
+                PontosAtaque = 3;
+                PontosSorte = 1;
+                PocoesVida = 1;
+                Chave = false;
+            }
+
+            if (perfilTipoEscolhido == "Old")
+            {
+                Nome = nomeEscolhido;
+                PerfilTipo = perfilTipoEscolhido;
+                MoedasOuro = 0;
+                PontosVida = 7;
+                PontosAtaque = 2;
+                PontosSorte = 2;
+                PocoesVida = 1;
+                Chave = false;
+            }
+
         }
     }
 }
