@@ -18,10 +18,12 @@ namespace SetepassosPRJ.Models
         
 
 
-        public Perfil()
+        public Perfil(string nomeEscolhido, string perfilTipoEscolhido)
         {  
-            if (PerfilTipo == "Nerd")
+            if (perfilTipoEscolhido == "Nerd")
             {
+                Nome = nomeEscolhido;
+                PerfilTipo = perfilTipoEscolhido;
                 MoedasOuro = 0;
                 PontosVida = 4;
                 PontosAtaque = 3;

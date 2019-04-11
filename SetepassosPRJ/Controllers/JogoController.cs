@@ -24,10 +24,11 @@ namespace SetepassosPRJ.Controllers
         }
 
         [HttpPost]
-        public IActionResult CriarJogo(Perfil NovoPerfil)
+        public IActionResult CriarJogo(string Nome, string PerfilTipo)
         {
             if (ModelState.IsValid)
             {
+                Perfil NovoPerfil = new Perfil(Nome,PerfilTipo);
                 return View("JogoIniciado", NovoPerfil);
             }
             else
