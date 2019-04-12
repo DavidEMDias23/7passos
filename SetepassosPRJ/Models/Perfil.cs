@@ -39,7 +39,7 @@ namespace SetepassosPRJ.Models
                 MoedasOuro = 0;
                 PontosVida = 3;
                 PontosAtaque = 3;
-                PontosSorte = 1;
+                PontosSorte = 3;
                 PocoesVida = 1;
                 Chave = false;
             }
@@ -49,9 +49,9 @@ namespace SetepassosPRJ.Models
                 Nome = nomeEscolhido;
                 PerfilTipo = perfilTipoEscolhido;
                 MoedasOuro = 0;
-                PontosVida = 7;
+                PontosVida = 3;
                 PontosAtaque = 2;
-                PontosSorte = 2;
+                PontosSorte = 4;
                 PocoesVida = 1;
                 Chave = false;
             }

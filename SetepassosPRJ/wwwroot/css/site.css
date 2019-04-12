@@ -112,3 +112,17 @@ input[type='radio'] {
     width: 640px;
     height: 360px;
 }
+
+.botoes {
+    display: inline-block;
+    margin-left: 800px;
+    vertical-align: top;
+    margin-top: 20px
+}
+
+
+.dados {
+    float: left;
+    margin-top: 20px
+}
+
