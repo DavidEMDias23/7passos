@@ -17,7 +17,14 @@ body {
     font-size: 14px;
 }
 
-.charpick1, .charpick2, .charpick3 {
+.footerdown {
+    position: absolute;
+    bottom: 20px;
+    width: 70%;
+    height: 50px; /* Height of the footer */
+}
+
+.charpick {
    width: 260px;
    height: 260px;
 }
@@ -109,12 +116,12 @@ input[type='radio'] {
     }
 */
 .carousel-inner > .item > img {
-    width: 640px;
+    width: 400px;
     height: 360px;
 }
 
 .carousel {
-    width: 640px;
+    width: 400px;
     height: 360px;
 }
 

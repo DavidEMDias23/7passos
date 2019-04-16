@@ -1,43 +1,57 @@
 ﻿@{
     ViewData["Title"] = "Apresentacao";
 }
-<div id="text"></div>
 
-<div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-captions" data-slide-to="0" class=""></li>
-        <li class="" data-target="#carousel-example-captions" data-slide-to="1"></li>
-        <li class="active" data-target="#carousel-example-captions" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item">
-            <img data-holder-rendered="true" src="~/images/OldWomanMiniatura.png" data-src="holder.js/900x500/auto/#777:#777" alt="500x500">
-            <div class="carousel-caption">
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+<div class="container">
+    <h1>
+        Equipa Capitain Mangi
+    </h1>
+    <br />
+    <h5> Somos uma equipa de 3 elementos do 2º ano do curso de GSI. </h5>
+    <h5> Este é o nosso projeto para o trabalho de grupo da cadeira de Desenvolvimentos de Aplicações II.</h5>
+    <br />
+    <h5> O projeto consiste na criação de um jogo chamado 7 passos. Optámos por dar ao nosso jogo um ambiente</h5>
+    <h5>assustador e divertido.</h5>
+</div>
+
+<div class="container">
+    <h2>
+        Os membros da equipa
+    </h2>
+    <div id="text"></div>
+    <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
+            <li class="" data-target="#carousel-example-captions" data-slide-to="1"></li>
+            <li class="" data-target="#carousel-example-captions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img data-holder-rendered="true" src="~/images/fotos/Joao-Frame.png" data-src="holder.js/600x00/auto/#777:#777" alt="500x500">
+                <div class="carousel-caption">
+                    <h4>João Ribeiro</h4>
+                </div>
+            </div>
+            <div class="item">
+                <img data-holder-rendered="true" src="~/images/fotos/David-Frame.png" data-src="holder.js/900x500/auto/#666:#666" alt="500x500">
+                <div class="carousel-caption">
+                    <h4>David Dias</h4>
+                </div>
+            </div>
+            <div class="item">
+                <img data-holder-rendered="true" src="~/images/fotos/Fred-Frame.png" data-src="holder.js/900x500/auto/#555:#555" alt="500x500">
+                <div class="carousel-caption">
+                    <h4>Frederico Milheiro</h4>
+                </div>
             </div>
         </div>
-        <div class="item">
-            <img data-holder-rendered="true" src="~/images/NerdMiniatura.png" data-src="holder.js/900x500/auto/#666:#666" alt="500x500">
-            <div class="carousel-caption">
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </div>
-        <div class="item active">
-            <img data-holder-rendered="true" src="~/images/FatMiniatura.png" data-src="holder.js/900x500/auto/#555:#555" alt="500x500">
-            <div class="carousel-caption">
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-        </div>
+        <a class="left carousel-control" href="#carousel-example-captions" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-captions" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <a class="left carousel-control" href="#carousel-example-captions" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-captions" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
