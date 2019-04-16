@@ -1,12 +1,25 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
-    background: url(../images/Entrance.png);
     padding-top: 40px;
     padding-bottom: 10px;
     color: ghostwhite;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 14px;
+}
+
+#entrada {
+    background: url("../images/Entrance.png");
+    padding-top: 40px;
+    padding-bottom: 10px;
+    color: ghostwhite;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.charpick {
+   width: 360px;
+   height: 360px;
 }
 
 label {
@@ -18,14 +31,6 @@ label {
     font-size: 14px;
 }
 
-#bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    /* Preserve aspet ratio */
-    min-width: 100%;
-    min-height: 100%;
-}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -63,8 +68,8 @@ label {
 }
 
 input[type='radio'] {
-    width: 27px;
-    height: 27px;
+    width: 25px;
+    height: 25px;
     background: black;
     border-radius: 1px;
     border: 1px solid black;
@@ -86,7 +91,7 @@ input[type='radio'] {
 }
 
 .carousel-caption {
-    display: none;
+    display:none;
 }
 
 
@@ -115,7 +120,7 @@ input[type='radio'] {
 
 .botoes {
     display: inline-block;
-    margin-left: 800px;
+    margin-left: 600px;
     vertical-align: top;
     margin-top: 20px
 }
@@ -123,6 +128,6 @@ input[type='radio'] {
 
 .dados {
     float: left;
-    margin-top: 20px  
+    margin-top: 10px  
 }
 

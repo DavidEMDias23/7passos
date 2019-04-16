@@ -4,31 +4,33 @@
 }
 
 <form asp-action="CriarJogo" method="post">
-    <div asp-validation-summary="All"></div>
-    <div class="form-group">
-        <label asp-for="Nome">Nome </label>
-        <input class="form-control" asp-for="Nome" />
-    </div>
-    <div class="form-group">
-        <label>
-            <input class="form-control" type="radio" asp-for="PerfilTipo" value="Nerd" checked>
-            <img src="~/images/Nerd-Char.png">
-        </label>
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            <label asp-for="Nome">Nome </label>
+            <input class="form-control" asp-for="Nome" />
+        </div>
+        <div class="form-group">
+                   <img src="~/images/Nerd-Char.png" alt="HTML5 Icon" class="charpick">
+                <label>
+                    <input class="form-control" type="radio" asp-for="PerfilTipo" value="Nerd" checked>O Nerd
+                </label>
+                    <img src="~/images/Fat-Char.png" alt="HTML5 Icon" class="charpick">
+                <label>
+                    <input class="form-control" type="radio" asp-for="PerfilTipo" value="Fat" checked>O Gordo
+                </label>
+                    <img src="~/images/Old-Char.png" alt="HTML5 Icon" class="charpick">
+                <label>
+                    <input class="form-control" type="radio" asp-for="PerfilTipo" value="Old" checked>A velha louca
+                </label>
 
-        <label>
-            <input class="form-control" type="radio" asp-for="PerfilTipo" value="Fat" checked>
-            <img src="~/images/Fat-Char.png">
-        </label>
 
-        <label>
-            <input class="form-control" type="radio" asp-for="PerfilTipo" value="Old" checked>
-            <img src="~/images/Old-Char.png">
-        </label>
-    </div>
-    <div>
-        <button type="submit" class="btn-primary" value="CriarJogo.teste">Iniciar Jogo</button>
-    </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn-primary" value="CriarJogo.teste">Iniciar Jogo</button>
+        </div>
 
 
 </form>
+
 
