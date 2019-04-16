@@ -15,7 +15,7 @@ namespace SetepassosPRJ.Models
         public int PontosSorte { get; set; }
         public int PocoesVida { get; set; }
         public bool Chave { get; set; }
-        
+        public int Sala { get; set; }
 
 
         public Perfil(string nomeEscolhido, string perfilTipoEscolhido)
@@ -30,6 +30,7 @@ namespace SetepassosPRJ.Models
                 PontosSorte = 2;
                 PocoesVida = 1;
                 Chave = false;
+                Sala = 1;
             }
 
             if (perfilTipoEscolhido == "Fat")
@@ -42,6 +43,7 @@ namespace SetepassosPRJ.Models
                 PontosSorte = 3;
                 PocoesVida = 1;
                 Chave = false;
+                Sala = 1;
             }
 
             if (perfilTipoEscolhido == "Old")
@@ -54,6 +56,7 @@ namespace SetepassosPRJ.Models
                 PontosSorte = 4;
                 PocoesVida = 1;
                 Chave = false;
+                Sala = 1;
             }
 
         }

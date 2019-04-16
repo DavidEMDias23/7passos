@@ -17,10 +17,12 @@ body {
     font-size: 14px;
 }
 
-.charpick {
-   width: 360px;
-   height: 360px;
+.charpick1, .charpick2, .charpick3 {
+   width: 260px;
+   height: 260px;
 }
+
+
 
 label {
     color: ghostwhite;
@@ -128,7 +130,7 @@ input[type='radio'] {
 
 .dados {
     float: left;
-    margin-top: 10px  
+    margin-top: 20px  
 }
 
 
