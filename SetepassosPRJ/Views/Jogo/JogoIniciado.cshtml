@@ -1,5 +1,6 @@
 ﻿@model SetepassosPRJ.Models.Perfil
 @{
+    ViewData["Title"] = "Jogo";
 }
 
 <div class="dados">
@@ -31,7 +32,15 @@
     </div>
 
     <div>
-        <strong>Chave?: </strong>@Model.Chave
+        <strong>Chave?: </strong>
+        @if (Model.Chave)
+        {
+            @:Sim
+        }
+        else
+        {
+            @:Não
+        }
     </div>
 
     <div>
