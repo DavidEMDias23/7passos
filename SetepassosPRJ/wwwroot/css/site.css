@@ -9,11 +9,14 @@ body {
 }
 
 
-
+.BotaoIniciar {
+    height: 25%;
+    width: 25%;
+}
 
 .BotaoIniciar:hover {
-    height: 22%;
-    width: 22%;
+    height: 26%;
+    width: 26%;
     filter: brightness(1.4);
 }
 
