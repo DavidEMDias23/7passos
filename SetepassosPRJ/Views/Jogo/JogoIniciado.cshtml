@@ -5,70 +5,107 @@
 
 <div class="dados">
     <div>
-        <strong>Nome: </strong>@Model.Nome
+        @if (Model.PerfilTipo == "Nerd")
+        {
+            <img src="~/images/Nerd-Frame mini.png" class="icons"/>
+        }
+        else if (Model.PerfilTipo == "Fat")
+        {
+            <img src="~/images/Fat-Frame mini.png" class="icons"/>
+        }
+        else if (Model.PerfilTipo == "Old")
+        {
+            <img src="~/images/Old-Frame mini.png" class="icons"/>
+        }
+          @Model.Nome
     </div>
     <div>
-        <strong>Perfil: </strong>@Model.PerfilTipo
+        <img src="~/images/Icons/icon-moeda.png" class="icons" />  @Model.MoedasOuro
     </div>
     <div>
-        <strong>Moedas de Ouro: </strong>@Model.MoedasOuro
-    </div>
-    <div>
-        <strong>Pontos de Vida: </strong>@Model.PontosVida
-    </div>
-
-    <div>
-        <strong>Pontos de Ataque:</strong>@Model.PontosAtaque
-    </div>
-
-    <div>
-        <strong>Pontos de Sorte: </strong>@Model.PontosSorte
-    </div>
-
-    <div>
-        <strong>Poções de Vida: </strong>@Model.PocoesVida
+        <img src="~/images/Icons/icon-vida.png" class="icons" />  @Model.PontosVida
     </div>
 
     <div>
-        <strong>Chave?: </strong>
+        <img src="~/images/Icons/icon-forca.png" class="icons" />  @Model.PontosAtaque
+    </div>
+
+    <div>
+        <img src="~/images/Icons/icon-luck.png" class="icons" />  @Model.PontosSorte
+    </div>
+
+    <div>
+        <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  @Model.PocoesVida
+    </div>
+
+    <div>
+        <img src="~/images/Icons/icon-key.png" class="icons" />
         @if (Model.Chave)
         {
-            @:Sim
+              @:Sim
         }
         else
         {
-            @:Não
+              @:Não
         }
     </div>
 
     <div>
-        <strong>Sala </strong>@Model.Sala
+        @if (Model.Sala == 1)
+        {
+            <img src="~/images/Rooms/Room1-mini.png" class="icons" />
+        }
+        else if (Model.Sala == 2)
+        {
+            <img src="~/images/Rooms/Room2-mini.png" class="icons" />
+        }
+        else if (Model.Sala == 3)
+        {
+            <img src="~/images/Rooms/Room3-mini.png" class="icons" />
+        }
+        else if (Model.Sala == 4)
+        {
+            <img src="~/images/Rooms/Room4-mini.png" class="icons" />
+        }
+        else if (Model.Sala == 5)
+        {
+            <img src="~/images/Rooms/Room5-mini.jpg" class="icons" />
+        }
+        else if (Model.Sala == 6)
+        {
+            <img src="~/images/Rooms/Room6-mini.png" class="icons" />
+        }
+        else if (Model.Sala == 7)
+        {
+            <img src="~/images/Rooms/Room7-mini.png" class="icons" />
+        }
+          Sala:@Model.Sala
     </div>
 </div>
 
-<div class="areajogo">
-    <img src="~/images/Room1.jpg" alt="HTML5 Icon" class="areajogo" />
+<div>
+    <img src="~/images/Rooms/Room1.jpg" alt="Falha a carregar imagem" class="areajogo" />
 </div>
 
 
 <div class="botoes">
     <div>
-        <a asp-action="" class="btn btn-primary" role="button">Avançar</a>
+        <a asp-action="" role="button"><img src="~/images/btns/btn-avancar.png" class="BotaoJogar" /></a>
     </div>
     <div>
-        <a asp-action="" class="btn btn-primary" role="button">Recuar</a>
+        <a asp-action=""  role="button"><img src="~/images/btns/btn-recuar.png" class="BotaoJogar" /></a>
     </div>
     <div>
-        <a asp-action="" class="btn btn-primary" role="button">Examinar Área</a>
+        <a asp-action="" role="button"><img src="~/images/btns/btn-examinar.png" class="BotaoJogar" /></a>
     </div>
     <div>
-        <a asp-action="" class="btn btn-primary" role="button">Beber Poção de Vida</a>
+        <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotaoJogar" /></a>
     </div>
     <div>
-        <a asp-action="" class="btn btn-primary" role="button">Desistir</a>
-     </div>
+        <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotaoJogar" /></a>
+    </div>
             <div>
-                <a asp-action="CriarJogo" class="btn btn-primary" role="button">Iniciar novo jogo</a>
+                <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotaoJogar" /></a>
             </div>
     <a asp-action="JogoMonstro">Pagina do Monstro</a>
 </div>
