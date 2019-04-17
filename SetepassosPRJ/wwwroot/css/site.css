@@ -8,20 +8,42 @@ body {
     font-size: 14px;
 }
 
-#entrada {
-    background: url("../images/Entrance.png");
-    padding-top: 40px;
-    padding-bottom: 10px;
-    color: ghostwhite;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 14px;
+
+#backg {
+    position: fixed;
+    top: -40%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
 }
 
-.footerdown {
-    position: absolute;
-    bottom: 20px;
-    width: 70%;
-    height: 50px; /* Height of the footer */
+ #backg img {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        margin: auto;
+        min-width: 50%;
+        min-height: 50%;
+ }
+
+#overlap {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+}
+#overlap img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        margin: auto;
+        min-width: 30%;
+        min-height: 30%;
 }
 
 .charpick {
@@ -42,6 +64,7 @@ label {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
+    position: relative;
     padding-left: 15px;
     padding-right: 15px;
 }
