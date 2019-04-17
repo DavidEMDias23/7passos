@@ -12,8 +12,28 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 2.5rem; /* Footer height */
+    height: 2.5rem; 
 }
+
+.BotaoIniciar {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    background: url(./images/but.png) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 100px;
+    height: 100px;
+}
+
+.BotaoIniciar:active{
+    background: url(./images/but2.png) no-repeat;
+}
+
 
 #backg {
     position: fixed;
