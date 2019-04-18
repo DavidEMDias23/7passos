@@ -95,33 +95,26 @@ label {
 }
 
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+/*Padding para não atingir as laterais da página*/
 .body-content {
     position: relative;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Carousel 
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-*/
 
-/* Make .svg files in the carousel display properly in older browsers */
+
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
     
 
-/* QR code generator */
+
 #qrCode {
     margin: 15px;
 }
 
-/* Hide/rearrange for smaller screens */
+
 @media screen and (max-width: 767px) {
     
     /* Hide captions
@@ -160,18 +153,6 @@ input[type='radio'] {
     display:none;
 }
 
-/*
-.carousel-inner {
-    height: auto;
-}
-
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        width: 100%;
-        margin: auto;
-        min-height: initial;
-    }
-*/
 .carousel-inner > .item > img {
     width: 400px;
     height: 360px;
@@ -209,9 +190,6 @@ input[type='radio'] {
     padding-right:5px;
     display: inline-block;
 }
-
-/*experience*/
-
 
 .areajogavel {
     position:fixed;
