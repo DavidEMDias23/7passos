@@ -53,6 +53,7 @@
         </div>
 
         <div>
+           
             @if (Model.Sala == 1)
             {
                 <img src="~/images/Rooms/Room1-mini.png" class="icons" />
@@ -85,33 +86,43 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <img src="~/images/Rooms/Room1.jpg" alt="Falha a carregar imagem" class="areajogavel" />
-</div>
-
-<div class="container">
-    <div class="areabotoes">
-        <div>
-            <a asp-action="" role="button"><img src="~/images/btns/btn-avancar.png" class="BotoesJogo" /></a>
-        </div>
-        <div>
-            <a asp-action="" role="button"><img src="~/images/btns/btn-recuar.png" class="BotoesJogo" /></a>
-        </div>
-        <div>
-            <a asp-action="" role="button"><img src="~/images/btns/btn-examinar.png" class="BotoesJogo" /></a>
-        </div>
-        <div>
-            <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a>
-        </div>
-        <div>
-            <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
-        </div>
-        <div>
-            <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
-        </div>
-        <div>
-            <a asp-action="JogoMonstro">Página do monstro</a>
-        </div>
+    <div class="container">
+        @if (Model.Monstro == false)
+        {
+            <img src="~/images/Rooms/Room1.jpg" alt="Falha a carregar imagem" class="areajogavel" />
+        }
+        else
+        {
+            <img src="~/images/Rooms/Room1 monstro.png" alt="Falha a carregar imagem" class="areajogavel" />
+        }
     </div>
-</div>
+
+    <div class="container">
+            <div class="areabotoes">
+                <div>
+                    <a asp-action="" role="button"><img src="~/images/btns/btn-avancar.png" class="BotoesJogo" /></a>
+                </div>
+                @if (Model.Sala != 1)
+                {
+                    <div>
+                        <a asp-action="" role="button"><img src="~/images/btns/btn-recuar.png" class="BotoesJogo" /></a>
+                    </div>
+                }
+                <div>
+                    <a asp-action="" role="button"><img src="~/images/btns/btn-examinar.png" class="BotoesJogo" /></a>
+                </div>
+                <div>
+                    <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a>
+                </div>
+                <div>
+                    <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
+                </div>
+                <div>
+                    <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
+                </div>
+                <div>
+                    <a asp-action="JogoMonstro">Página do monstro</a>
+                </div>
+            </div>
+    </div>
 </div>
