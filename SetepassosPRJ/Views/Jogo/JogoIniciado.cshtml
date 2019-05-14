@@ -98,6 +98,8 @@
     </div>
 
     <div class="container">
+        @if (Model.Monstro == false)
+        {
             <div class="areabotoes">
                 <div>
                     <a asp-action="" role="button"><img src="~/images/btns/btn-avancar.png" class="BotoesJogo" /></a>
@@ -124,5 +126,26 @@
                     <a asp-action="JogoMonstro">Página do monstro</a>
                 </div>
             </div>
+        }
+        else
+        {
+            <div class="areabotoes">
+            <div>
+                <a asp-action="" role="button"><img src="~/images/btns/btn-atacar.png" class="BotoesJogo" /></a>
+            </div>
+            <div>
+                <a asp-action="" role="button"><img src="~/images/btns/btn-fugir.png" class="BotoesJogo" /></a>
+            </div>
+            <div>
+                <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a>
+            </div>
+            <div>
+                <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
+            </div>
+            <div>
+                <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
+            </div>
+                </div>
+        }
     </div>
 </div>
