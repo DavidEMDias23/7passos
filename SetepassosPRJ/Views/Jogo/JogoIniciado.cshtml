@@ -3,9 +3,7 @@
     ViewData["Title"] = "Jogo";
 }
 
-<div class="container-fluid">
     <div class="sala">
-        <div class="container">
             <div class="areadados">
                 <div>
                     @if (Model.PerfilTipo == "Nerd")
@@ -87,7 +85,6 @@
                 </div>
             </div>
         </div>
-        <div class="container">
             @if (Model.Monstro == false)
             {
                 <img src="~/images/Rooms/Room1.jpg" alt="Falha a carregar imagem" class="areajogavel" />
@@ -96,9 +93,7 @@
             {
                 <img src="~/images/Rooms/Room1 monstro.png" alt="Falha a carregar imagem" class="areajogavel" />
             }
-        </div>
 
-        <div class="container">
             @if (Model.Monstro == false)
             {
                 <div class="areabotoes">
@@ -148,6 +143,3 @@
                     </div>
                 </div>
             }
-        </div>
-    </div>
-</div>

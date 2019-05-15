@@ -25,7 +25,7 @@ namespace SetepassosPRJ.Models
             MoedasOuro = 0;
             Chave = false;
             Sala = 1;
-            Monstro = true;
+            Monstro = false;
             ItemSurpresa = false;
 
             if (perfilTipoEscolhido == "Nerd")
