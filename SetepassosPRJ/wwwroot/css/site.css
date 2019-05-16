@@ -206,15 +206,14 @@ input[type='radio'] {
     display: inline-block;
 }
 
-/*.areajogavel {
-    background-image: url(../images/Rooms/Room1.jpg);
+.monstro {
     position: fixed;
     width: 65%;
     height: 70%;
     display: inline-block;
     margin-top: 60px;
     left: 16%;
-}*/
+}
 
 .areajogavel {
     background-image: url(../images/Rooms/AreaJogo.jpg);
