@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace SetepassosPRJ.Models
 {
+    public enum Result {NoResult,Success,SuccessVictory,InvalidAction,GameHasEnded}
+
     public class GameStateResponse
     {
         public int GameID { get; set; }

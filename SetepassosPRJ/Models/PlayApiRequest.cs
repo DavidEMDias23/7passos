@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace SetepassosPRJ.Models
 {
+    public enum PlayerAction {GoFoward,GoBack,SearchArea,DrinkPotion,Attack,Flee,Quit}
+
     public class PlayApiRequest
     {
         public int GameId { get; set; }
@@ -17,5 +19,8 @@ namespace SetepassosPRJ.Models
             TeamKey = teamkey;
             PlayerAction = playeraction;
         }
+
     }
+
+
 }

@@ -18,4 +18,5 @@ namespace SetepassosPRJ.Models
             Teamkey = teamkey;
         }
     }
+
 }
