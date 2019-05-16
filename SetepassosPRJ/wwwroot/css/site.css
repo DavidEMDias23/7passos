@@ -17,16 +17,30 @@ body {
     background-position: center;
     position: relative;
 }
-
+/*Fazer a pagina inicial com 3 divisões responsivas*/
+.box {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.box .column {
+        flex: 1;
+        margin-right: 8px;
+        padding: 12px;
+}
+/*Fazer a pagina inicial com 3 divisões responsivas*/
 .BotaoIniciar {
-    height: 25%;
-    width: 25%;
+    height: 80%;
+    width: 80%;
     filter: brightness(1.4);
+    margin-top:30px;
 }
 
 .BotaoIniciar:hover {
-    height: 26%;
-    width: 26%;
+    height: 82%;
+    width: 82%;
     filter: brightness(1.6);
 }
 
@@ -113,8 +127,8 @@ label {
 /*Padding para não atingir as laterais da página*/
 .body-content {
     position: relative;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
