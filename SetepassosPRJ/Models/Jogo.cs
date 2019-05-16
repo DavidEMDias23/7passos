@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace SetepassosPRJ.Models
 {
-    public class Perfil
+    public class Jogo
     {
       
-
-
         [Required(ErrorMessage = "Por favor introduza o seu nome")]
         public string Nome { get; set; }
         public string PerfilTipo { get; set; }
@@ -19,19 +17,24 @@ namespace SetepassosPRJ.Models
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
 
-        public Perfil(string nomeEscolhido, string perfilTipoEscolhido)
+        public void AtualizarJogo(GameStateResponse gameState)
         {
+            Monstro = gameState.FoundEnemy;
+        }
 
+        public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
+        {
+            Nome = nomeEscolhido;
+            PerfilTipo = perfilTipoEscolhido;
             MoedasOuro = 0;
-            Chave = false;
+            Chave = true;
             Sala = 1;
             Monstro = false;
             ItemSurpresa = false;
 
-            if (perfilTipoEscolhido == "Nerd")
+            if (perfilTipoEscolhido == "S")
             {
-                Nome = nomeEscolhido;
-                PerfilTipo = perfilTipoEscolhido;              
+                           
                 PontosVida = 4;
                 PontosAtaque = 3;
                 PontosSorte = 2;
@@ -40,10 +43,9 @@ namespace SetepassosPRJ.Models
 
             }
 
-            if (perfilTipoEscolhido == "Fat")
+            if (perfilTipoEscolhido == "W")
             {
-                Nome = nomeEscolhido;
-                PerfilTipo = perfilTipoEscolhido;
+               
                 PontosVida = 3;
                 PontosAtaque = 3;
                 PontosSorte = 3;
@@ -51,10 +53,9 @@ namespace SetepassosPRJ.Models
 
             }
 
-            if (perfilTipoEscolhido == "Old")
+            if (perfilTipoEscolhido == "B")
             {
-                Nome = nomeEscolhido;
-                PerfilTipo = perfilTipoEscolhido;
+                
                 PontosVida = 3;
                 PontosAtaque = 2;
                 PontosSorte = 4;

@@ -7,9 +7,9 @@ namespace SetepassosPRJ.Models
 {
     public static class Repositorio
     {
-        private static List<Perfil> perfil = new List<Perfil>();
+        private static List<Jogo> perfil = new List<Jogo>();
 
-        public static List<Perfil> Perfil
+        public static List<Jogo> Perfil
         {
             get
             {
@@ -17,7 +17,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        public static void AddPerfil(Perfil perfil)
+        public static void AddPerfil(Jogo perfil)
         {
             Perfil.Add(perfil);
         }
