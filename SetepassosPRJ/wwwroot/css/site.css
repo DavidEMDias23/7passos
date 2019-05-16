@@ -202,18 +202,30 @@ input[type='radio'] {
     position: relative;
     width: 640px;
     height: 520px;
-    padding-right:5px;
+    padding-right: 5px;
     display: inline-block;
 }
 
-.areajogavel {
-    position:fixed;
+/*.areajogavel {
+    background-image: url(../images/Rooms/Room1.jpg);
+    position: fixed;
     width: 65%;
     height: 70%;
     display: inline-block;
-    margin-top:60px;
-    left:16%;
+    margin-top: 60px;
+    left: 16%;
+}*/
+
+.areajogavel {
+    background-image: url(../images/Rooms/AreaJogo.jpg);
+    position: fixed;
+    width: 65%;
+    height: 70%;
+    display: inline-block;
+    margin-top: 60px;
+    left: 16%;
 }
+
 .areadados {
     position: fixed;
     width: 20%;
