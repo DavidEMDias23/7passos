@@ -11,12 +11,6 @@ body {
     background-image: url('../images/Layout/Entrance v1.png')
 }
 
-.sala {
-    background-image: url('../images/Rooms/Room1.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-}
 /*Fazer a pagina inicial com 3 divisões responsivas*/
 .box {
     display: -webkit-flex;
@@ -49,12 +43,9 @@ body {
 }
 
 .icons {
-    position:relative;
-    height: auto;
-    width: auto;
-    max-width: 22%;
-    max-height: 22%;
-    display:inline-block;
+    height: 40%;
+    width: 40%;
+    right:1000px;
 }
 
 
@@ -193,7 +184,6 @@ input[type='radio'] {
 }
 
 .botoes {
-    position:relative;
     display: inline-block;
     margin-left: 125px;
     margin-top: 20px;
@@ -201,7 +191,7 @@ input[type='radio'] {
 
 
 .dados {
-    float:left;
+   display:inline-block;
     margin-top: 20px  
 }
 
@@ -230,23 +220,22 @@ input[type='radio'] {
 }
 
 .areajogavel {
+
     background-image: url(../images/Rooms/AreaJogo.jpg);
+    background-repeat: no-repeat;
     width: 100%;
     height: 500px;
     margin-top: 60px;
 }
 
 .areadados {
-    position: fixed;
-    width: 20%;
-    height: 20%;
-    margin-top:25px;
+    margin-top: 50px;
+    right:1000px;
 }
+
 .areabotoes {
-    position: fixed;
     width: 10%;
     height: 10%;
-    right:200px;
     margin-top:50px;
 }
 
