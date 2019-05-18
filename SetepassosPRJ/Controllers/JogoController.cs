@@ -31,6 +31,7 @@ namespace SetepassosPRJ.Controllers
             if (ModelState.IsValid)
             {
                 Jogo novoJogo = new Jogo(j.Nome, j.PerfilTipo);
+                RepositorioJogo.AddJogos(novoJogo);
                 HttpClient client = MyHTTPClient.Client;
                 string path = "/api/NewGame";
                 
@@ -46,7 +47,7 @@ namespace SetepassosPRJ.Controllers
                 string json_r = await response.Content.ReadAsStringAsync();
                 GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
 
-                RepositorioJogo.AddPerfil(novoJogo);
+                
                 novoJogo.GameID = gs.GameID;
                 RepositorioGameID.AddGameId(gs.GameID);
                 novoJogo.AtualizarJogo(gs);
@@ -68,15 +69,15 @@ namespace SetepassosPRJ.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Jogada(int gameid, PlayerAction action)
+        public async Task<IActionResult> Jogada(int gameid)
         {
             gameid = RepositorioGameID.Gameid[gameid];
-            Jogo NovoJogo = RepositorioJogo.GetJogo(gameid);
+            Jogo novoJogo = RepositorioJogo.GetJogo(gameid);
 
             HttpClient client = MyHTTPClient.Client;
             string path = "/api/Play";
 
-            PlayApiRequest req = new PlayApiRequest(gameid,action);
+            PlayApiRequest req = new PlayApiRequest(gameid,PlayerAction.GoForward);
             string json = JsonConvert.SerializeObject(req);
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
@@ -89,7 +90,7 @@ namespace SetepassosPRJ.Controllers
             GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
            
 
-            return View(NovoJogo);
+            return View(novoJogo);
         }
 
 

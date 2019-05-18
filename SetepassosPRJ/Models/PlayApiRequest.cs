@@ -16,7 +16,7 @@ namespace SetepassosPRJ.Models
         public PlayApiRequest(int gameid, PlayerAction playeraction)
         {
             GameId = gameid;
-            TeamKey = "54eac19e3f9543e1bdda45df80a117b9";
+            TeamKey ="54eac19e3f9543e1bdda45df80a117b9";
             PlayerAction = playeraction;
         }
 

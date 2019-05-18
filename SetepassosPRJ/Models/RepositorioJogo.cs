@@ -7,24 +7,24 @@ namespace SetepassosPRJ.Models
 {
     public static class RepositorioJogo
     {
-        private static List<Jogo> perfil = new List<Jogo>();
+        private static List<Jogo>jogos = new List<Jogo>();
 
-        public static List<Jogo> Perfil
+        public static List<Jogo> Jogos
         {
             get
             {
-                return perfil;
+                return jogos;
             }
         }
 
-        public static void AddPerfil(Jogo perfil)
+        public static void AddJogos(Jogo novoJogo)
         {
-            Perfil.Add(perfil);
+            Jogos.Add(novoJogo);
         }
 
         public static Jogo GetJogo(int gameid)
         {
-            foreach (Jogo jogo in perfil)
+            foreach (Jogo jogo in jogos)
             {
                 if (jogo.GameID == gameid)
                 {
