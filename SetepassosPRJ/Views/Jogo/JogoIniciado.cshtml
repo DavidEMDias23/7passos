@@ -1,11 +1,31 @@
-﻿@model SetepassosPRJ.Models.Jogo
-@{
-    ViewData["Title"] = "Jogo";
+﻿@{
+    Layout = null;
 }
-<div class="row">
-    <div class="col-md-2">
-        <div class="areadados">
-            <div>
+@model SetepassosPRJ.Models.Jogo
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SetepassosPRJ</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+
+<body class="fundoJogo">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="text-left">
                 @if (Model.PerfilTipo == "S")
                 {
                     <img src="~/images/Nerd-Frame mini.png" class="icons" />
@@ -18,27 +38,45 @@
                 {
                     <img src="~/images/Old-Frame mini.png" class="icons" />
                 }
-                   @Model.Nome 
-            </div>
-            <div>
-                <img src="~/images/Icons/icon-moeda.png" class="icons" />  @Model.MoedasOuro
+                @Model.Nome
             </div>
             <div>
                 <img src="~/images/Icons/icon-vida.png" class="icons" />  @Model.PontosVida
             </div>
-
-            <div>
-                <img src="~/images/Icons/icon-forca.png" class="icons" />  @Model.PontosAtaque
+        </div>
+        <div class="col-md-8">
+            <div class="text-center">
+                @if (Model.Sala == 1)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala1.png" />
+                }
+                else if (Model.Sala == 2)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala2.png" />
+                }
+                else if (Model.Sala == 3)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala3.png" />
+                }
+                else if (Model.Sala == 4)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala4.png" />
+                }
+                else if (Model.Sala == 5)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala5.png" />
+                }
+                else if (Model.Sala == 6)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala6.png" />
+                }
+                else if (Model.Sala == 7)
+                {
+                    <img src="~/images/MiniMap/mini-n-sala7.png" />
+                }
             </div>
-
-            <div>
-                <img src="~/images/Icons/icon-luck.png" class="icons" />  @Model.PontosSorte
-            </div>
-
-            <div>
-                <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  @Model.PocoesVida
-            </div>
-
+        </div>
+        <div class="col-md-2 text-center">
             <div>
                 @if (Model.Chave)
                 {
@@ -49,102 +87,90 @@
                     <img src="~/images/Icons/icon-no-key.png" class="icons" />
                 }
             </div>
-            
         </div>
-    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="areadados">
 
-    <div class="col-md-8">
-        <div class="areajogavel">
-            @if (Model.Monstro == true)
-            {
-                <!--Imagem do Monstro-->
-                <img src="~/images/Icons/icon-key.png" class="monstro" />
-            }
-        </div>
-    </div>
-    <div class="col-md-2">
-        @if (Model.Monstro == false)
-        {
-            <div class="areabotoes">
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-avancar.png" class="BotoesJogo" /></a>
-                </div>
-                @if (Model.Sala != 1)
-                {
                     <div>
-                        <a asp-action="" role="button"><img src="~/images/btns/btn-recuar.png" class="BotoesJogo" /></a>
+                        <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  @Model.PocoesVida
+                    </div>
+                    <div>
+                        <img src="~/images/Icons/icon-forca.png" class="icons" />  @Model.PontosAtaque
+                    </div>
+
+                    <div>
+                        <img src="~/images/Icons/icon-luck.png" class="icons" />  @Model.PontosSorte
+                    </div>
+                    <div class="iconMoeda">
+                        <img src="~/images/Icons/icon-moeda.png" class="icons" />  @Model.MoedasOuro
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                @if (Model.Monstro == true)
+                {
+                    <!--Imagem do Monstro-->
+                    <img src="~/images/Icons/icon-key.png" class="monstro" />
+                }
+            </div>
+            <div class="col-md-2 text-center">
+                @if (Model.Monstro == false)
+                {
+                <div class="areabotoes">
+                    <form asp-action="Jogada" asp-controller="Jogo" method="post">
+                        <div>
+                            <input asp-for="PlayerAction" type="hidden" value="GoForward"/>
+                            <button type="submit" ><img src="~/images/btns/btn-avancar.png" class="BotoesJogo"/></button>
+                        </div>
+                    </form>
+                    @if (Model.Sala != 1)
+                    {
+                        <div>
+                            <a asp-action="" role="button"><img src="~/images/btns/btn-recuar.png" class="BotoesJogo" /></a> 
+                        </div>
+                    }
+                    <div>
+                        <a asp-action="" role="button"><img src="~/images/btns/btn-examinar.png" class="BotoesJogo" /></a> 
+                    </div>
+                    <div>
+                        <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a> 
+                    </div>
+                    <div>
+                        <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a> 
+                    </div>
+                    <div>
+                        <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
+                    </div>
+                    <div>
+                        <a asp-action="JogoMonstro">Página do monstro</a>
+                    </div>
+                </div>
+                }
+                else
+                {
+                    <div class="areabotoes">
+                        <div>
+                            <a asp-action="" role="button"><img src="~/images/btns/btn-atacar.png" class="BotoesJogo" /></a>
+                        </div>
+                        <div>
+                            <a asp-action="" role="button"><img src="~/images/btns/btn-fugir.png" class="BotoesJogo" /></a>
+                        </div>
+                        <div>
+                            <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a>
+                        </div>
+                        <div>
+                            <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
+                        </div>
+                        <div>
+                            <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
+                        </div>
                     </div>
                 }
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-examinar.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="JogoMonstro">Página do monstro</a>
-                </div>
             </div>
-        }
-        else
-        {
-            <div class="areabotoes">
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-atacar.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-fugir.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-pocao.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
-                </div>
-                <div>
-                    <a asp-action="" role="button"><img src="~/images/btns/btn-desistir.png" class="BotoesJogo" /></a>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="text-center">
-            @if (Model.Sala == 1)
-            {
-                <img src="~/images/MiniMap/mini-n-sala1.png" />
-            }
-            else if (Model.Sala == 2)
-            {
-                <img src="~/images/MiniMap/mini-n-sala2.png" />
-            }
-            else if (Model.Sala == 3)
-            {
-                <img src="~/images/MiniMap/mini-n-sala3.png" />
-            }
-            else if (Model.Sala == 4)
-            {
-                <img src="~/images/MiniMap/mini-n-sala4.png" />
-            }
-            else if (Model.Sala == 5)
-            {
-                <img src="~/images/MiniMap/mini-n-sala5.png" />
-            }
-            else if (Model.Sala == 6)
-            {
-                <img src="~/images/MiniMap/mini-n-sala6.png" />
-            }
-            else if (Model.Sala == 7)
-            {
-                <img src="~/images/MiniMap/mini-n-sala7.png" />
-            }
         </div>
-    </div>
-</div>
+   
+</body>
+</html>

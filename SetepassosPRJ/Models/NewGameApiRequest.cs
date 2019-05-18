@@ -7,15 +7,16 @@ namespace SetepassosPRJ.Models
 {
     public class NewGameApiRequest
     {
+        
         public string PlayerName { get; set; }
         public string PlayerClass { get; set; }
         public string Teamkey { get; set; }
 
-        public NewGameApiRequest(string playername, string playerclass, string teamkey)
+        public NewGameApiRequest(string playername, string playerclass)
         {
             PlayerName = playername;
             PlayerClass = playerclass;
-            Teamkey = teamkey;
+            Teamkey = "54eac19e3f9543e1bdda45df80a117b9" ;
         }
     }
 

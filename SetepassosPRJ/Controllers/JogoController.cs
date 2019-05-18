@@ -33,8 +33,8 @@ namespace SetepassosPRJ.Controllers
                 Jogo novoJogo = new Jogo(j.Nome, j.PerfilTipo);
                 HttpClient client = MyHTTPClient.Client;
                 string path = "/api/NewGame";
-                string teamkey = "54eac19e3f9543e1bdda45df80a117b9";
-                NewGameApiRequest req = new NewGameApiRequest(j.Nome, j.PerfilTipo, teamkey);
+                
+                NewGameApiRequest req = new NewGameApiRequest(j.Nome, j.PerfilTipo);
                 string json = JsonConvert.SerializeObject(req);
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
@@ -46,6 +46,9 @@ namespace SetepassosPRJ.Controllers
                 string json_r = await response.Content.ReadAsStringAsync();
                 GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
 
+                RepositorioJogo.AddPerfil(novoJogo);
+                novoJogo.GameID = gs.GameID;
+                RepositorioGameID.AddGameId(gs.GameID);
                 novoJogo.AtualizarJogo(gs);
 
                 return View("JogoIniciado", novoJogo);
@@ -58,7 +61,37 @@ namespace SetepassosPRJ.Controllers
             }
         }
 
-       
+        [HttpGet]
+        public async Task<IActionResult> Jogada()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Jogada(int gameid, PlayerAction action)
+        {
+            gameid = RepositorioGameID.Gameid[gameid];
+            Jogo NovoJogo = RepositorioJogo.GetJogo(gameid);
+
+            HttpClient client = MyHTTPClient.Client;
+            string path = "/api/Play";
+
+            PlayApiRequest req = new PlayApiRequest(gameid,action);
+            string json = JsonConvert.SerializeObject(req);
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
+            request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+            string json_r = await response.Content.ReadAsStringAsync();
+            GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
+           
+
+            return View(NovoJogo);
+        }
+
 
 
         public IActionResult JogoMonstro()

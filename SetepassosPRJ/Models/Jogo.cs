@@ -27,9 +27,13 @@ namespace SetepassosPRJ.Models
         public int NumItensEncontrados { get; set; }
         public int PocoesObtidas { get; set; }
         public int PocoesUsadas { get; set; }
+        public int GameID { get; set; }
+        public PlayerAction PlayerAction { get; set; }
 
         public void AtualizarJogo(GameStateResponse gameState)
         {
+            
+            GameID = gameState.GameID;
             Monstro = gameState.FoundEnemy;
             ItemSurpresa = gameState.FoundItem;
             Chave = gameState.FoundKey;
