@@ -12,7 +12,7 @@ namespace SetepassosPRJ.Models
         public int GameID { get; set; }
         public int RoundNumber { get; set; }
         public PlayerAction Action { get; set; }
-        public int Result { get; set; }
+        public Result Result { get; set; }
         public bool FoundEnemy { get; set; }
         public bool FoundItem { get; set; }
         public bool FoundKey { get; set; }
