@@ -122,8 +122,17 @@
                 <div class="areabotoes">
                     <form asp-action="Jogada" asp-controller="Jogo" method="post">
                         <div>
-                            <input name="action" value="GoForward" type="hidden"/>
-                            <button type="submit"><img src="~/images/btns/btn-avancar.png" class="BotoesJogo"/></button>
+                            <input name="action" value="GoForward" type="hidden" />
+                            <input asp-for="GameID" type="hidden" />
+                            @if (Model.Sala != 7)
+                            {
+                                <input type="image" src="~/images/btns/btn-avancar.png" border="0" alt="Submit" class="BotoesJogo" />
+                                //   <button type="submit"><img src="~/images/btns/btn-avancar.png" class="BotoesJogo" /></button>
+                            }
+                            else
+                            {
+                                <input type="image" disabled src="~/images/btns/btn-avancar.png" border="0" alt="Submit" class="BotaoDisabled" />
+                            }
                         </div>
                     </form>
                     @if (Model.Sala != 1)

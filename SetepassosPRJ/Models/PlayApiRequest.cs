@@ -9,15 +9,15 @@ namespace SetepassosPRJ.Models
 
     public class PlayApiRequest
     {
-        public int GameId { get; set; }
-        public string TeamKey { get; set; }
+        public int id { get; set; }
+        public string key { get; set; }
         public PlayerAction PlayerAction { get; set; }
 
         public PlayApiRequest(int gameid, PlayerAction playeraction)
         {
-            GameId = gameid;
+            id = gameid;
             PlayerAction = playeraction;
-            TeamKey = "54eac19e3f9543e1bdda45df80a117b9";
+            key = "54eac19e3f9543e1bdda45df80a117b9";
         }
 
     }

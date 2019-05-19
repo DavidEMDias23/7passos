@@ -85,14 +85,21 @@ body {
     font-size: 70%;
 }
 
+.BotaoDisabled {
+    width: 55%;
+    height: 55%;
+    margin: 5px;
+}
+
 .BotoesJogo {
     width: 55%;
     height: 55%;
     margin: 5px;
 }
-.BotoesJogo:hover {
-     filter: brightness(1.4);
-}
+    .BotoesJogo:hover {
+        filter: brightness(1.4);
+        opacity: 0.7;
+    }
 
 label {
     color: beige;
