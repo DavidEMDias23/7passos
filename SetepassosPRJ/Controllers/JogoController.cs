@@ -88,8 +88,8 @@ namespace SetepassosPRJ.Controllers
             if (!response.IsSuccessStatusCode) { return Redirect("/"); }
             string json_r = await response.Content.ReadAsStringAsync();
             GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
-            novoJogo.Sala = novoJogo.Sala + 1;
-          
+            novoJogo.AtualizarJogo(gs);
+
             return View("JogoIniciado",novoJogo);
         }
 

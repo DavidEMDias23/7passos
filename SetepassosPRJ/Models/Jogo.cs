@@ -32,16 +32,20 @@ namespace SetepassosPRJ.Models
 
         public void AtualizarJogo(GameStateResponse gameState)
         {
-            GameID = gameState.GameID;
-            PlayerAction = gameState.Action;         
-            Monstro = gameState.FoundEnemy;
-            ItemSurpresa = gameState.FoundItem;
-            Chave = gameState.FoundKey;
-            MoedasOuro = gameState.GoldFound;
-            Pocao = gameState.FoundPotion;
-            PontosAtaqueMonstro = gameState.EnemyAttackPoints;
-            PontosSorteMonstro = gameState.EnemyLuckPoints;
-            PontosVidaMonstro = gameState.EnemyHealthPoints;
+            if (gameState.RoundNumber > 0 & gameState.Action == PlayerAction.GoForward)
+            {
+                GameID = gameState.GameID;
+                PlayerAction = gameState.Action;
+                Monstro = gameState.FoundEnemy;
+                ItemSurpresa = gameState.FoundItem;
+                Chave = gameState.FoundKey;
+                MoedasOuro = gameState.GoldFound;
+                Pocao = gameState.FoundPotion;
+                PontosAtaqueMonstro = gameState.EnemyAttackPoints;
+                PontosSorteMonstro = gameState.EnemyLuckPoints;
+                PontosVidaMonstro = gameState.EnemyHealthPoints;
+                Sala = Sala + 1;
+            }
         }
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
