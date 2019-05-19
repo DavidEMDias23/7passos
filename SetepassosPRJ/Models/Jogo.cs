@@ -8,18 +8,20 @@ namespace SetepassosPRJ.Models
         public string Nome { get; set; }
         public string PerfilTipo { get; set; }
         public int MoedasOuro { get; set; }
-        public int PontosVida { get; set; }
+        public double PontosVida { get; set; }
         public int PontosAtaque { get; set; }
         public int PontosSorte { get; set; }
         public int PocoesVida { get; set; }
         public bool Pocao { get; set; }
         public bool Chave { get; set; }
         public int Sala { get; set; }
+
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
         public double PontosVidaMonstro { get; set; }
         public int PontosAtaqueMonstro { get; set; }
         public int PontosSorteMonstro { get; set; }
+
         public bool ResultadoFinal { get; set; }
         public int NumFugas { get; set; }
         public int NumInimigosDerrotados { get; set; }
@@ -28,25 +30,16 @@ namespace SetepassosPRJ.Models
         public int PocoesObtidas { get; set; }
         public int PocoesUsadas { get; set; }
         public int GameID { get; set; }
-        public PlayerAction PlayerAction { get; set; }
 
-        public void AtualizarJogo(GameStateResponse gameState)
-        {
-            PlayerAction = gameState.Action;         
-            Monstro = gameState.FoundEnemy;
-            ItemSurpresa = gameState.FoundItem;
-            Chave = gameState.FoundKey;
-            MoedasOuro = gameState.GoldFound;
-            Pocao = gameState.FoundPotion;
-        }
+
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
         {
             Nome = nomeEscolhido;
             PerfilTipo = perfilTipoEscolhido;
             MoedasOuro = 0;
-            Chave = true;
-            Sala = 1;
+            Chave = false;
+            Sala = 0;
             Monstro = false;
             ItemSurpresa = false;
             PocoesVida = 1;
@@ -58,8 +51,7 @@ namespace SetepassosPRJ.Models
                 PontosVida = 4;
                 PontosAtaque = 3;
                 PontosSorte = 2;
-                
-                
+                  
 
             }
 
@@ -82,6 +74,43 @@ namespace SetepassosPRJ.Models
 
             }
 
+           
+        }
+        public void AtualizarJogo(GameStateApi nGS)
+        {
+           
+            PontosVida = PontosVida - nGS.EnemyDamageSuffered;
+            PontosVida = PontosVida + nGS.ItemHealthEffect;
+            PontosVida = PontosVida - nGS.ItemAttackEffect;
+            PontosSorte = PontosSorte + nGS.ItemLuckEffect;
+            MoedasOuro = MoedasOuro + nGS.GoldFound;
+            GameID = nGS.GameID;
+            Monstro = nGS.FoundEnemy;
+            if (Chave == false) { Chave = nGS.FoundKey; }
+            if (nGS.FoundPotion == true)
+                {
+                    PocoesVida = PocoesVida + 1;
+                    PocoesObtidas = PocoesObtidas + 1;
+                }
+                if (nGS.FoundItem == true)
+                {
+                    NumItensEncontrados = NumItensEncontrados + 1;
+                }
+                if (nGS.FoundEnemy == true)
+                {
+                    PontosVidaMonstro = nGS.EnemyHealthPoints;
+                    PontosAtaqueMonstro = nGS.EnemyAttackPoints;
+                    PontosSorteMonstro = nGS.EnemyLuckPoints;
+                }
+
+            if (nGS.Action == PlayerAction.GoForward && nGS.Result == Result.Success)
+            {
+                Sala = Sala + 1;
+            }
+            if (nGS.Action == PlayerAction.GoBack && nGS.Result == Result.Success)
+            {
+                Sala = Sala - 1;
+            }
         }
     }
 }

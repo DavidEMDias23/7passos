@@ -13,7 +13,7 @@ namespace SetepassosPRJ.Controllers
 {
     public class JogoController : Controller
     {
-        
+
         public IActionResult Index()
         {
             return View();
@@ -30,73 +30,63 @@ namespace SetepassosPRJ.Controllers
         {
             if (ModelState.IsValid)
             {
-                Jogo novoJogo = new Jogo(j.Nome, j.PerfilTipo);
-                RepositorioJogo.AddJogos(novoJogo);
-                HttpClient client = MyHTTPClient.Client;
+                Jogo JogoNovo = new Jogo(j.Nome, j.PerfilTipo);
+
+
+                HttpClient client = NewGameHttpClient.Client;
                 string path = "/api/NewGame";
-                
-                NewGameApiRequest req = new NewGameApiRequest(j.Nome, j.PerfilTipo);
+
+                NovoJogoApiRequest req = new NovoJogoApiRequest(j.Nome, j.PerfilTipo);
                 string json = JsonConvert.SerializeObject(req);
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
                 request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.SendAsync(request);
-
                 if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
                 string json_r = await response.Content.ReadAsStringAsync();
-                GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
+                GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
-                
-                novoJogo.GameID = gs.GameID;
-                RepositorioGameID.AddGameId(gs.GameID);
-                novoJogo.AtualizarJogo(gs);
-
-                return View("JogoIniciado", novoJogo);
-
+                JogoNovo.AtualizarJogo(gs);
+                RepositorioJogos.AdicionarJogo(JogoNovo);
+                return View("JogoIniciado", JogoNovo);
             }
             else
             {
                 return View();
-
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Jogada()
+        public IActionResult AccaoJogo()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Jogada(int gameid, PlayerAction action)
+        public async Task<IActionResult> AccaoJogo(int gameid, PlayerAction action)
         {
-            gameid = RepositorioGameID.Gameid[gameid];
-            Jogo novoJogo = RepositorioJogo.GetJogo(gameid);
-
-            HttpClient client = MyHTTPClient.Client;
+            HttpClient client = NewGameHttpClient.Client;
             string path = "/api/Play";
 
-            PlayApiRequest req = new PlayApiRequest(gameid,action);
-            string json = JsonConvert.SerializeObject(req);
+            Jogo novoJogo = RepositorioJogos.GetJogo(gameid);
+
+            AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(gameid, action);
+            string json = JsonConvert.SerializeObject(aj);
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
             request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.SendAsync(request);
-
             if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
             string json_r = await response.Content.ReadAsStringAsync();
-            GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
-          
-            return View("JogoIniciado",novoJogo);
-        }
+            GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
+            novoJogo.AtualizarJogo(gs);
 
-
-        public IActionResult JogoMonstro()
-        {
-            return View();
+            return View("JogoIniciado", novoJogo);
         }
     }
 }

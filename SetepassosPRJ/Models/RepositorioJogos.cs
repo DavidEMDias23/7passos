@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SetepassosPRJ.Models
 {
-    public static class RepositorioJogo
+    public static class RepositorioJogos
     {
-        private static List<Jogo>jogos = new List<Jogo>();
-
-        public static List<Jogo> Jogos
+        private static List<Jogo> jogos = new List<Jogo>();
+        public static List<Jogo> ListaJogos
         {
-            get
-            {
-                return jogos;
-            }
+            get { return jogos; }
         }
 
-        public static void AddJogos(Jogo novoJogo)
+        public static void AdicionarJogo(Jogo newJogo)
         {
-            Jogos.Add(novoJogo);
+            jogos.Add(newJogo);
         }
 
         public static Jogo GetJogo(int gameid)
@@ -29,9 +26,10 @@ namespace SetepassosPRJ.Models
                 if (jogo.GameID == gameid)
                 {
                     return jogo;
-                }  
+                }
             }
             return null;
         }
+
     }
 }
