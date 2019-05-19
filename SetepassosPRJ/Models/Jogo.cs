@@ -39,6 +39,9 @@ namespace SetepassosPRJ.Models
             Chave = gameState.FoundKey;
             MoedasOuro = gameState.GoldFound;
             Pocao = gameState.FoundPotion;
+            PontosAtaqueMonstro = gameState.EnemyAttackPoints;
+            PontosSorteMonstro = gameState.EnemyLuckPoints;
+            PontosVidaMonstro = gameState.EnemyHealthPoints;
         }
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
