@@ -69,7 +69,7 @@ namespace SetepassosPRJ.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Jogada(int gameid)
+        public async Task<IActionResult> Jogada(int gameid, PlayerAction action)
         {
             gameid = RepositorioGameID.Gameid[gameid];
             Jogo novoJogo = RepositorioJogo.GetJogo(gameid);
@@ -77,7 +77,7 @@ namespace SetepassosPRJ.Controllers
             HttpClient client = MyHTTPClient.Client;
             string path = "/api/Play";
 
-            PlayApiRequest req = new PlayApiRequest(gameid,PlayerAction.GoForward);
+            PlayApiRequest req = new PlayApiRequest(gameid,action);
             string json = JsonConvert.SerializeObject(req);
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
@@ -88,9 +88,8 @@ namespace SetepassosPRJ.Controllers
             if (!response.IsSuccessStatusCode) { return Redirect("/"); }
             string json_r = await response.Content.ReadAsStringAsync();
             GameStateResponse gs = JsonConvert.DeserializeObject<GameStateResponse>(json_r);
-           
-
-            return View(novoJogo);
+          
+            return View("JogoIniciado",novoJogo);
         }
 
 

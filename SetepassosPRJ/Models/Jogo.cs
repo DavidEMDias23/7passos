@@ -32,8 +32,7 @@ namespace SetepassosPRJ.Models
 
         public void AtualizarJogo(GameStateResponse gameState)
         {
-            
-           
+            PlayerAction = gameState.Action;         
             Monstro = gameState.FoundEnemy;
             ItemSurpresa = gameState.FoundItem;
             Chave = gameState.FoundKey;
