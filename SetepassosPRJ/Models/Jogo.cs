@@ -30,6 +30,7 @@ namespace SetepassosPRJ.Models
         public int PocoesObtidas { get; set; }
         public int PocoesUsadas { get; set; }
         public int GameID { get; set; }
+        public string MensagemAccao { get; set; }
 
 
 
@@ -78,10 +79,19 @@ namespace SetepassosPRJ.Models
         }
         public void AtualizarJogo(GameStateApi nGS)
         {
-           
-            PontosVida = PontosVida - nGS.EnemyDamageSuffered;
+           MensagemAccao = "";
+           if (nGS.EnemyDamageSuffered != 0)
+            {
+                PontosVida = PontosVida - nGS.EnemyDamageSuffered;
+                MensagemAccao = MensagemAccao + " Sofres-te " + nGS.EnemyDamageSuffered + " de dano.";
+            }
+           else if (nGS.EnemyDamageSuffered == 0 && Monstro == true)
+            {
+                MensagemAccao = MensagemAccao + " Uff... o Inimigo falhou o ataque!!";
+            }
+            
             PontosVida = PontosVida + nGS.ItemHealthEffect;
-            PontosVida = PontosVida - nGS.ItemAttackEffect;
+            PontosAtaque= PontosAtaque + nGS.ItemAttackEffect;
             PontosSorte = PontosSorte + nGS.ItemLuckEffect;
             MoedasOuro = MoedasOuro + nGS.GoldFound;
             GameID = nGS.GameID;
@@ -103,14 +113,26 @@ namespace SetepassosPRJ.Models
                     PontosSorteMonstro = nGS.EnemyLuckPoints;
                 }
 
-            if (nGS.Action == PlayerAction.GoForward & nGS.Result == Result.Success)
+            // Detetar Monstro Morre //
+            if (nGS.Action == PlayerAction.Attack && Monstro == false)
+            {
+                NumInimigosDerrotados = NumInimigosDerrotados + 1;
+                MensagemAccao = MensagemAccao + " Derrotas-te o inimigo. Derrotas-te " + NumInimigosDerrotados + "inimigos";
+            }
+           
+            if (nGS.Action == PlayerAction.GoForward && nGS.Result == Result.Success)
             {
                 Sala = Sala + 1;
             }
-            if (nGS.Action == PlayerAction.GoBack & nGS.Result == Result.Success)
+            if (nGS.Action == PlayerAction.GoBack && nGS.Result == Result.Success)
             {
                 Sala = Sala - 1;
             }
+            if (nGS.Action == PlayerAction.Flee && nGS.Result == Result.Success)
+            {
+                Sala = Sala +1;
+            }
+
         }
     }
 }

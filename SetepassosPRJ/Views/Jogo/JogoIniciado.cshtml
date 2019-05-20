@@ -83,6 +83,9 @@
                 <div>
                     <h2>@Model.GameID</h2>
                 </div>
+                <div>
+                    <h3>@Model.MensagemAccao</h3>
+                </div>
             </div>
         </div>
 
@@ -134,9 +137,6 @@
                         <input name="gameid" value="@Model.GameID" type="hidden" />
                         <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao.png" alt="Beber Poção"></button>
                     </div>
-                <div>
-                    <a asp-action="CriarJogo" role="button"><img src="~/images/btns/btn-recomecar.png" class="BotoesJogo" /></a>
-                </div>
                 <div>
                     <input name="gameid" value="@Model.GameID" type="hidden" />
                      <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir.png" alt="Desistir"></button>
