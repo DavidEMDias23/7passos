@@ -248,8 +248,7 @@ h3 {
 .fundoJogo {
     background-image: url(../images/Rooms/Room1.jpg);
     background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
+    background-size: cover;
     margin-top: 2px;
     position: relative;
 }
