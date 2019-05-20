@@ -103,11 +103,11 @@ namespace SetepassosPRJ.Models
                     PontosSorteMonstro = nGS.EnemyLuckPoints;
                 }
 
-            if (nGS.Action == PlayerAction.GoForward && nGS.Result == Result.Success)
+            if (nGS.Action == PlayerAction.GoForward & nGS.Result == Result.Success)
             {
                 Sala = Sala + 1;
             }
-            if (nGS.Action == PlayerAction.GoBack && nGS.Result == Result.Success)
+            if (nGS.Action == PlayerAction.GoBack & nGS.Result == Result.Success)
             {
                 Sala = Sala - 1;
             }
