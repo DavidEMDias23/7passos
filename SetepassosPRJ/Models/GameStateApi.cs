@@ -27,25 +27,5 @@ namespace SetepassosPRJ.Models
         public int ItemAttackEffect { get; set; }
         public int ItemLuckEffect { get; set; }
 
-        public GameStateApi(int gameID, int roundNumber, PlayerAction action, Result result, bool foundEnemy, bool foundItem, bool foundKey, bool foundPotion, int goldFound, double enemyDamageSuffered, double enemyHealthPoints, int enemyAttackPoints, int enemyLuckPoints, int itemHealthEffect, int itemAttackEffect, int itemLuckEffect)
-        {
-            GameID = gameID;
-            RoundNumber = roundNumber;
-            Action = action;
-            Result = result;
-            FoundEnemy = foundEnemy;
-            FoundItem = foundItem;
-            FoundKey = foundKey;
-            FoundPotion = foundPotion;
-            GoldFound = goldFound;
-            EnemyDamageSuffered = enemyDamageSuffered;
-            EnemyHealthPoints = enemyHealthPoints;
-            EnemyAttackPoints = enemyAttackPoints;
-            EnemyLuckPoints = enemyLuckPoints;
-            ItemHealthEffect = itemHealthEffect;
-            ItemAttackEffect = itemAttackEffect;
-            ItemLuckEffect = itemLuckEffect;
-        }
-
     }
 }
