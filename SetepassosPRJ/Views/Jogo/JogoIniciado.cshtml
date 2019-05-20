@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-md-2">
             <div class="text-left">
-                
+
                 @if (Model.PerfilTipo == "S")
                 {
                     <img src="~/images/Nerd-Frame mini.png" class="icons" />
@@ -42,7 +42,7 @@
                 @Model.Nome
             </div>
             <div>
-                <img src="~/images/Icons/icon-vida.png" class="icons" />  @Model.PontosVida
+                <img src="~/images/Icons/icon-vida.png" class="icons" />  <strong>@Model.PontosVida</strong>  <p class="MensagemVida">@Model.MensagemVida</p>
             </div>
         </div>
         <div class="col-md-8">
@@ -62,38 +62,38 @@
                 }
             </div>
         </div>
-        </div>
+    </div>
     <div class="row">
         <div class="col-md-2">
             <div class="areadados">
 
                 <div>
-                    <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  @Model.PocoesVida
+                    <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  <strong>@Model.PocoesVida</strong>
                 </div>
                 <div>
-                    <img src="~/images/Icons/icon-forca.png" class="icons" />  @Model.PontosAtaque
+                    <img src="~/images/Icons/icon-forca.png" class="icons" />  <strong>@Model.PontosAtaque</strong>  <p class="MensagemOutro" display="inline-block">@Model.MensagemAtaque</p>
                 </div>
 
                 <div>
-                    <img src="~/images/Icons/icon-luck.png" class="icons" />  @Model.PontosSorte
+                    <img src="~/images/Icons/icon-luck.png" class="icons" />  <strong>@Model.PontosSorte</strong> <p class="MensagemOutro">@Model.MensagemSorte</p>
                 </div>
                 <div class="iconMoeda">
-                    <img src="~/images/Icons/icon-moeda.png" class="icons" />  @Model.MoedasOuro
+                    <img src="~/images/Icons/icon-moeda.png" class="icons" />  <strong>@Model.MoedasOuro</strong>  <p class="MensagemOutro"> @Model.MensagemPlim @Model.MensagemOuro</p>
                 </div>
                 <div>
-                    <h2>@Model.GameID</h2>
-                </div>
-                <div>
-                    <h3>@Model.MensagemAccao</h3>
+                    <p>@Model.GameID</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-8">
+            <div class="text-center">
+                <p>@Model.MensagemAccao</p>
+            </div>
             @if (Model.Monstro == true)
             {
                 <!--Imagem do Monstro-->
-                <img src="~/images/Icons/icon-key.png" class="monstro" />
+            <img src="~/images/Inimigos/SideShowBob.png" class="monstro" />
             }
         </div>
         <div class="col-md-2 text-center">
@@ -103,7 +103,7 @@
                     <div class="areabotoes">
                         <div>
                             <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="GoForward" ><img src="~/images/btns/btn-avancar.png" alt="Avançar"></button>
+                            <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar.png" alt="Avançar"></button>
                         </div>
                         @if (Model.Sala != 1)
                         {
@@ -133,17 +133,17 @@
                     </div>
                 }
 
-                    <div>
-                        <input name="gameid" value="@Model.GameID" type="hidden" />
-                        <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao.png" alt="Beber Poção"></button>
-                    </div>
                 <div>
                     <input name="gameid" value="@Model.GameID" type="hidden" />
-                     <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir.png" alt="Desistir"></button>
+                    <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao.png" alt="Beber Poção"></button>
+                </div>
+                <div>
+                    <input name="gameid" value="@Model.GameID" type="hidden" />
+                    <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir.png" alt="Desistir"></button>
                 </div>
             </form>
-             </div>
+        </div>
     </div>
-  
+
 </body>
 </html>

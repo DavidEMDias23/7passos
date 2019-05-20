@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 namespace SetepassosPRJ.Models
 {
     public class Jogo
@@ -30,8 +31,13 @@ namespace SetepassosPRJ.Models
         public int PocoesObtidas { get; set; }
         public int PocoesUsadas { get; set; }
         public int GameID { get; set; }
-        public string MensagemAccao { get; set; }
 
+        public string MensagemAccao { get; set; }
+        public string MensagemVida { get; set; }
+        public string MensagemAtaque { get; set; }
+        public string MensagemSorte { get; set; }
+        public string MensagemOuro { get; set; }
+        public string MensagemPlim { get; set; }
 
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
@@ -80,14 +86,28 @@ namespace SetepassosPRJ.Models
         public void AtualizarJogo(GameStateApi nGS)
         {
            MensagemAccao = "";
-           if (nGS.EnemyDamageSuffered != 0)
+           MensagemVida = "";
+           MensagemAtaque = "";
+           MensagemSorte = "";
+           MensagemOuro = "";
+           MensagemPlim = "";
+
+            if (nGS.EnemyDamageSuffered != 0)
             {
                 PontosVida = PontosVida - nGS.EnemyDamageSuffered;
-                MensagemAccao = MensagemAccao + " Sofres-te " + nGS.EnemyDamageSuffered + " de dano.";
-            }
-           else if (nGS.EnemyDamageSuffered == 0 && Monstro == true)
+                MensagemAccao = MensagemAccao + " O inimigo acertou-te em cheio! ";
+                MensagemVida = "-" + Convert.ToString(nGS.EnemyDamageSuffered);
+             }
+            else if (nGS.EnemyDamageSuffered == 0)
             {
-                MensagemAccao = MensagemAccao + " Uff... o Inimigo falhou o ataque!!";
+                if (nGS.FoundEnemy == true && Monstro == true)
+                {
+                    MensagemAccao = MensagemAccao + " Uff... o Inimigo falhou o ataque!!";
+                }
+                if (nGS.FoundEnemy == false && Monstro == true)
+                {
+                    MensagemAccao = MensagemAccao + " O inimigo não te acertou! ";
+                }
             }
             
             PontosVida = PontosVida + nGS.ItemHealthEffect;
@@ -102,11 +122,34 @@ namespace SetepassosPRJ.Models
                     PocoesVida = PocoesVida + 1;
                     PocoesObtidas = PocoesObtidas + 1;
                 }
-                if (nGS.FoundItem == true)
+            if (nGS.FoundItem == true)
                 {
                     NumItensEncontrados = NumItensEncontrados + 1;
+                if (nGS.ItemHealthEffect != 0)
+                  {
+                    MensagemAccao = MensagemAccao + " Encontras-te um item surpresa que te afetou a vida! ";
+                    MensagemVida = Convert.ToString(nGS.ItemHealthEffect);
+                  }
+                if (nGS.ItemAttackEffect != 0)
+                  {
+                    MensagemAccao = MensagemAccao + " Encontras-te um item surpresa que te afetou o ataque! ";
+                    MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
+                  }
+                if (nGS.ItemLuckEffect != 0)
+                  {
+                    MensagemAccao = MensagemAccao + " Encontras-te um item surpresa que te afetou a sorte! ";
+                    MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
+                  }
                 }
-                if (nGS.FoundEnemy == true)
+            if (nGS.GoldFound != 0)
+                if (nGS.GoldFound > 100)
+            {
+                {
+                    MensagemPlim = "PLiM pLiM PlIM...";
+                    MensagemOuro = "+" + Convert.ToString(nGS.GoldFound);
+                }
+            }
+            if (nGS.FoundEnemy == true)
                 {
                     PontosVidaMonstro = nGS.EnemyHealthPoints;
                     PontosAtaqueMonstro = nGS.EnemyAttackPoints;
@@ -117,7 +160,7 @@ namespace SetepassosPRJ.Models
             if (nGS.Action == PlayerAction.Attack && Monstro == false)
             {
                 NumInimigosDerrotados = NumInimigosDerrotados + 1;
-                MensagemAccao = MensagemAccao + " Derrotas-te o inimigo. Derrotas-te " + NumInimigosDerrotados + "inimigos";
+                MensagemAccao = MensagemAccao + " Derrotas-te o inimigo. ";
             }
            
             if (nGS.Action == PlayerAction.GoForward && nGS.Result == Result.Success)

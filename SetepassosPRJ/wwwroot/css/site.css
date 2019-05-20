@@ -203,10 +203,9 @@ input[type='radio'] {
 
 .monstro {
     position: fixed;
-    width: 65%;
+    width: 36%;
     height: 70%;
-    display: inline-block;
-    margin-top: 60px;
+    bottom: 10px;
     left: 16%;
 }
 
@@ -253,4 +252,18 @@ h3 {
     height: 100%;
     margin-top: 2px;
     position: relative;
+}
+
+/*Mensagens de contexto*/
+.MensagemVida {
+    color:deeppink;
+    font-family: Verdana;
+    display: inline-block;
+    font-size:20px;
+}
+.MensagemOutro {
+    color: gold;
+    font-family: Verdana;
+    display: inline-block;
+    font-size: 20px;
 }
