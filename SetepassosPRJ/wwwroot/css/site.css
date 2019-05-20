@@ -98,6 +98,9 @@ body {
     width: 55%;
     height: 55%;
     margin: 5px;
+    background: none;
+    border-color: none;
+    border-style: none;
 }
     .BotoesJogo:hover {
         filter: brightness(1.4);

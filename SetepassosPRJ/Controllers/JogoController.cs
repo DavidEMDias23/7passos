@@ -83,6 +83,7 @@ namespace SetepassosPRJ.Controllers
 
             string json_r = await response.Content.ReadAsStringAsync();
             GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
+         
 
             novoJogo.AtualizarJogo(gs);
 
