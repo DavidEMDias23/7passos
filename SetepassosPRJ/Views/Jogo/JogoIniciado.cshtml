@@ -47,34 +47,7 @@
         </div>
         <div class="col-md-8">
             <div class="text-center">
-                @if (Model.Sala == 1)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala1.png" />
-                }
-                else if (Model.Sala == 2)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala2.png" />
-                }
-                else if (Model.Sala == 3)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala3.png" />
-                }
-                else if (Model.Sala == 4)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala4.png" />
-                }
-                else if (Model.Sala == 5)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala5.png" />
-                }
-                else if (Model.Sala == 6)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala6.png" />
-                }
-                else if (Model.Sala == 7)
-                {
-                    <img src="~/images/MiniMap/mini-n-sala7.png" />
-                }
+                <img src="~/images/MiniMap/mini-n-sala@(Model.Sala).png" />
             </div>
         </div>
         <div class="col-md-2 text-center">
