@@ -51,6 +51,8 @@ namespace SetepassosPRJ.Models
         public string MensagemDano { get; set; }
         public string MensagemChave { get; set; }
 
+        public PlayerAction UltimaAccao { get; set; }
+
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
         {
@@ -113,7 +115,9 @@ namespace SetepassosPRJ.Models
            MensagemPlim = "";
            MensagemPocao = "";
            MensagemDano = "";
-            MensagemChave = "";
+           MensagemChave = "";
+
+            
 
             if (nGS.EnemyDamageSuffered != 0)
             {
@@ -227,7 +231,8 @@ namespace SetepassosPRJ.Models
                 if (nGS.FoundKey == true)
                 {
                     Chave = nGS.FoundKey;
-                    MensagemChave = "Found it!";
+                    MensagemChave = " Found it! ";
+                    MensagemAccao = " Encontraste a Chave! ";
                 }
             }
                 
@@ -324,12 +329,13 @@ namespace SetepassosPRJ.Models
                 }
             }
 
+            UltimaAccao = nGS.Action;
             PassagemTempo();
 
         }
         public void PassagemTempo()
         {
-            if (TotalAreasExaminadas > 7 || TotalAtaques > 7 || TotalAvancar > 7 || TotalFugas > 7 || TotalPocoesUsadas > 7 || TotalRecuar > 7)
+            if ((UltimaAccao == PlayerAction.SearchArea && TotalAreasExaminadas > 7) || (UltimaAccao == PlayerAction.Attack && TotalAtaques > 7) || (UltimaAccao == PlayerAction.GoForward && TotalAvancar > 7) || (UltimaAccao == PlayerAction.Flee && TotalFugas > 7) || (UltimaAccao == PlayerAction.DrinkPotion && TotalPocoesUsadas > 7) || (UltimaAccao == PlayerAction.GoBack && TotalRecuar > 7))
             {
                 PontosVida = PontosVida - 0.5;
             }

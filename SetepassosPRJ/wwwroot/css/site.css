@@ -14,7 +14,7 @@ body {
     font-size: 15px;
     letter-spacing: 1px;
     background-image: url('../images/Layout/Entrance v2.jpg');
-    background-size: 100% 100vh;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -99,8 +99,8 @@ body {
 }
 
 .BotoesJogo {
-    width: 55%;
-    height: 55%;
+    width: 50%;
+    height: 50%;
     margin: 5px;
     background: none;
     border-color: none;
