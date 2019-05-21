@@ -68,6 +68,11 @@ body {
     margin-left: 30px;
     margin-top: 8px;
 }
+.iconsMonstro {
+    height: 3%;
+    width: 3%;
+    margin: 3px;
+}
 
 .iconMoeda {
     margin-top:35%;
@@ -254,15 +259,28 @@ h3 {
 }
 
 /*Mensagens de contexto*/
-.MensagemVida {
-    color:deeppink;
+.MensagemVidaPos {
+    color:chartreuse;
     font-family: Verdana;
     display: inline-block;
-    font-size:20px;
+    font-size:18px;
+}
+.MensagemVidaNeg {
+    color: deeppink;
+    font-family: Verdana;
+    display: inline-block;
+    font-size: 18px;
 }
 .MensagemOutro {
     color: gold;
     font-family: Verdana;
     display: inline-block;
+    font-size: 18px;
+}
+.MensagemDano {
+    color:crimson;
+    font-family: Verdana;
+    display: inline-block;
     font-size: 20px;
+    margin-left: 18px;
 }
