@@ -72,9 +72,9 @@ namespace SetepassosPRJ.Models
             if (perfilTipoEscolhido == "S")
             {
                            
-                PontosVida = 4;
+                PontosVida = 3;
                 PontosAtaque = 3;
-                PontosSorte = 2;
+                PontosSorte = 3;
                   
 
             }
@@ -83,8 +83,8 @@ namespace SetepassosPRJ.Models
             {
                
                 PontosVida = 3;
-                PontosAtaque = 3;
-                PontosSorte = 3;
+                PontosAtaque = 2;
+                PontosSorte = 4;
             
 
             }
@@ -92,9 +92,9 @@ namespace SetepassosPRJ.Models
             if (perfilTipoEscolhido == "B")
             {
                 
-                PontosVida = 3;
-                PontosAtaque = 2;
-                PontosSorte = 4;
+                PontosVida = 4;
+                PontosAtaque = 3;
+                PontosSorte = 2;
 
             }
 
