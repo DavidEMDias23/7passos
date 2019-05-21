@@ -32,11 +32,9 @@ namespace SetepassosPRJ.Models
         public int PocoesUsadas { get; set; }
         public int GameID { get; set; }
 
-        public int TotalFugas { get; set; }
+        public int TotalMover { get; set; }
         public int TotalAtaques { get; set; }
         public int TotalPocoesUsadas { get; set; }
-        public int TotalAvancar { get; set; }
-        public int TotalRecuar { get; set; }
         public int TotalAreasExaminadas { get; set; }
 
 
@@ -66,11 +64,9 @@ namespace SetepassosPRJ.Models
             PocoesVida = 1;
             Pocao = false;
 
-            TotalFugas = 0;
+            TotalMover = -1;
             TotalAtaques = 0;
             TotalPocoesUsadas = 0;
-            TotalAvancar = -1;
-            TotalRecuar = 0;
             TotalAreasExaminadas = 0;
 
             if (perfilTipoEscolhido == "S")
@@ -302,7 +298,7 @@ namespace SetepassosPRJ.Models
 
             if (nGS.Action == PlayerAction.GoForward && nGS.Result != Result.InvalidAction)
             {
-                TotalAvancar = TotalAvancar + 1;
+                TotalMover = TotalMover + 1;
 
                 if (nGS.Result == Result.Success)
                 {
@@ -311,7 +307,7 @@ namespace SetepassosPRJ.Models
             }
             if (nGS.Action == PlayerAction.GoBack && nGS.Result != Result.InvalidAction)
             {
-                TotalRecuar = TotalRecuar + 1;
+                TotalMover = TotalMover + 1;
 
                 if (nGS.Result == Result.Success)
                 {
@@ -320,7 +316,7 @@ namespace SetepassosPRJ.Models
             }
             if (nGS.Action == PlayerAction.Flee && nGS.Result != Result.InvalidAction)
             {
-                TotalFugas = TotalFugas + 1;
+                TotalMover = TotalMover + 1;
 
                 if (nGS.Result == Result.Success)
                 {
@@ -335,7 +331,7 @@ namespace SetepassosPRJ.Models
         }
         public void PassagemTempo()
         {
-            if ((UltimaAccao == PlayerAction.SearchArea && TotalAreasExaminadas > 7) || (UltimaAccao == PlayerAction.Attack && TotalAtaques > 7) || (UltimaAccao == PlayerAction.GoForward && TotalAvancar > 7) || (UltimaAccao == PlayerAction.Flee && TotalFugas > 7) || (UltimaAccao == PlayerAction.DrinkPotion && TotalPocoesUsadas > 7) || (UltimaAccao == PlayerAction.GoBack && TotalRecuar > 7))
+            if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
                 PontosVida = PontosVida - 0.5;
             }
