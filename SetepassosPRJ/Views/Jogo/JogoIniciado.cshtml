@@ -24,7 +24,7 @@
 
 <body class="fundoJogo">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-sm-2">
             <div class="text-left">
 
                 @if (Model.PerfilTipo == "S")
@@ -45,12 +45,12 @@
                 <img src="~/images/Icons/icon-vida.png" class="icons" />  <strong>@Model.PontosVida</strong>  <p class="MensagemVidaPos">@Model.MensagemVidaPos</p> <p class="MensagemVidaNeg">@Model.MensagemVidaNeg</p>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-sm-8">
             <div class="text-center">
                 <img src="~/images/MiniMap/mini-n-sala@(Model.Sala).png" />
             </div>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-sm-2 text-center">
             <div>
                 @if (Model.Chave)
                 {
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-sm-2">
             <div class="areadados">
 
                 <div>
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-sm-7">
             @if (Model.PontosVida <= 0)
             {
             <div class="text-center">
@@ -97,23 +97,25 @@
             }
             else
             {
-            <div class="text-center">
+            <div class="text-right">
                 <p>@Model.MensagemAccao</p>
             </div>
             @if (Model.Monstro == true)
                {
-                <div>
-                    <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong>
+                <div class="text-right">
+                    <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
                     <img src="~/images/Icons/icon-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
                     <img src="~/images/Icons/icon-forca.png" class="iconsMonstro" /> <strong>@Model.PontosAtaqueMonstro</strong>
+                    
                 </div>
                 <!--Imagem do Monstro-->
-
-                <img src="~/images/Inimigos/SideShowBob.png" class="monstro" /> <p class="MensagemDano" display="inline-block">@Model.MensagemDano</p>
+                <div>
+                <img src="~/images/Inimigos/SideShowBob.png" class="monstro" /> 
+                </div>
                }
             }
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-sm-3 text-center">
             <form action="AccaoJogo" method="post">
                 @if (Model.Monstro == false)
                 {
