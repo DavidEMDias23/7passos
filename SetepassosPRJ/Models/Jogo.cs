@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace SetepassosPRJ.Models
 {
-    public class Jogo
+    public class Jogo : IComparable
     {
         
         [Required(ErrorMessage = "Por favor introduza o seu nome")]
@@ -416,6 +416,22 @@ namespace SetepassosPRJ.Models
             Bonus = Bonus + (PocoesVida * 750) + (NumInimigosDerrotados * 300) + (NumItensEncontrados * 100);
             MoedasOuro = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
+        }
+
+        public int CompareTo(object obj)
+        {
+            Jogo j = (Jogo)obj;
+
+            if (MoedasOuro > j.MoedasOuro)
+            {
+                return 1;
+            }
+            else if (MoedasOuro < j.MoedasOuro)
+            {
+                return -1;
+            }
+            else
+                return 0;
         }
     }
 }

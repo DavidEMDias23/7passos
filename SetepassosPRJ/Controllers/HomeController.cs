@@ -23,6 +23,8 @@ namespace SetepassosPRJ.Controllers
         public IActionResult HiScores()
         {
             List<Jogo> jogos = RepositorioJogos.ListaJogos;
+            jogos.Sort();
+            jogos.Reverse();
             return View(jogos);
         }
 

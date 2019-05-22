@@ -20,136 +20,39 @@
                 </tr>
             </thead>
             <tbody>
-                <tr id="1" class="classe1">
-                    <td>1º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr id="2" class="classe1">
-                    <td>2º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr id="3" class="classe1">
-                    <td>3º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>4º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>5º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>6º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>7º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>8º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>9º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
-                <tr class="classe2">
-                    <td>10º</td>
-                    <td>José</td>
-                    <td>3500</td>
-                    <td>Vitória</td>
-                    <td>Sim</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>3</td>
-                </tr>
+                @foreach (Jogo jogo in Model)
+                {
+                    <tr>
+                        <td>Posição</td>
+                        <td>@jogo.Nome</td>
+                        <td>@jogo.MoedasOuro</td>
+                        <td>
+                            @if (jogo.ResultadoAccao == Result.SuccessVictory)
+                            {
+                                @:Vitoria
+                            }
+                            else if (jogo.ResultadoAccao == Result.GameHasEnded)
+                            {
+                                @:Derrota
+                            }
+                        </td>
+                        <td>@if (jogo.Chave)
+                        {
+                             @:Sim
+                        }
+                        else
+                        {
+                             @:Não
+                        }
+                        </td>
+                        <td>@jogo.NumInimigosDerrotados</td>
+                        <td> @jogo.NumFugas </td>
+                        <td>@jogo.NumAreasInvestigadas</td>
+                        <td>@jogo.NumItensEncontrados</td>
+                        <td>@jogo.PocoesObtidas</td>
+                        <td>@jogo.PocoesUsadas</td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
