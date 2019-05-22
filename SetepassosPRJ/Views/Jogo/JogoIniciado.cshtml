@@ -92,15 +92,15 @@
         <div class="col-sm-7">
             @if (Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded)
             {
-                <div class="text-center">
+                <div class="text-center mensagemSaida">
                     @Model.MensagemAccao
-                    <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
+                    <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair" z-index="3"></a>
                 </div>
 
             }
             else if (Model.ResultadoAccao == Result.SuccessVictory)
             {
-                <div class="text-center">
+                <div class="text-center mensagemSaida">
                     @Model.MensagemAccao
                     <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
                 </div>

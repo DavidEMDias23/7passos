@@ -326,3 +326,7 @@ h3 {
     width: 15%;
     margin: 2px;
 }
+.mensagemSaida {
+    position:relative;
+    z-index:3;
+}
