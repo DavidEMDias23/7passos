@@ -27,7 +27,7 @@
         <div class="col-sm-2">
             <div class="text-left">
 
-                @if (Model.PerfilTipo == "W")
+                @if (Model.PerfilTipo == "B")
                 {
                     <img src="~/images/Nerd-Frame mini.png" class="icons" />
                 }
@@ -35,7 +35,7 @@
                 {
                     <img src="~/images/Fat-Frame mini.png" class="icons" />
                 }
-                else if (Model.PerfilTipo == "B")
+                else if (Model.PerfilTipo == "W")
                 {
                     <img src="~/images/Old-Frame mini.png" class="icons" />
                 }
@@ -82,18 +82,28 @@
                     <img src="~/images/Icons/icon-moeda.png" class="icons" />  <strong>@Model.MoedasOuro</strong>  <p class="MensagemOutro"> @Model.MensagemOuro @Model.MensagemPlim</p>
                 </div>
                 <div>
-                    <p>@Model.GameID</p>
+                    <p>ID: @Model.GameID</p>
+
                 </div>
             </div>
         </div>
 
         <div class="col-sm-7">
-            @if (Model.PontosVida <= 0)
+            @if (Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded)
             {
                 <div class="text-center">
                     @Model.MensagemAccao
                     <a asp-action="JogoAcabado"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
                 </div>
+
+            }
+            else if (Model.ResultadoAccao == Result.SuccessVictory)
+            {
+                <div class="text-center">
+                    @Model.MensagemAccao
+                    <a asp-action="JogoAcabado"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
+                </div>
+                <img src="~/images/Contextual/victory.png" />
             }
             else
             {
@@ -102,13 +112,13 @@
                 </div>
                 @if (Model.Monstro == true)
                 {
-                <div class="text-right">
-                    <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
-                    <img src="~/images/Icons/icon-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
-                    <img src="~/images/Icons/icon-forca.png" class="iconsMonstro" /> <strong>@Model.PontosAtaqueMonstro</strong>
-                    <p class="MensagemMeuAtaque">@Model.MensagemMeuAtaque</p>
-                </div>
-                    
+                    <div class="text-right">
+                        <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
+                        <img src="~/images/Icons/icon-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
+                        <img src="~/images/Icons/icon-forca.png" class="iconsMonstro" /> <strong>@Model.PontosAtaqueMonstro</strong>
+                        <p class="MensagemMeuAtaque">@Model.MensagemMeuAtaque</p>
+                    </div>
+
                     <!--Imagem do Monstro-->
                     <div>
                         <img src="~/images/Inimigos/SideShowBob.png" class="monstro" />
@@ -155,7 +165,7 @@
 
                 <div>
                     <input name="gameid" value="@Model.GameID" type="hidden" />
-                    <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao1.png" alt="Beber Poção"></button> @Model.TotalPocoesUsadas
+                    <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao1.png" alt="Beber Poção"></button>
                 </div>
                 <div>
                     <input name="gameid" value="@Model.GameID" type="hidden" />

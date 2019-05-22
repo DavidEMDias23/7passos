@@ -13,7 +13,6 @@ namespace SetepassosPRJ.Models
         public int PontosAtaque { get; set; }
         public int PontosSorte { get; set; }
         public int PocoesVida { get; set; }
-        public bool Pocao { get; set; }
         public bool Chave { get; set; }
         public int Sala { get; set; }
 
@@ -23,7 +22,6 @@ namespace SetepassosPRJ.Models
         public int PontosAtaqueMonstro { get; set; }
         public int PontosSorteMonstro { get; set; }
 
-        public bool ResultadoFinal { get; set; }
         public int NumFugas { get; set; }
         public int NumInimigosDerrotados { get; set; }
         public int NumAreasInvestigadas { get; set; }
@@ -36,7 +34,10 @@ namespace SetepassosPRJ.Models
         public int TotalAtaques { get; set; }
         public int TotalPocoesUsadas { get; set; }
         public int TotalAreasExaminadas { get; set; }
+        public bool Recuou { get; set; }
+        public int Bonus { get; set; }
 
+        public Result ResultadoAccao { get; set; }
 
         public string MensagemAccao { get; set; }
         public string MensagemVidaPos { get; set; }
@@ -59,12 +60,9 @@ namespace SetepassosPRJ.Models
             Nome = nomeEscolhido;
             PerfilTipo = perfilTipoEscolhido;
             MoedasOuro = 0;
-            Chave = false;
             Sala = 0;
-            Monstro = false;
-            ItemSurpresa = false;
             PocoesVida = 1;
-            Pocao = false;
+
 
             TotalMover = -1;
             TotalAtaques = 0;
@@ -127,9 +125,10 @@ namespace SetepassosPRJ.Models
             PontosAtaqueMonstro = nGS.EnemyAttackPoints;
             PontosSorteMonstro = nGS.EnemyLuckPoints;
             UltimaAccao = nGS.Action;
+            ResultadoAccao = nGS.Result;
 
             //Acoes com Sucesso//
-            if (nGS.Result == Result.Success)
+            if (ResultadoAccao == Result.Success)
             {
                 //Movimento sucesso
                 if (UltimaAccao == PlayerAction.GoForward)
@@ -146,6 +145,7 @@ namespace SetepassosPRJ.Models
                 if (UltimaAccao == PlayerAction.GoBack)
                 {
                     TotalMover = TotalMover +1;
+                    Recuou = true;
                     Sala = Sala - 1;
                     //Detetar se apareceu monstro
                     if (Monstro == true)
@@ -199,7 +199,7 @@ namespace SetepassosPRJ.Models
                     //Mensagem ataque personalizada
                     if (PerfilTipo == "S")
                     {
-                        MensagemMeuAtaque = "Mandaste um peido...";
+                        MensagemMeuAtaque = "Mandaste uma bufa...";
                     }
                     if (PerfilTipo == "B")
                     {
@@ -350,20 +350,72 @@ namespace SetepassosPRJ.Models
                     PontosVidaMonstro = nGS.EnemyHealthPoints;
                 }
             
-             PassagemTempo();
+            //Se a accao for Inválida
+            if (ResultadoAccao == Result.InvalidAction)
+            {
+                MensagemAccao = "!! Essa acção não é válida !!";
+            }
+            //Accao em jogo terminado
+            if (ResultadoAccao == Result.GameHasEnded)
+            {
+                MensagemAccao = "!! Este jogo já terminou !!";
+            }
+            //Accao que terminou em vitória do jogo
+            if (ResultadoAccao == Result.SuccessVictory)
+            {
+                MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
+            }
+
+            PassagemTempo();
+
+            //Calcular bonus de fim de jogo
+            if (ResultadoAccao == Result.SuccessVictory || PontosVida <= 0)
+            {
+                CalcularBonus();
+            }
 
         }
+
+        
         public void PassagemTempo()
         {
             if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
                 PontosVida = PontosVida - 0.5;
-                MensagemPassarTempo = "Cançaço: -0.5";
+                MensagemPassarTempo = "Cansaço: -0.5";
             }
             if (PontosVida <= 0)
             {
                 MensagemAccao = " Temos pena mas morreste! Fica para a próxima...";
             }
+        }
+
+        public void CalcularBonus()
+        {
+            
+            if (ResultadoAccao == Result.SuccessVictory)
+            {
+                Bonus = Bonus + 3000;
+                if (Recuou == false)
+                {
+                    Bonus = Bonus + 400;
+                }
+                if (TotalAtaques == 0)
+                {
+                    Bonus = Bonus + 800;
+                }
+                if (PontosVida < 0.5)
+                {
+                    Bonus = Bonus + 999;
+                }
+            }
+            if (Chave == true)
+            {
+                Bonus = Bonus + 1000;
+            }
+            Bonus = Bonus + (PocoesVida * 750) + (NumInimigosDerrotados * 300) + (NumItensEncontrados * 100);
+            MoedasOuro = MoedasOuro + Bonus;
+            MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
     }
 }
