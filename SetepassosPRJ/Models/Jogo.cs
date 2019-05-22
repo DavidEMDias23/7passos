@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace SetepassosPRJ.Models
 {
-    public class Jogo
+    public class Jogo : IComparable
     {
         
         [Required(ErrorMessage = "Por favor introduza o seu nome")]
@@ -15,6 +15,7 @@ namespace SetepassosPRJ.Models
         public int PocoesVida { get; set; }
         public bool Chave { get; set; }
         public int Sala { get; set; }
+      
 
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
@@ -36,6 +37,12 @@ namespace SetepassosPRJ.Models
         public int TotalAreasExaminadas { get; set; }
         public bool Recuou { get; set; }
         public int Bonus { get; set; }
+        public bool LeveiDano { get; set; }
+        public bool EncontradoItem { get; set; }
+        public bool EncontradoTrevo { get; set; }
+        public bool EncontradoGato { get; set; }
+        public bool EncontradoPocao { get; set; }
+        public bool EncontradoOuro { get; set; }
 
         public Result ResultadoAccao { get; set; }
 
@@ -126,6 +133,13 @@ namespace SetepassosPRJ.Models
             PontosSorteMonstro = nGS.EnemyLuckPoints;
             UltimaAccao = nGS.Action;
             ResultadoAccao = nGS.Result;
+            LeveiDano = false;
+            EncontradoItem = false;
+            EncontradoTrevo = false;
+            EncontradoGato = false;
+            EncontradoPocao = false;
+            EncontradoOuro = false;
+
 
             //Acoes com Sucesso//
             if (ResultadoAccao == Result.Success)
@@ -279,10 +293,12 @@ namespace SetepassosPRJ.Models
                     PocoesObtidas = PocoesObtidas + 1;
                     MensagemAccao = MensagemAccao + " Encontraste uma cerveja! ";
                     MensagemPocao = "+1";
+                    EncontradoPocao = true;
                 }
                 if (nGS.FoundItem == true)
                 {
                     NumItensEncontrados = NumItensEncontrados + 1;
+                    EncontradoItem = true;
                     if (nGS.ItemHealthEffect > 0)
                     {
                         MensagemVidaPos = "+" + Convert.ToString(nGS.ItemHealthEffect);
@@ -310,17 +326,20 @@ namespace SetepassosPRJ.Models
                     {
                         MensagemSorte = "+" + Convert.ToString(nGS.ItemLuckEffect);
                         MensagemAccao = MensagemAccao + " Encontraste um trevo de 4 folhas! ";
+                        EncontradoTrevo = true;
                     }
                     else if (nGS.ItemLuckEffect < 0)
                     {
                         MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
                         MensagemAccao = MensagemAccao + " Passou um gato preto à tua frente! ";
+                        EncontradoGato = true;
                     }
                 }
                 //Encontrar donuts e dar ênfase se for mais de 100 donuts
                 if (nGS.GoldFound != 0)
                 {
                     MensagemOuro = "+" + Convert.ToString(nGS.GoldFound);
+                    EncontradoOuro = true;
                     if (nGS.GoldFound > 100)
                        {    
                         MensagemPlim = "Nham Nham Nham...";                  
@@ -334,6 +353,7 @@ namespace SetepassosPRJ.Models
             {
                 PontosVida = PontosVida - nGS.EnemyDamageSuffered;
                 MensagemVidaNeg = "-" + Convert.ToString(nGS.EnemyDamageSuffered);
+                LeveiDano = true;
                 if (nGS.EnemyDamageSuffered < 2)
                 {
                     MensagemAccao = MensagemAccao + " O inimigo acertou-te de raspão! ";
@@ -416,6 +436,22 @@ namespace SetepassosPRJ.Models
             Bonus = Bonus + (PocoesVida * 750) + (NumInimigosDerrotados * 300) + (NumItensEncontrados * 100);
             MoedasOuro = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
+        }
+
+        public int CompareTo(object obj)
+        {
+            Jogo j = (Jogo)obj;
+
+            if (MoedasOuro > j.MoedasOuro)
+            {
+                return 1;
+            }
+            else if (MoedasOuro < j.MoedasOuro)
+            {
+                return -1;
+            }
+            else
+                return 0;
         }
     }
 }

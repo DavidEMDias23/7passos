@@ -23,6 +23,7 @@
 </head>
 
 <body class="fundoJogo">
+
     <div class="row">
         <div class="col-sm-2">
             <div class="text-left">
@@ -93,7 +94,7 @@
             {
                 <div class="text-center">
                     @Model.MensagemAccao
-                    <a asp-action="JogoAcabado"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
+                    <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
                 </div>
 
             }
@@ -101,7 +102,7 @@
             {
                 <div class="text-center">
                     @Model.MensagemAccao
-                    <a asp-action="JogoAcabado"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
+                    <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
                 </div>
                 <img src="~/images/Contextual/victory.png" />
             }
@@ -110,11 +111,42 @@
                 <div class="text-right">
                     <p>@Model.MensagemAccao</p>
                 </div>
-                @if (Model.Monstro == true)
+
+                <div class="text-right">
+                    @if (Model.EncontradoItem == true)
+                    {
+                        <img src="~/images/Icons/icon-surpresa.png" class="iconsItems" />
+                    }
+                    @if (Model.EncontradoTrevo == true)
+                    {
+                        <img src="~/images/Icons/icon-luck.png" class="iconsItems" />
+                    }
+                    @if (Model.EncontradoPocao == true)
+                    {
+                        <img src="~/images/Icons/icon-pocaoVida.png" class="iconsItems" />
+                    }
+
+                </div>
+                @if (Model.EncontradoGato == true)
                 {
                     <audio autoplay>
-                        <source src="~/sound/Doh_sound.mp3">
+                        <source src="~/sound/cat audio.mp3">
                     </audio>
+                    <div class="imagemgatopreto">
+                        <img src="~/images/Icons/icon-gatopreto.png" />
+                    </div>
+                }
+
+
+                @if (Model.Monstro == true)
+                {
+                    if (Model.UltimaAccao != PlayerAction.Attack && Model.UltimaAccao != PlayerAction.DrinkPotion)
+                    {
+                        <audio autoplay>
+                            <source src="~/sound/Doh_sound.mp3">
+                        </audio>
+                    }
+
                     <div class="text-right">
                         <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
                         <img src="~/images/Icons/icon-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
@@ -123,10 +155,29 @@
                     </div>
 
                     <!--Imagem do Monstro-->
-                    <div>
-                        <img src="~/images/Inimigos/SideShowBob.png" class="monstro" />
-                    </div>
+                    @if (Model.MensagemDano != "" && Model.MensagemDano != "Miss")
+                    {
+                        <div>
+                            <img src="~/images/Inimigos/SideShowBob-bruised.png" class="monstro" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <img src="~/images/Inimigos/SideShowBob.png" class="monstro" />
+                        </div>
+                    }
                 }
+            }
+            @if (Model.LeveiDano == true)
+            {
+                <div class="puttop"><img src="~/images/Contextual/blood.png" class="imagemblood" /></div>
+            }
+            @if (Model.EncontradoOuro == true)
+            {
+                <div class="text-right">
+                    <img src="~/images/Icons/icon-ouro.png" class="iconsGold" />
+                </div>
             }
         </div>
         <div class="col-sm-3 text-center">
@@ -136,7 +187,7 @@
                     <div class="areabotoes">
                         <div>
                             <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover 
+                            <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover
                         </div>
                         @if (Model.Sala != 1)
                         {
@@ -177,6 +228,5 @@
             </form>
         </div>
     </div>
-
 </body>
 </html>
