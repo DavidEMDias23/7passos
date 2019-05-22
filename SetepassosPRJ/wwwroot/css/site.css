@@ -203,7 +203,6 @@ input[type='radio'] {
     width: 640px;
     height: 520px;
     padding-right: 5px;
-    display: inline-block;
 }
 
 .monstro {
@@ -272,6 +271,12 @@ h3 {
     display: inline-block;
     font-size: 18px;
 }
+.MensagemPassarTempo {
+    color:fuchsia;
+    font-family: Verdana;
+    font-size: 16px;
+    margin-left: 15px;
+}
 .MensagemOutro {
     color: gold;
     font-family: Verdana;
@@ -284,4 +289,10 @@ h3 {
     font-size: 20px;
     margin-left: 18px;
     display: inline-block;
+}
+.MensagemMeuAtaque {
+    color:orangered;
+    font-family: Verdana;
+    font-size: 20px;
+    margin-left: 14px;
 }

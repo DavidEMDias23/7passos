@@ -42,7 +42,7 @@
                 @Model.Nome
             </div>
             <div>
-                <img src="~/images/Icons/icon-vida.png" class="icons" />  <strong>@Model.PontosVida</strong>  <p class="MensagemVidaPos">@Model.MensagemVidaPos</p> <p class="MensagemVidaNeg">@Model.MensagemVidaNeg</p>
+                <img src="~/images/Icons/icon-vida.png" class="icons" />  <strong>@Model.PontosVida</strong>  <p class="MensagemVidaPos">@Model.MensagemVidaPos</p> <p class="MensagemVidaNeg">@Model.MensagemVidaNeg</p>  <p class="MensagemPassarTempo">  @Model.MensagemPassarTempo</p>
             </div>
         </div>
         <div class="col-sm-8">
@@ -90,29 +90,30 @@
         <div class="col-sm-7">
             @if (Model.PontosVida <= 0)
             {
-            <div class="text-center">
-                @Model.MensagemAccao
-                <a asp-action="JogoAcabado"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
-            </div>
+                <div class="text-center">
+                    @Model.MensagemAccao
+                    <a asp-action="JogoAcabado"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
+                </div>
             }
             else
             {
-            <div class="text-right">
-                <p>@Model.MensagemAccao</p>
-            </div>
-            @if (Model.Monstro == true)
-               {
+                <div class="text-right">
+                    <p>@Model.MensagemAccao</p>
+                </div>
+                @if (Model.Monstro == true)
+                {
                 <div class="text-right">
                     <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
                     <img src="~/images/Icons/icon-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
                     <img src="~/images/Icons/icon-forca.png" class="iconsMonstro" /> <strong>@Model.PontosAtaqueMonstro</strong>
+                    <p class="MensagemMeuAtaque">@Model.MensagemMeuAtaque</p>
+                </div>
                     
-                </div>
-                <!--Imagem do Monstro-->
-                <div>
-                <img src="~/images/Inimigos/SideShowBob.png" class="monstro" /> 
-                </div>
-               }
+                    <!--Imagem do Monstro-->
+                    <div>
+                        <img src="~/images/Inimigos/SideShowBob.png" class="monstro" />
+                    </div>
+                }
             }
         </div>
         <div class="col-sm-3 text-center">
@@ -122,13 +123,13 @@
                     <div class="areabotoes">
                         <div>
                             <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> 
+                            <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover 
                         </div>
                         @if (Model.Sala != 1)
                         {
                             <div>
                                 <input name="gameid" value="@Model.GameID" type="hidden" />
-                                <button class="BotoesJogo" type="submit" name="action" value="GoBack"><img src="~/images/btns/btn-recuar1.png" alt="Recuar"></button> 
+                                <button class="BotoesJogo" type="submit" name="action" value="GoBack"><img src="~/images/btns/btn-recuar1.png" alt="Recuar"></button> @Model.TotalMover
                             </div>
                         }
                         <div>
@@ -147,7 +148,7 @@
                         </div>
                         <div>
                             <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="Flee"><img src="~/images/btns/btn-fugir1.png" alt="Fugir"></button> 
+                            <button class="BotoesJogo" type="submit" name="action" value="Flee"><img src="~/images/btns/btn-fugir1.png" alt="Fugir"></button> @Model.TotalMover
                         </div>
                     </div>
                 }
