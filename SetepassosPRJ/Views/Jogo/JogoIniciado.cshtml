@@ -112,6 +112,9 @@
                 </div>
                 @if (Model.Monstro == true)
                 {
+                    <audio autoplay>
+                        <source src="~/sound/SomHomerDoh.mp3">
+                    </audio>
                     <div class="text-right">
                         <img src="~/images/Icons/icon-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
                         <img src="~/images/Icons/icon-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
