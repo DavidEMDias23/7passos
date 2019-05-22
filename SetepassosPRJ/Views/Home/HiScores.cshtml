@@ -22,35 +22,37 @@
             <tbody>
                 @foreach (Jogo jogo in Model)
                 {
-                <tr>
-                    <td>Posição</td>
-                    <td>@jogo.Nome</td>
-                    <td>@jogo.MoedasOuro</td>
-                    <td>
-                        @if (jogo.ResultadoAccao == Result.SuccessVictory)
+                    <tr>
+                        <td>Posição</td>
+                        <td>@jogo.Nome</td>
+                        <td>@jogo.MoedasOuro</td>
+                        <td>
+                            @if (jogo.ResultadoAccao == Result.SuccessVictory)
                             {
-                        @:Vitoria
+                                @:Vitoria
                             }
                             else if (jogo.ResultadoAccao == Result.GameHasEnded || jogo.PontosVida == 0)
                             {
-                        @:Derrota
+                                @:Derrota
                             }
-                    </td>
-                    <td>
-                        @if (jogo.Chave)
+                        </td>
+                        <td>@if (jogo.Chave)
                         {
-                        @:Sim
+                             @:Sim
                         }
                         else
                         {
-                        @:Não
+                             @:Não
                         }
-                </td>
-                <td>@jogo.NumInimigosDerrotados</td>
-                <td> @jogo.NumFugas </td>
-                <td>@jogo.NumAreasInvestigadas</td>
-                <td>@jogo.NumItensEncontrados</td>
-                <td>@jogo.PocoesObtidas</td>
-                <td>@jogo.PocoesUsadas</td>
-            </tr>
+                        </td>
+                        <td>@jogo.NumInimigosDerrotados</td>
+                        <td> @jogo.NumFugas </td>
+                        <td>@jogo.NumAreasInvestigadas</td>
+                        <td>@jogo.NumItensEncontrados</td>
+                        <td>@jogo.PocoesObtidas</td>
+                        <td>@jogo.PocoesUsadas</td>
+                    </tr>
                 }
+            </tbody>
+        </table>
+    </div>
