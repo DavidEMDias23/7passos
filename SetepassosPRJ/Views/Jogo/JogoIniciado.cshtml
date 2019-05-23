@@ -45,18 +45,19 @@
            
         </div>
         <div class="col-sm-3">
-            @if (Model.Monstro == true || Model.UltimaAccao == PlayerAction.Attack)
-            {
-                <div class="text-center">
-                    <img src="~/images/Icons/icon-monstro-luck.png" /> <strong>@Model.PontosSorteMonstro</strong>
-                    <img src="~/images/Icons/icon-monstro-forca.png" /> <strong>@Model.PontosAtaqueMonstro</strong>
-                    <img src="~/images/Icons/icon-monstro-vida.png" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
-                </div>
-                <div>
-                    <p class="MensagemMeuAtaque text-center">@Model.MensagemMeuAtaque</p>
-                </div>
-            }
-        </div>
+            @*@if (Model.Monstro == true || Model.UltimaAccao == PlayerAction.Attack)*@
+                @if (Model.Monstro == true)
+                {
+                    <div class="text-center">
+                        <img src="~/images/Icons/icon-monstro-luck.png" /> <strong>@Model.PontosSorteMonstro</strong>
+                        <img src="~/images/Icons/icon-monstro-forca.png" /> <strong>@Model.PontosAtaqueMonstro</strong>
+                        <img src="~/images/Icons/icon-monstro-vida.png" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
+                    </div>
+                    <div>
+                        <p class="MensagemMeuAtaque text-center">@Model.MensagemMeuAtaque</p>
+                    </div>
+                }
+            </div>
         <div class="col-sm-5">
             <div class="text-center">
                 <img src="~/images/MiniMap/mini-n-sala@(Model.Sala).png" />
