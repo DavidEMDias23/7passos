@@ -45,9 +45,8 @@
            
         </div>
         <div class="col-sm-3">
-            @*@if (Model.Monstro == true || Model.UltimaAccao == PlayerAction.Attack)*@
-                @if (Model.Monstro == true)
-                {
+            @if (Model.Monstro == true || Model.UltimaAccao == PlayerAction.Attack)
+            {
                     <div class="text-center">
                         <img src="~/images/Icons/icon-monstro-luck.png" /> <strong>@Model.PontosSorteMonstro</strong>
                         <img src="~/images/Icons/icon-monstro-forca.png" /> <strong>@Model.PontosAtaqueMonstro</strong>
