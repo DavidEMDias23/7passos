@@ -47,6 +47,8 @@ namespace SetepassosPRJ.Models
         public Result ResultadoAccao { get; set; }
 
         public string MensagemAccao { get; set; }
+        public string MensagemAccaoMonstro { get; set; }
+        public string MensagemAccaoFuga { get; set; }
         public string MensagemVidaPos { get; set; }
         public string MensagemVidaNeg { get; set; }
         public string MensagemAtaque { get; set; }
@@ -111,6 +113,8 @@ namespace SetepassosPRJ.Models
         {
            
             MensagemAccao = "";
+            MensagemAccaoMonstro = "";
+            MensagemAccaoFuga = "";
             MensagemVidaPos = "";
             MensagemVidaNeg = "";
             MensagemAtaque = "";
@@ -174,12 +178,12 @@ namespace SetepassosPRJ.Models
                     //Detetar se inimigo deu dano para meter a mensagem de acordo
                     if (nGS.EnemyDamageSuffered == 0)
                     {
-                        MensagemAccao = MensagemAccao + " Escapaste por um triz! ";
+                        MensagemAccaoFuga = MensagemAccaoFuga + " Escapaste por um triz! ";
                         MensagemVidaNeg = "Miss";
                     }
                     else
                     {
-                        MensagemAccao = MensagemAccao + " Fugiste mas ainda te bateu. ";
+                        MensagemAccaoFuga = MensagemAccaoFuga + " Fugiste mas ainda te bateu. ";
                     }
                     //Detetar se na sala para onde fugimos tem inimigo
                     if (Monstro == true)
@@ -198,16 +202,16 @@ namespace SetepassosPRJ.Models
                     //Ataque acertou ou falhou
                     if (danoDado > 0)
                     {
-                        MensagemDano = "-" + Convert.ToString(danoDado);
+                        MensagemDano = "-" + Convert.ToString(danoDado) + " Hit";
                     }
                     else if (danoDado == 0)
                     {
-                        MensagemDano = "Miss";
+                        MensagemDano = "MISS";
                     }
                     //Detetar se inimigo falhou ataque
                     if (nGS.EnemyDamageSuffered == 0)
                     {
-                        MensagemAccao = MensagemAccao + " Uff... o gajo falhou!";
+                        MensagemAccaoMonstro = MensagemAccaoMonstro + " Uff... o gajo falhou!";
                         MensagemVidaNeg = "Miss";
                     }
                     //Mensagem ataque personalizada
@@ -227,7 +231,7 @@ namespace SetepassosPRJ.Models
                     if (Monstro == false)
                     {
                         NumInimigosDerrotados = NumInimigosDerrotados + 1;
-                        MensagemAccao = MensagemAccao + " Mataste o inimigo!!! ";
+                        MensagemAccaoMonstro = MensagemAccaoMonstro + " Mataste o inimigo!!! ";
                     }
 
                 }
@@ -239,7 +243,7 @@ namespace SetepassosPRJ.Models
                     //Detetar se apareceu monstro
                     if (Monstro == true)
                     {
-                        MensagemAccao = MensagemAccao + " O inimigo estava escondido! ";
+                        MensagemAccaoFuga = MensagemAccaoFuga + " O inimigo estava escondido! ";
                     }
                 }
 
@@ -356,16 +360,16 @@ namespace SetepassosPRJ.Models
                 LeveiDano = true;
                 if (nGS.EnemyDamageSuffered < 2)
                 {
-                    MensagemAccao = MensagemAccao + " O inimigo acertou-te de raspão! ";
+                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te de raspão! ";
                 }
                 if (nGS.EnemyDamageSuffered > 1)
                 {
-                    MensagemAccao = MensagemAccao + " O inimigo acertou-te em cheio! ";
+                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te em cheio! ";
                 }
             }
 
-            //Sempre que existir inimigo acertar vida do monstro, fazer no fim para poder calcular dano que monstro levou.
-            if (nGS.FoundEnemy == true)
+            //Sempre que houver combate acertar vida do monstro, fazer no fim para poder calcular dano que monstro levou.
+            if ((nGS.FoundEnemy == true) || (nGS.FoundEnemy == false && UltimaAccao == PlayerAction.Attack))
                 {
                     PontosVidaMonstro = nGS.EnemyHealthPoints;
                 }
@@ -373,7 +377,7 @@ namespace SetepassosPRJ.Models
             //Se a accao for Inválida
             if (ResultadoAccao == Result.InvalidAction)
             {
-                MensagemAccao = "!! Essa acção não é válida !!";
+                MensagemAccao = "Essa acção não é válida. Já tinhas procurado esta sala.";
             }
             //Accao em jogo terminado
             if (ResultadoAccao == Result.GameHasEnded)
