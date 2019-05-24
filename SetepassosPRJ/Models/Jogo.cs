@@ -25,7 +25,6 @@ namespace SetepassosPRJ.Models
 
         public int NumFugas { get; set; }
         public int NumInimigosDerrotados { get; set; }
-        public int NumAreasInvestigadas { get; set; }
         public int NumItensEncontrados { get; set; }
         public int PocoesObtidas { get; set; }
         public int PocoesUsadas { get; set; }
@@ -34,7 +33,6 @@ namespace SetepassosPRJ.Models
 
         public int TotalMover { get; set; }
         public int TotalAtaques { get; set; }
-        public int TotalPocoesUsadas { get; set; }
         public int TotalAreasExaminadas { get; set; }
         public bool Recuou { get; set; }
         public int Bonus { get; set; }
@@ -72,11 +70,10 @@ namespace SetepassosPRJ.Models
             MoedasOuro = 0;
             Sala = 0;
             PocoesVida = 1;
-
-
+            PocoesObtidas = 0;
+            PocoesUsadas = 0;
             TotalMover = -1;
             TotalAtaques = 0;
-            TotalPocoesUsadas = 0;
             TotalAreasExaminadas = 0;
 
             if (perfilTipoEscolhido == "S")
@@ -174,6 +171,7 @@ namespace SetepassosPRJ.Models
                 {
                     TotalMover = TotalMover + 1;
                     Sala = Sala +1;
+                    NumFugas = NumFugas + 1;
                     //Detetar se inimigo deu dano para meter a mensagem de acordo
                     if (nGS.EnemyDamageSuffered == 0)
                     {
@@ -300,7 +298,7 @@ namespace SetepassosPRJ.Models
                 }
                 if (nGS.FoundItem == true)
                 {
-                    NumItensEncontrados = NumItensEncontrados + 1;
+                    
                     EncontradoItem = true;
                     if (nGS.ItemHealthEffect > 0 && PontosVida < 5)
                     {
@@ -310,12 +308,14 @@ namespace SetepassosPRJ.Models
                         double VidaGanha = nGS.ItemHealthEffect;
                         MensagemVidaPos = "+" + VidaGanha;
                         PontosVida = PontosVida + VidaGanha;
+                        NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else 
                         {
                             double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
                             double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
                             MensagemVidaPos = "+" + VidaGanha;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                     else if (nGS.ItemHealthEffect < 0)
@@ -323,6 +323,7 @@ namespace SetepassosPRJ.Models
                         MensagemVidaNeg = Convert.ToString(nGS.ItemHealthEffect);
                         MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA era leite estragado! ";
                         PontosVida = PontosVida + nGS.ItemHealthEffect;
+                        NumItensEncontrados = NumItensEncontrados + 1;
                     }
 
                     if (nGS.ItemAttackEffect > 0 && PontosAtaque < 5)
@@ -333,6 +334,7 @@ namespace SetepassosPRJ.Models
                             int AtaqueGanho = nGS.ItemAttackEffect;
                             MensagemAtaque = "+" + AtaqueGanho;
                             PontosAtaque = PontosAtaque + AtaqueGanho;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
@@ -340,6 +342,7 @@ namespace SetepassosPRJ.Models
                             int AtaqueGanho = nGS.ItemAttackEffect - AtaqueGanhoDiferenca;
                             PontosAtaque = PontosAtaque + AtaqueGanho;
                             MensagemAtaque = "+" + AtaqueGanho;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                     else if (nGS.ItemAttackEffect < 0)
@@ -350,12 +353,14 @@ namespace SetepassosPRJ.Models
                         {
                             PontosAtaque = PontosAtaque + nGS.ItemAttackEffect;
                             MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
                             int AtaquePerdidoDiferenca = PontosAtaque + nGS.ItemAttackEffect;
                             PontosAtaque = 0;
                             MensagemAtaque = "-" + (nGS.ItemAttackEffect - AtaquePerdidoDiferenca);
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
 
@@ -368,12 +373,14 @@ namespace SetepassosPRJ.Models
                         {
                             MensagemSorte = "+" + Convert.ToString(nGS.ItemLuckEffect);
                             PontosSorte = PontosSorte + nGS.ItemLuckEffect;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
                             int SorteGanhaDiferenca = PontosSorte + nGS.ItemLuckEffect - 5;
                             MensagemSorte = "+" + SorteGanhaDiferenca;
                             PontosSorte = PontosSorte + SorteGanhaDiferenca;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                     else if (nGS.ItemLuckEffect < 0)
@@ -384,12 +391,14 @@ namespace SetepassosPRJ.Models
                         {
                             MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
                             PontosSorte = PontosSorte + nGS.ItemLuckEffect;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
                             int SortePerdidaDiferenca = PontosSorte + nGS.ItemLuckEffect;
                             MensagemSorte = Convert.ToString(nGS.ItemLuckEffect - SortePerdidaDiferenca);
                             PontosSorte = 0;
+                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                 }
