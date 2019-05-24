@@ -127,9 +127,7 @@ namespace SetepassosPRJ.Models
             MensagemMeuAtaque = "";
             MensagemPassarTempo = "";
 
-            PontosVida = PontosVida + nGS.ItemHealthEffect;
-            PontosAtaque = PontosAtaque + nGS.ItemAttackEffect;
-            PontosSorte = PontosSorte + nGS.ItemLuckEffect;
+            
             MoedasOuro = MoedasOuro + nGS.GoldFound;
             GameID = nGS.GameID;
             Monstro = nGS.FoundEnemy;
@@ -303,40 +301,95 @@ namespace SetepassosPRJ.Models
                 {
                     NumItensEncontrados = NumItensEncontrados + 1;
                     EncontradoItem = true;
-                    if (nGS.ItemHealthEffect > 0)
+                    if (nGS.ItemHealthEffect > 0 && PontosVida < 5)
                     {
-                        MensagemVidaPos = "+" + Convert.ToString(nGS.ItemHealthEffect);
                         MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA deu-te vida! ";
+                        if (PontosVida + nGS.ItemHealthEffect <= 5)
+                        {
+                        double VidaGanha = nGS.ItemHealthEffect;
+                        MensagemVidaPos = "+" + VidaGanha;
+                        PontosVida = PontosVida + VidaGanha;
+                        }
+                        else 
+                        {
+                            double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
+                            double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
+                            MensagemVidaPos = "+" + VidaGanha;
+                        }
                     }
                     else if (nGS.ItemHealthEffect < 0)
                     {
                         MensagemVidaNeg = Convert.ToString(nGS.ItemHealthEffect);
                         MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA era leite estragado! ";
+                        PontosVida = PontosVida + nGS.ItemHealthEffect;
                     }
 
-                    if (nGS.ItemAttackEffect > 0)
+                    if (nGS.ItemAttackEffect > 0 && PontosAtaque < 5)
                     {
-                        MensagemAtaque = "+" + Convert.ToString(nGS.ItemAttackEffect);
                         MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA que aumentou o ataque! ";
+                        if (PontosAtaque + nGS.ItemAttackEffect <= 5)
+                        {
+                            int AtaqueGanho = nGS.ItemAttackEffect;
+                            MensagemAtaque = "+" + AtaqueGanho;
+                            PontosAtaque = PontosAtaque + AtaqueGanho;
+                        }
+                        else
+                        {
+                            int AtaqueGanhoDiferenca = PontosAtaque + nGS.ItemAttackEffect - 5;
+                            int AtaqueGanho = nGS.ItemAttackEffect - AtaqueGanhoDiferenca;
+                            PontosAtaque = PontosAtaque + AtaqueGanho;
+                            MensagemAtaque = "+" + AtaqueGanho;
+                        }
                     }
                     else if (nGS.ItemAttackEffect < 0)
                     {
                         MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
                         MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA que diminuiu o ataque! ";
+                        if (PontosAtaque + nGS.ItemAttackEffect >= 0)
+                        {
+                            PontosAtaque = PontosAtaque + nGS.ItemAttackEffect;
+                            MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
+                        }
+                        else
+                        {
+                            int AtaquePerdidoDiferenca = PontosAtaque + nGS.ItemAttackEffect;
+                            PontosAtaque = 0;
+                            MensagemAtaque = "-" + (nGS.ItemAttackEffect - AtaquePerdidoDiferenca);
+                        }
                     }
 
 
                     if (nGS.ItemLuckEffect > 0)
                     {
-                        MensagemSorte = "+" + Convert.ToString(nGS.ItemLuckEffect);
-                        MensagemAccao = MensagemAccao + " Encontraste um trevo de 4 folhas! ";
                         EncontradoTrevo = true;
+                        MensagemAccao = MensagemAccao + " Encontraste um trevo de 4 folhas! ";
+                        if (PontosSorte + nGS.ItemLuckEffect <= 5)
+                        {
+                            MensagemSorte = "+" + Convert.ToString(nGS.ItemLuckEffect);
+                            PontosSorte = PontosSorte + nGS.ItemLuckEffect;
+                        }
+                        else
+                        {
+                            int SorteGanhaDiferenca = PontosSorte + nGS.ItemLuckEffect - 5;
+                            MensagemSorte = "+" + SorteGanhaDiferenca;
+                            PontosSorte = PontosSorte + SorteGanhaDiferenca;
+                        }
                     }
                     else if (nGS.ItemLuckEffect < 0)
                     {
-                        MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
                         MensagemAccao = MensagemAccao + " Passou um gato preto à tua frente! ";
                         EncontradoGato = true;
+                        if (PontosSorte + nGS.ItemLuckEffect >= 0)
+                        {
+                            MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
+                            PontosSorte = PontosSorte + nGS.ItemLuckEffect;
+                        }
+                        else
+                        {
+                            int SortePerdidaDiferenca = PontosSorte + nGS.ItemLuckEffect;
+                            MensagemSorte = Convert.ToString(nGS.ItemLuckEffect - SortePerdidaDiferenca);
+                            PontosSorte = 0;
+                        }
                     }
                 }
                 //Encontrar donuts e dar ênfase se for mais de 100 donuts

@@ -47,10 +47,10 @@
         <div class="col-sm-3">
             @if (Model.Monstro == true || Model.UltimaAccao == PlayerAction.Attack)
             {
-                    <div class="text-center">
-                        <img src="~/images/Icons/icon-monstro-luck.png" /> <strong>@Model.PontosSorteMonstro</strong>
-                        <img src="~/images/Icons/icon-monstro-forca.png" /> <strong>@Model.PontosAtaqueMonstro</strong>
-                        <img src="~/images/Icons/icon-monstro-vida.png" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
+                    <div>
+                        <img src="~/images/Icons/icon-monstro-luck.png" class="iconsMonstro"/> <strong>@Model.PontosSorteMonstro</strong>
+                        <img src="~/images/Icons/icon-monstro-forca.png" class="iconsMonstro"/> <strong>@Model.PontosAtaqueMonstro</strong>
+                        <img src="~/images/Icons/icon-monstro-vida.png" class="iconsMonstro"/> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
                     </div>
                     <div>
                         <p class="MensagemMeuAtaque text-center">@Model.MensagemMeuAtaque</p>
@@ -125,32 +125,34 @@
                 <div class="areajogavel">
                     <div class="text-right">
                         <div>
+                            <p class="MensagemAccaoFuga"> @Model.MensagemAccaoFuga</p>
+                        </div>
+                        <div>
                             <p class="MensagemAccao">@Model.MensagemAccao</p>
+                        </div>
+                        <div class="text-right">
+                            @if (Model.EncontradoItem == true)
+                            {
+                                <img src="~/images/Icons/icon-surpresa.png" class="iconsItems" />
+                            }
+                            @if (Model.EncontradoTrevo == true)
+                            {
+                                <img src="~/images/Icons/icon-luck.png" class="iconsItems" />
+                            }
+                            @if (Model.EncontradoPocao == true)
+                            {
+                                <img src="~/images/Icons/icon-pocaoVida.png" class="iconsItems" />
+                            }
+
                         </div>
                         <div>
                             <p class="MensagemAccaoMonstro">@Model.MensagemAccaoMonstro</p>
                         </div>
-                        <div>
-                            <p class="MensagemAccaoFuga"> @Model.MensagemAccaoFuga</p>
-                        </div>
+
 
                     </div>
 
-                    <div class="text-right">
-                        @if (Model.EncontradoItem == true)
-                        {
-                            <img src="~/images/Icons/icon-surpresa.png" class="iconsItems" />
-                        }
-                        @if (Model.EncontradoTrevo == true)
-                        {
-                            <img src="~/images/Icons/icon-luck.png" class="iconsItems" />
-                        }
-                        @if (Model.EncontradoPocao == true)
-                        {
-                            <img src="~/images/Icons/icon-pocaoVida.png" class="iconsItems" />
-                        }
-
-                    </div>
+                    
                     @if (Model.EncontradoOuro == true)
                     {
                         <div class="text-right inline-block">

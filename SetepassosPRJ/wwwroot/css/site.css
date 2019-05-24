@@ -69,6 +69,12 @@ img {
     width: 5%;
     margin: 2px;
 }
+.iconsMonstro {
+    width: 10%;
+    margin: 2px;
+    display:inline-block;
+}
+
 
 
 
@@ -258,62 +264,65 @@ h3 {
 
 /*Mensagens de contexto*/
 .MensagemVidaPos {
-    color:chartreuse;
+    color: chartreuse;
     font-family: Verdana;
     display: inline-block;
-    font-size:21px;
+    font-size: 1.2vw;
+    font-weight: bold;
 }
 .MensagemVidaNeg {
     color: deeppink;
     font-family: Verdana;
     display: inline-block;
-    font-size: 21px;
+    font-size: 1.2vw;
+    font-weight: bold;
 }
 .MensagemPassarTempo {
     color:fuchsia;
     font-family: Verdana;
     font-size: 16px;
-    margin-left: 15px;
+    margin-left: 0.7vw;
 }
 .MensagemOutro {
     color: gold;
     font-family: Verdana;
     display: inline-block;
-    font-size: 18px;
+    font-size: 1.2vw;
+    font-weight: bold;
 }
 .MensagemDano {
     color:deeppink;
     font-family: Verdana;
-    font-size: 20px;
+    font-size: 1.2vw;
     display: inline-block;
     font-weight:bold;
 }
 .MensagemMeuAtaque {
     color:yellow;
     font-family: Verdana;
-    font-size: 18px;
+    font-size: 1vw;
     top:5px;
     text-shadow:1px 1px 1px black;
 }
 .MensagemAccao {
     color:aliceblue;
     font-family: Verdana;
-    font-size: 20px;
-    top:5px;
+    font-size:1.05vw;
+    top: 5px;
     text-shadow: 1px 1px 1px black;
 }
 .MensagemAccaoFuga {
-    color:khaki;
+    color: khaki;
     font-family: Verdana;
-    font-size: 20px;
+    font-size: 1.1vw;
     top: 5px;
     text-shadow: 1px 1px 1px black;
 }
 
 .MensagemAccaoMonstro {
-    color:darksalmon;
+    color: darksalmon;
     font-family: Verdana;
-    font-size: 20px;
+    font-size: 1.1vw;
     top: 5px;
     text-shadow: 0.8px 0.8px 0.8px black;
 }
