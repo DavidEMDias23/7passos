@@ -25,6 +25,12 @@ namespace SetepassosPRJ.Controllers
             List<Jogo> jogos = RepositorioJogos.ListaJogos;
             jogos.Sort();
             jogos.Reverse();
+            int rank = 1;
+            foreach(Jogo jg in jogos)
+            {
+                jg.Posicao = rank;
+                rank++;
+            }
             return View(jogos);
         }
 
