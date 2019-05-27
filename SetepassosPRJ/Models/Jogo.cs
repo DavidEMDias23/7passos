@@ -170,8 +170,7 @@ namespace SetepassosPRJ.Models
                 if (UltimaAccao == PlayerAction.Flee)
                 {
                     TotalMover = TotalMover + 1;
-                    Sala = Sala +1;
-                    NumFugas = NumFugas + 1;
+                     NumFugas = NumFugas + 1;
                     //Detetar se inimigo deu dano para meter a mensagem de acordo
                     if (nGS.EnemyDamageSuffered == 0)
                     {
@@ -185,9 +184,23 @@ namespace SetepassosPRJ.Models
                     //Detetar se na sala para onde fugimos tem inimigo
                     if (Monstro == true)
                     {
-                        MensagemAccao = MensagemAccao + " Azar... Nesta sala há outro inimigo! ";
+                        MensagemAccao = MensagemAccao + " Azar...Fugiste para uma sala com outro inimigo! ";
                     }
-
+                    if (Sala == 7)
+                    {
+                        if (Chave == true) //Vai para sala 8 e ganha.
+                        {
+                            Sala = Sala + 1;
+                        }
+                        else
+                        {
+                            Sala = Sala - 1; //Não tem chave volta para a 6
+                        }
+                    }
+                    else if (Sala < 7)
+                    {
+                        Sala = Sala + 1;
+                    }
                 }
 
                 //Atacar sucesso
