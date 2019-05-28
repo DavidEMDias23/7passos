@@ -31,6 +31,7 @@ namespace SetepassosPRJ.Models
         public int GameID { get; set; }
         public int Posicao { get; set; }
 
+
         public int TotalMover { get; set; }
         public int TotalAtaques { get; set; }
         public int TotalAreasExaminadas { get; set; }
@@ -188,9 +189,10 @@ namespace SetepassosPRJ.Models
                     }
                     if (Sala == 7)
                     {
-                        if (Chave == true) //Vai para sala 8 e ganha.
+                        if (Chave == true) //Vai ganha
                         {
-                            Sala = Sala + 1;
+                            ResultadoAccao = Result.SuccessVictory;
+                            MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
                         }
                         else
                         {
