@@ -31,9 +31,13 @@
                             {
                                 @:Vitoria
                             }
-                            else if (jogo.ResultadoAccao == Result.GameHasEnded && jogo.PontosVida <= 0 || jogo.ResultadoAccao == Result.Success && jogo.PontosVida <= 0 || jogo.PocoesVida <= 0)
+                            else if (jogo.ResultadoAccao == Result.GameHasEnded && jogo.PontosVida <= 0 || jogo.ResultadoAccao == Result.Success && jogo.PontosVida <= 0)
                             {
                                 @:Derrota
+                            }
+                           @if (jogo.Desistiu == true)
+                            {
+                                @:Desistiu
                             }
                         </td>
                         <td>@if (jogo.Chave)

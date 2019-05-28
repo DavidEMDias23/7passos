@@ -67,27 +67,34 @@ namespace SetepassosPRJ.Controllers
         [HttpPost]
         public async Task<IActionResult> AccaoJogo(int gameid, PlayerAction action)
         {
-            HttpClient client = NewGameHttpClient.Client;
-            string path = "/api/Play";
+            Jogo JogoAtual = RepositorioJogos.GetJogo(gameid);
 
-            Jogo novoJogo = RepositorioJogos.GetJogo(gameid);
+            if (action != PlayerAction.Quit)
+            {
+                HttpClient client = NewGameHttpClient.Client;
+                string path = "/api/Play";
 
-            AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(gameid, action);
-            string json = JsonConvert.SerializeObject(aj);
+                AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(gameid, action);
+                string json = JsonConvert.SerializeObject(aj);
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
-            request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
+                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.SendAsync(request);
-            if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (!response.IsSuccessStatusCode) { return Redirect("/"); }
 
-            string json_r = await response.Content.ReadAsStringAsync();
-            GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
-         
+                string json_r = await response.Content.ReadAsStringAsync();
+                GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
-            novoJogo.AtualizarJogo(gs);
-
-            return View("JogoIniciado", novoJogo);
+                JogoAtual.AtualizarJogo(gs);
+            }
+            else
+            {
+                JogoAtual.MensagemAccao = "Desististe do Jogo";
+                JogoAtual.CalcularBonus();
+                JogoAtual.Desistiu = true;
+            }
+            return View("JogoIniciado", JogoAtual);
         }
     }
 }

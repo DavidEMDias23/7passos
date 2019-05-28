@@ -15,6 +15,7 @@ namespace SetepassosPRJ.Models
         public int PocoesVida { get; set; }
         public bool Chave { get; set; }
         public int Sala { get; set; }
+        public bool Desistiu { get; set; }
       
 
         public bool Monstro { get; set; }
@@ -187,21 +188,16 @@ namespace SetepassosPRJ.Models
                     {
                         MensagemAccao = MensagemAccao + " Azar...Fugiste para uma sala com outro inimigo! ";
                     }
-                    if (Sala == 7)
+                    if (Sala < 7)
                     {
-                        if (Chave == true) //Vai ganha
-                        {
-                            ResultadoAccao = Result.SuccessVictory;
-                            MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
-                        }
-                        else
-                        {
-                            Sala = Sala - 1; //Não tem chave volta para a 6
-                        }
+                        Sala = Sala +1;
                     }
-                    else if (Sala < 7)
+                    else
                     {
-                        Sala = Sala + 1;
+                        if (Chave == false)
+                            {
+                             Sala = Sala - 1;
+                            }
                     }
                 }
 
@@ -258,6 +254,7 @@ namespace SetepassosPRJ.Models
                         MensagemAccaoFuga = MensagemAccaoFuga + " O inimigo estava escondido! ";
                     }
                 }
+
 
                 //Beber Pocao Sucesso
                 if (UltimaAccao == PlayerAction.DrinkPotion)
@@ -466,6 +463,10 @@ namespace SetepassosPRJ.Models
             if (ResultadoAccao == Result.SuccessVictory)
             {
                 MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
+                if (UltimaAccao == PlayerAction.Flee)
+                {
+                    NumFugas = NumFugas + 1;
+                }
             }
 
             PassagemTempo();

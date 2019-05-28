@@ -104,7 +104,7 @@
         </div>
 
         <div class="col-sm-7">
-            @if (Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded)
+            @if (Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu == true)
             {
                 <div class="text-center mensagemSaida">
                     @Model.MensagemAccao
@@ -240,14 +240,18 @@
                         </div>
                     </div>
                 }
-
+                @if (Model.PocoesVida > 0)
+                {
                 <div>
                     <input name="gameid" value="@Model.GameID" type="hidden" />
                     <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao1.png" alt="Beber Poção"></button>
                 </div>
+                }
                 <div>
-                    <input name="gameid" value="@Model.GameID" type="hidden" />
-                    <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir1.png" alt="Desistir"></button>
+                    <div>
+                        <input name="gameid" value="@Model.GameID" type="hidden" />
+                        <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir1.png" alt="Desistir"></button>
+                    </div>
                 </div>
             </form>
         </div>
