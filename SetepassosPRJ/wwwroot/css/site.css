@@ -109,6 +109,17 @@ img {
     border-style: none;
 }
 
+.BotaoSair {
+    background: none;
+    border-color: none;
+    border-style: none;
+}
+
+.BotoesSair:hover {
+    filter: brightness(1.4);
+    opacity: 0.7;
+}
+
 .BotoesJogo {
     width: 50%;
     height:20%;

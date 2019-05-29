@@ -63,6 +63,15 @@ namespace SetepassosPRJ.Models
         public string MensagemPassarTempo { get; set; }
         public string MensagemMeuAtaque { get; set; }
 
+        public int BonusVitoria { get; set; }
+        public int BonusChave { get; set; }
+        public int BonusPocao { get; set; }
+        public int BonusInimigo { get; set; }
+        public int BonusItem { get; set; }
+        public int BonusRecuar { get; set; }
+        public int BonusLutar { get; set; }
+        public int BonusVida { get; set; }
+
         public PlayerAction UltimaAccao { get; set; }
 
         
@@ -504,26 +513,34 @@ namespace SetepassosPRJ.Models
             if (ResultadoAccao == Result.SuccessVictory)
             {
                 Bonus = Bonus + 3000;
+                BonusVitoria = 3000;
                 if (Recuou == false)
                 {
                     Bonus = Bonus + 400;
+                    BonusRecuar = 400;
                 }
                 if (TotalAtaques == 0)
                 {
                     Bonus = Bonus + 800;
+                    BonusLutar = 800;
                 }
                 if (PontosVida < 0.5)
                 {
                     Bonus = Bonus + 999;
+                    BonusVida = 999;
                 }
             }
             if (Chave == true)
             {
                 Bonus = Bonus + 1000;
+                BonusChave = 1000;
             }
             Bonus = Bonus + (PocoesVida * 750) + (NumInimigosDerrotados * 300) + (NumItensEncontrados * 100);
             MoedasOuroTotal = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
+            BonusPocao = PocoesVida * 750;
+            BonusInimigo = NumInimigosDerrotados * 300;
+            BonusItem = NumItensEncontrados * 100;
         }
 
         public int CompareTo(object obj)

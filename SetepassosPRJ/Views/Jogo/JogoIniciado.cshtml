@@ -102,23 +102,26 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="col-sm-7">
             @if (Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu == true)
             {
-                <div class="text-center mensagemSaida">
-                    @Model.MensagemAccao
-                    <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair" z-index="3"></a>
-                </div>
-
+                <form asp-action="DadosJogo" method="post">
+            <div class="text-center mensagemSaida">
+                @Model.MensagemAccao
+               <button class="BotaoSair" type="submit" name="gameid" value="@Model.GameID"><img src="~/images/btns/btn-sair.png" alt="Sair" z-index="3"></button> 
+            </div>
+                    </form>
             }
             else if (Model.ResultadoAccao == Result.SuccessVictory)
             {
-                <div class="text-center mensagemSaida">
-                    @Model.MensagemAccao
-                    <a asp-action="HiScores" asp-controller="Home"><img src="~/images/btns/btn-sair.png" alt="Sair"></a>
-                </div>
-                <img src="~/images/Contextual/victory.png" />
+                <form asp-action="DadosJogo" method="post">
+                    <div class="text-center mensagemSaida">
+                        @Model.MensagemAccao
+                        <button  class="BotaoSair" type="submit" name="gameid" value="@Model.GameID"><img src="~/images/btns/btn-sair.png" alt="Sair"></button>
+                    </div>
+                    <img src="~/images/Contextual/victory.png" />
+                </form>
             }
             else
             {

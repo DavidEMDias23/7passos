@@ -20,6 +20,19 @@ namespace SetepassosPRJ.Controllers
         }
 
         [HttpGet]
+        public IActionResult DadosJogo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DadosJogo(int gameid)
+        {
+            Jogo JogoAtual = RepositorioJogos.GetJogo(gameid);
+            return View("DadosJogo", JogoAtual);
+        }
+
+        [HttpGet]
         public IActionResult CriarJogo()
         {
             return View();

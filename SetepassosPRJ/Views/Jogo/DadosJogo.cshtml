@@ -1,0 +1,36 @@
+﻿@model SetepassosPRJ.Models.Jogo
+@{
+}
+<div class="row">
+    <div class="col-sm-12 text-center"><h1>Dados do Jogo</h1></div>
+</div>
+<div class="row">
+    <div class="col-sm-6 text-center">
+        <h2>Informações básicas</h2>
+        <p>Inimigos Derrotados: @Model.NumInimigosDerrotados</p>
+        <p>Itens Encontrados: @Model.NumItensEncontrados</p>
+        <p>Numero de Fugas: @Model.NumFugas</p>
+        <p>Numero de Áreas Examinadas: @Model.TotalAreasExaminadas</p>
+        <p>Numero de Ataques: @Model.TotalAtaques</p>
+        <p>Numero de Movimentos: @Model.TotalMover</p>
+        <p>Numero de Poções Obtidas/Usadas: @Model.PocoesObtidas/@Model.PocoesUsadas </p>
+        <p>Moedas: @Model.MoedasOuroTotal</p>
+    </div>
+
+    <div class="col-sm-6 text-center">
+        <h2>O Bónus</h2>
+        <p>Ganhar o Jogo: @Model.BonusVitoria Moedas</p>
+        <p>Encontrar Chave: @Model.BonusChave Moedas</p>
+        <p>Cada Poção Transportada: @Model.BonusPocao Moedas</p>
+        <p>Cada Inimigo Vencido: @Model.BonusInimigo Moedas</p>
+        <p>Cada Item Encontrado: @Model.BonusItem Moedas</p>
+        <p>Ganhar o jogo sem Recuar: @Model.BonusRecuar Moedas </p>
+        <p>Ganhar o jogo sem Lutar: @Model.BonusLutar Moedas</p>
+        <p>Ganhar o jogo com menos de 0.5 pontos de vida: @Model.BonusVida Moedas</p>
+        <p>Total de Bónus Obtido: @Model.Bonus</p>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12 text-center"><p>PS: Pode sempre verificar o seu score na página de HiScores</p></div>
+</div>
