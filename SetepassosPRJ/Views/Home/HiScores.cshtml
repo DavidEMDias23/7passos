@@ -2,6 +2,13 @@
 @{
     ViewData["Title"] = "HiScores";
 }
+
+@if (Model.Count == 0)
+{
+    <h2>Não existem jogos registados.</h2>
+}
+else
+{
     <div class="text-center">
         <table id="tabela" class="table table-condensed">
             <thead>
@@ -36,7 +43,7 @@
                                 @:Derrota
                             }
                            @if (jogo.Desistiu == true)
-                            {
+                           {
                                 @:Desistiu
                             }
                         </td>
@@ -60,3 +67,4 @@
             </tbody>
         </table>
     </div>
+}

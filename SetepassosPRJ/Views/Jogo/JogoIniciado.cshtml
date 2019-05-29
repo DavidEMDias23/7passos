@@ -27,20 +27,7 @@
     <div class="row">
         <div class="col-sm-2">
             <div class="text-left">
-
-                @if (Model.PerfilTipo == "B")
-                {
-                    <img src="~/images/Nerd-Frame mini.png" class="icons" />
-                }
-                else if (Model.PerfilTipo == "S")
-                {
-                    <img src="~/images/Fat-Frame mini.png" class="icons" />
-                }
-                else if (Model.PerfilTipo == "W")
-                {
-                    <img src="~/images/Old-Frame mini.png" class="icons" />
-                }
-                @Model.Nome
+                    <img src="~/images/@(Model.PerfilTipo) Frame mini.png" class="icons" />  @Model.Nome
             </div>
            
         </div>
@@ -212,10 +199,13 @@
                 @if (Model.Monstro == false)
                 {
                     <div class="areabotoes">
+                        @if (Model.Sala != 7 || (Model.Sala == 7 && Model.Chave == true))
+                        {
                         <div>
                             <input name="gameid" value="@Model.GameID" type="hidden" />
                             <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover
                         </div>
+                        }
                         @if (Model.Sala != 1)
                         {
                             <div>

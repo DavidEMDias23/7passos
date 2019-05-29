@@ -280,6 +280,13 @@ h3 {
     position: relative;
 }
 
+.tabelaBonus {
+    background-color:floralwhite;
+    border: outset;
+    border-color:maroon;
+    border-width: 5px;
+}
+
 /*Mensagens de contexto*/
 .MensagemVidaPos {
     color: chartreuse;
@@ -370,5 +377,14 @@ h3 {
 .mensagemSaida {
     position:relative;
     z-index:3;
+}
+
+.MensagemBonus {
+    color: darksalmon;
+    font-family: Verdana;
+    font-size: 0.9vw;
+    top: 5px;
+    text-shadow: 0.8px 0.8px 0.8px black;
+    vertical-align: middle;
 }
 

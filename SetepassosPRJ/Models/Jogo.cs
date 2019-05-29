@@ -16,7 +16,7 @@ namespace SetepassosPRJ.Models
         public bool Chave { get; set; }
         public int Sala { get; set; }
         public bool Desistiu { get; set; }
-      
+        
 
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
@@ -466,7 +466,34 @@ namespace SetepassosPRJ.Models
             //Se a accao for Inválida
             if (ResultadoAccao == Result.InvalidAction)
             {
-                MensagemAccao = "Essa acção não é válida. Já tinhas procurado esta sala.";
+                if (UltimaAccao == PlayerAction.SearchArea)
+                {
+                    MensagemAccao = "Essa acção não é válida. Já tinhas procurado esta sala.";
+                }
+                if (UltimaAccao == PlayerAction.GoForward)
+                {
+                    MensagemAccao = "Não podes andar para a frente.";
+                }
+                if (UltimaAccao == PlayerAction.GoBack)
+                {
+                    MensagemAccao = "Não podes andar para trás.";
+                }
+                if (UltimaAccao == PlayerAction.Flee)
+                {
+                    MensagemAccao = "Não podes fugir.";
+                }
+                if (UltimaAccao == PlayerAction.Attack)
+                {
+                    MensagemAccao = "Não podes atacar.";
+                }
+                if (UltimaAccao == PlayerAction.DrinkPotion)
+                {
+                    MensagemAccao = "Não podes beber cerveja agora.";
+                }
+                if (UltimaAccao == PlayerAction.Quit)
+                {
+                    MensagemAccao = "Não dá para desistir.";
+                }
             }
             //Accao em jogo terminado
             if (ResultadoAccao == Result.GameHasEnded)
@@ -512,35 +539,32 @@ namespace SetepassosPRJ.Models
             
             if (ResultadoAccao == Result.SuccessVictory)
             {
-                Bonus = Bonus + 3000;
                 BonusVitoria = 3000;
                 if (Recuou == false)
                 {
-                    Bonus = Bonus + 400;
                     BonusRecuar = 400;
                 }
                 if (TotalAtaques == 0)
                 {
-                    Bonus = Bonus + 800;
                     BonusLutar = 800;
                 }
                 if (PontosVida < 0.5)
                 {
-                    Bonus = Bonus + 999;
                     BonusVida = 999;
                 }
             }
             if (Chave == true)
             {
-                Bonus = Bonus + 1000;
                 BonusChave = 1000;
             }
-            Bonus = Bonus + (PocoesVida * 750) + (NumInimigosDerrotados * 300) + (NumItensEncontrados * 100);
-            MoedasOuroTotal = MoedasOuro + Bonus;
-            MensagemOuro = "Ganhaste um Bonus de " + Bonus;
+
             BonusPocao = PocoesVida * 750;
             BonusInimigo = NumInimigosDerrotados * 300;
             BonusItem = NumItensEncontrados * 100;
+
+            Bonus = BonusVitoria + BonusRecuar + BonusLutar + BonusVida + BonusPocao + BonusChave + BonusInimigo + BonusItem;
+            MoedasOuroTotal = MoedasOuro + Bonus;
+            MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
 
         public int CompareTo(object obj)

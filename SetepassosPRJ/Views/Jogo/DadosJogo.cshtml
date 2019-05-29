@@ -4,33 +4,66 @@
 <div class="row">
     <div class="col-sm-12 text-center"><h1>Dados do Jogo</h1></div>
 </div>
-<div class="row">
-    <div class="col-sm-6 text-center">
-        <h2>Informações básicas</h2>
-        <p>Inimigos Derrotados: @Model.NumInimigosDerrotados</p>
-        <p>Itens Encontrados: @Model.NumItensEncontrados</p>
-        <p>Numero de Fugas: @Model.NumFugas</p>
-        <p>Numero de Áreas Examinadas: @Model.TotalAreasExaminadas</p>
-        <p>Numero de Ataques: @Model.TotalAtaques</p>
-        <p>Numero de Movimentos: @Model.TotalMover</p>
-        <p>Numero de Poções Obtidas/Usadas: @Model.PocoesObtidas/@Model.PocoesUsadas </p>
-        <p>Moedas: @Model.MoedasOuroTotal</p>
-    </div>
-
-    <div class="col-sm-6 text-center">
-        <h2>O Bónus</h2>
-        <p>Ganhar o Jogo: @Model.BonusVitoria Moedas</p>
-        <p>Encontrar Chave: @Model.BonusChave Moedas</p>
-        <p>Cada Poção Transportada: @Model.BonusPocao Moedas</p>
-        <p>Cada Inimigo Vencido: @Model.BonusInimigo Moedas</p>
-        <p>Cada Item Encontrado: @Model.BonusItem Moedas</p>
-        <p>Ganhar o jogo sem Recuar: @Model.BonusRecuar Moedas </p>
-        <p>Ganhar o jogo sem Lutar: @Model.BonusLutar Moedas</p>
-        <p>Ganhar o jogo com menos de 0.5 pontos de vida: @Model.BonusVida Moedas</p>
-        <p>Total de Bónus Obtido: @Model.Bonus</p>
-    </div>
-</div>
 <br />
 <div class="row">
-    <div class="col-sm-12 text-center"><p>PS: Pode sempre verificar o seu score na página de HiScores</p></div>
+    <div class="col-sm-6 text-center">
+        <p><strong>Nome do Jogador: </strong> @Model.Nome</p>
+    </div>
+    <div class="col-sm-6 text-center">
+      <p><strong>Perfil Escolhido: </strong> @Model.PerfilTipo</p>
+    </div>
 </div>
+    <div class="row tabelaBonus">
+        <div class="col-sm-6 text-center">
+            <h2>Conquistas</h2>
+            <p class="MensagemBonus">
+                <img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @if (Model.Chave == true)
+                {
+                    @:Sim
+                }
+                else
+                {
+                    @:Não
+                }
+            </p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-ouro.png" class="iconsItemsBonus" /> @Model.MoedasOuro</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.NumInimigosDerrotados</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.NumItensEncontrados</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.PocoesVida </p>
+            <p class="MensagemBonus">Fugas: @Model.NumFugas</p>
+            <p class="MensagemBonus">Áreas Examinadas: @Model.TotalAreasExaminadas</p>
+            <p class="MensagemBonus">Ataques: @Model.TotalAtaques</p>
+            <p class="MensagemBonus">Movimentos: @Model.TotalMover</p>
+        </div>
+
+        <div class="col-sm-6 text-center">
+            <h2>Bónus</h2>
+            <p class="MensagemBonus">Ganhar o Jogo: @Model.BonusVitoria Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @Model.BonusChave Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.BonusInimigo Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.BonusItem Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.BonusPocao Moedas</p>
+            <p class="MensagemBonus">Ganhar sem Recuar: @Model.BonusRecuar Moedas </p>
+            <p class="MensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Moedas</p>
+            <p class="MensagemBonus">Ganhar com menos de 0.5 pontos de vida: @Model.BonusVida Moedas</p>
+            <br />
+            <p class="MensagemAccaoMonstro">Bonus Total: @Model.Bonus</p>
+        </div>
+    </div>
+    <div class="row tabelaBonus">
+        <div class="col-sm-12">
+        <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsitemsBonus" /> Total Moedas: <strong>@Model.MoedasOuroTotal</strong></p>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12 text-center">
+             <h3>Pode sempre verificar o seu score na página de HiScores</h3>
+        </div>
+        
+        <div class="col-sm-12 text-center">
+            <a asp-controller="Home" asp-action="HiScores" class="btn btn-info">HiScores</a>
+            <a asp-action="CriarJogo" class="btn btn-primary">Criar Jogo</a>
+        </div>
+    </div>
+
