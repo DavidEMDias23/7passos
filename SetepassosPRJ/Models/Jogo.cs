@@ -38,6 +38,7 @@ namespace SetepassosPRJ.Models
         public int TotalAreasExaminadas { get; set; }
         public bool Recuou { get; set; }
         public int Bonus { get; set; }
+        public int MoedasOuroTotal { get; set; }
         public bool LeveiDano { get; set; }
         public bool EncontradoItem { get; set; }
         public bool EncontradoTrevo { get; set; }
@@ -252,6 +253,10 @@ namespace SetepassosPRJ.Models
                     if (Monstro == true)
                     {
                         MensagemAccaoFuga = MensagemAccaoFuga + " O inimigo estava escondido! ";
+                    }
+                    if (Monstro == false && nGS.FoundKey == false && nGS.FoundItem == false && nGS.GoldFound == 0)
+                    {
+                        MensagemAccao = MensagemAccao + " Examinaste a área mas não encontraste nada. ";
                     }
                 }
 
@@ -517,7 +522,7 @@ namespace SetepassosPRJ.Models
                 Bonus = Bonus + 1000;
             }
             Bonus = Bonus + (PocoesVida * 750) + (NumInimigosDerrotados * 300) + (NumItensEncontrados * 100);
-            MoedasOuro = MoedasOuro + Bonus;
+            MoedasOuroTotal = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
 
