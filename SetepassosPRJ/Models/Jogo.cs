@@ -16,7 +16,7 @@ namespace SetepassosPRJ.Models
         public bool Chave { get; set; }
         public int Sala { get; set; }
         public bool Desistiu { get; set; }
-        
+        public bool Terminado { get; set; }
 
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
@@ -263,7 +263,7 @@ namespace SetepassosPRJ.Models
                     {
                         MensagemAccaoFuga = MensagemAccaoFuga + " O inimigo estava escondido! ";
                     }
-                    if (Monstro == false && nGS.FoundKey == false && nGS.FoundItem == false && nGS.GoldFound == 0)
+                    if (Monstro == false && nGS.FoundKey == false && nGS.FoundItem == false && nGS.GoldFound == 0 && nGS.FoundPotion == false)
                     {
                         MensagemAccao = MensagemAccao + " Examinaste a área mas não encontraste nada. ";
                     }
@@ -316,51 +316,56 @@ namespace SetepassosPRJ.Models
                 }
                 if (nGS.FoundPotion == true)
                 {
-                    PocoesVida = PocoesVida + 1;
                     PocoesObtidas = PocoesObtidas + 1;
-                    MensagemAccao = MensagemAccao + " Encontraste uma cerveja! ";
-                    MensagemPocao = "+1";
                     EncontradoPocao = true;
+                    if (PocoesVida < 3)
+                    {
+                        PocoesVida = PocoesVida + 1;
+                        MensagemAccao = MensagemAccao + " Encontraste uma cerveja! ";
+                        MensagemPocao = "+1";
+                    }
+                    else
+                    {
+                        MensagemAccao = MensagemAccao + " Encontraste uma cerveja mas não era DuFf e mandaste fora. ";
+                    }
                 }
                 if (nGS.FoundItem == true)
                 {
                     
                     EncontradoItem = true;
+                    NumItensEncontrados = NumItensEncontrados + 1;
+                    MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA que: ";
                     if (nGS.ItemHealthEffect > 0 && PontosVida < 5)
                     {
-                        MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA deu-te vida! ";
+                        MensagemAccao = MensagemAccao + "deu-te vida! ";
                         if (PontosVida + nGS.ItemHealthEffect <= 5)
                         {
                         double VidaGanha = nGS.ItemHealthEffect;
                         MensagemVidaPos = "+" + VidaGanha;
                         PontosVida = PontosVida + VidaGanha;
-                        NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else 
                         {
                             double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
                             double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
                             MensagemVidaPos = "+" + VidaGanha;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                     else if (nGS.ItemHealthEffect < 0)
                     {
                         MensagemVidaNeg = Convert.ToString(nGS.ItemHealthEffect);
-                        MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA era leite estragado! ";
+                        MensagemAccao = MensagemAccao + "Era leite estragado! ";
                         PontosVida = PontosVida + nGS.ItemHealthEffect;
-                        NumItensEncontrados = NumItensEncontrados + 1;
                     }
 
                     if (nGS.ItemAttackEffect > 0 && PontosAtaque < 5)
                     {
-                        MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA que aumentou o ataque! ";
+                        MensagemAccao = MensagemAccao + "Aumentou o ataque! ";
                         if (PontosAtaque + nGS.ItemAttackEffect <= 5)
                         {
                             int AtaqueGanho = nGS.ItemAttackEffect;
                             MensagemAtaque = "+" + AtaqueGanho;
                             PontosAtaque = PontosAtaque + AtaqueGanho;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
@@ -368,25 +373,22 @@ namespace SetepassosPRJ.Models
                             int AtaqueGanho = nGS.ItemAttackEffect - AtaqueGanhoDiferenca;
                             PontosAtaque = PontosAtaque + AtaqueGanho;
                             MensagemAtaque = "+" + AtaqueGanho;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                     else if (nGS.ItemAttackEffect < 0)
                     {
                         MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
-                        MensagemAccao = MensagemAccao + " Encontraste ITEM SUPRESA que diminuiu o ataque! ";
+                        MensagemAccao = MensagemAccao + "Diminuiu o ataque! ";
                         if (PontosAtaque + nGS.ItemAttackEffect >= 0)
                         {
                             PontosAtaque = PontosAtaque + nGS.ItemAttackEffect;
                             MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
                             int AtaquePerdidoDiferenca = PontosAtaque + nGS.ItemAttackEffect;
                             PontosAtaque = 0;
                             MensagemAtaque = "-" + (nGS.ItemAttackEffect - AtaquePerdidoDiferenca);
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
 
@@ -394,37 +396,33 @@ namespace SetepassosPRJ.Models
                     if (nGS.ItemLuckEffect > 0)
                     {
                         EncontradoTrevo = true;
-                        MensagemAccao = MensagemAccao + " Encontraste um trevo de 4 folhas! ";
+                        MensagemAccao = MensagemAccao + "Tinha um trevo 4 folhas! ";
                         if (PontosSorte + nGS.ItemLuckEffect <= 5)
                         {
                             MensagemSorte = "+" + Convert.ToString(nGS.ItemLuckEffect);
                             PontosSorte = PontosSorte + nGS.ItemLuckEffect;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
                             int SorteGanhaDiferenca = PontosSorte + nGS.ItemLuckEffect - 5;
                             MensagemSorte = "+" + SorteGanhaDiferenca;
                             PontosSorte = PontosSorte + SorteGanhaDiferenca;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                     else if (nGS.ItemLuckEffect < 0)
                     {
-                        MensagemAccao = MensagemAccao + " Passou um gato preto à tua frente! ";
+                        MensagemAccao = MensagemAccao + "Atiçou um gato preto. ";
                         EncontradoGato = true;
                         if (PontosSorte + nGS.ItemLuckEffect >= 0)
                         {
                             MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
                             PontosSorte = PontosSorte + nGS.ItemLuckEffect;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                         else
                         {
                             int SortePerdidaDiferenca = PontosSorte + nGS.ItemLuckEffect;
                             MensagemSorte = Convert.ToString(nGS.ItemLuckEffect - SortePerdidaDiferenca);
                             PontosSorte = 0;
-                            NumItensEncontrados = NumItensEncontrados + 1;
                         }
                     }
                 }
@@ -503,6 +501,7 @@ namespace SetepassosPRJ.Models
             //Accao que terminou em vitória do jogo
             if (ResultadoAccao == Result.SuccessVictory)
             {
+                Terminado = true;
                 MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
                 if (UltimaAccao == PlayerAction.Flee)
                 {
@@ -530,6 +529,7 @@ namespace SetepassosPRJ.Models
             }
             if (PontosVida <= 0)
             {
+                Terminado = true;
                 MensagemAccao = " Temos pena mas morreste! Fica para a próxima...";
             }
         }
@@ -571,11 +571,11 @@ namespace SetepassosPRJ.Models
         {
             Jogo j = (Jogo)obj;
 
-            if (MoedasOuro > j.MoedasOuro)
+            if (MoedasOuroTotal > j.MoedasOuroTotal)
             {
                 return 1;
             }
-            else if (MoedasOuro < j.MoedasOuro)
+            else if (MoedasOuroTotal < j.MoedasOuroTotal)
             {
                 return -1;
             }

@@ -106,6 +106,7 @@ namespace SetepassosPRJ.Controllers
                 JogoAtual.MensagemAccao = "Desististe do Jogo";
                 JogoAtual.CalcularBonus();
                 JogoAtual.Desistiu = true;
+                JogoAtual.Terminado = true;
             }
             return View("JogoIniciado", JogoAtual);
         }

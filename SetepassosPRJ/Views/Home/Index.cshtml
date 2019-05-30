@@ -1,4 +1,5 @@
-﻿@{ Layout = "_Layout";
+﻿@model List<Jogo>
+@{ Layout = "_Layout";
     ViewData["Title"] = "Home";
 }
 
@@ -14,6 +15,12 @@
         </div>
         <div class='column'>
             <h1>Hi-Scores Top 3</h1>
+            @if (Model.Count == 0)
+            {
+                <p>Sem Scores</p>
+            }
+            else
+            {
             <div class="text-center">
                 <table id="tabela" class="table table-condensed">
                     <thead>
@@ -24,24 +31,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="1" class="classe1">
-                            <td>1º</td>
-                            <td>José</td>
-                            <td>3500</td>
-                        </tr>
-                        <tr id="2" class="classe1">
-                            <td>2º</td>
-                            <td>José</td>
-                            <td>3500</td>
-                        </tr>
-                        <tr id="3" class="classe1">
-                            <td>3º</td>
-                            <td>José</td>
-                            <td>3500</td>
-                        </tr>
+                        @foreach (Jogo jogo in Model)
+                        {
+                            <tr>
+                                <td>@jogo.Posicao</td>
+                                <td>@jogo.Nome</td>
+                                <td>@jogo.MoedasOuroTotal</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
+            }
         </div>
     </div>
 </div>
