@@ -72,7 +72,7 @@ namespace SetepassosPRJ.Models
         public int BonusLutar { get; set; }
         public int BonusVida { get; set; }
 
-        public bool[] arraySalasExaminadas = new bool[7];
+        public bool[] arraySalasExaminadas = new bool[8];
 
         public PlayerAction UltimaAccao { get; set; }
 
