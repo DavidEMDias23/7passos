@@ -22,7 +22,7 @@
     </environment>
 </head>
 
-<body class="fundoJogo">
+<body style="background-image: url(../images/Rooms/Room@(Model.Sala).jpg)" class="fundoJogo">
 
     <div class="row">
         <div class="col-sm-2">
@@ -213,10 +213,13 @@
                                 <button class="BotoesJogo" type="submit" name="action" value="GoBack"><img src="~/images/btns/btn-recuar1.png" alt="Recuar"></button> @Model.TotalMover
                             </div>
                         }
+                        @if (Model.arraySalasExaminadas[Model.Sala] == false)
+                        {
                         <div>
                             <input name="gameid" value="@Model.GameID" type="hidden" />
                             <button class="BotoesJogo" type="submit" name="action" value="SearchArea"><img src="~/images/btns/btn-examinar1.png" alt="Examinar"></button> @Model.TotalAreasExaminadas
                         </div>
+                        }
                     </div>
                 }
                 else

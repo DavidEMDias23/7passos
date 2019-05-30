@@ -4,7 +4,7 @@ namespace SetepassosPRJ.Models
 {
     public class Jogo : IComparable
     {
-        
+
         [Required(ErrorMessage = "Por favor introduza o seu nome")]
         public string Nome { get; set; }
         public string PerfilTipo { get; set; }
@@ -71,6 +71,8 @@ namespace SetepassosPRJ.Models
         public int BonusRecuar { get; set; }
         public int BonusLutar { get; set; }
         public int BonusVida { get; set; }
+
+        public bool[] arraySalasExaminadas = new bool[7];
 
         public PlayerAction UltimaAccao { get; set; }
 
@@ -258,6 +260,7 @@ namespace SetepassosPRJ.Models
                 if (UltimaAccao == PlayerAction.SearchArea)
                 {
                     TotalAreasExaminadas = TotalAreasExaminadas + 1;
+                    arraySalasExaminadas[Sala] = true;  
                     //Detetar se apareceu monstro
                     if (Monstro == true)
                     {
@@ -566,6 +569,7 @@ namespace SetepassosPRJ.Models
             MoedasOuroTotal = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
+        
 
         public int CompareTo(object obj)
         {
