@@ -237,15 +237,15 @@ namespace SetepassosPRJ.Models
                     //Mensagem ataque personalizada
                     if (PerfilTipo == "S")
                     {
-                        MensagemMeuAtaque = "Deste um arroto mortífero...";
+                        MensagemMeuAtaque = "Atiraste um gato!";
                     }
                     if (PerfilTipo == "B")
                     {
-                        MensagemMeuAtaque = "Mandaste-lhe com a calculadora.";
+                        MensagemMeuAtaque = "Deste um arroto mortífero...";
                     }
                     if (PerfilTipo == "W")
                     {
-                        MensagemMeuAtaque = "Atiraste um gato!";
+                        MensagemMeuAtaque = "Mandaste-lhe com a calculadora.";
                     }
                     //Detetar se monstro morre
                     if (Monstro == false)
