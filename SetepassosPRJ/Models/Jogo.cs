@@ -572,18 +572,6 @@ namespace SetepassosPRJ.Models
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
         
-        public void ControlarSom()
-        {
-            if (Sound == true)
-            {
-                Sound = false;
-            }
-            else
-            {
-                Sound = true;
-            }
-        }
-
         public int CompareTo(object obj)
         {
             Jogo j = (Jogo)obj;
