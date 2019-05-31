@@ -382,6 +382,25 @@ h4 {
     left: 20%;
     width:70%;
 }
+.danoNoMonstro {
+    position:relative;
+    left: 32%;
+    top:4%;
+    color:lavender;
+    font-family: Verdana;
+    font-size: 1.7vw;
+    display: inline-block;
+    font-weight: bold;
+}
+.danoNoJogador {
+    position: relative;
+    right:40%;
+    color:crimson;
+    font-family: Verdana;
+    font-size: 1.7vw;
+    display: inline-block;
+    font-weight: bold;
+}
 .imagemgatopreto {
     position: fixed;
     top: 60%;

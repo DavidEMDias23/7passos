@@ -237,7 +237,7 @@ namespace SetepassosPRJ.Models
                     //Mensagem ataque personalizada
                     if (PerfilTipo == "S")
                     {
-                        MensagemMeuAtaque = "Mandaste uma bufa...";
+                        MensagemMeuAtaque = "Deste um arroto mortífero...";
                     }
                     if (PerfilTipo == "B")
                     {
@@ -448,7 +448,7 @@ namespace SetepassosPRJ.Models
                 PontosVida = PontosVida - nGS.EnemyDamageSuffered;
                 MensagemVidaNeg = "-" + Convert.ToString(nGS.EnemyDamageSuffered);
                 LeveiDano = true;
-                if (nGS.EnemyDamageSuffered < 2)
+                if (nGS.EnemyDamageSuffered <=1)
                 {
                     MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te de raspão! ";
                 }
