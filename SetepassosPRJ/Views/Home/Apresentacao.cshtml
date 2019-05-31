@@ -1,25 +1,31 @@
 ﻿@{
     ViewData["Title"] = "Apresentacao";
 }
-
-    <h1>
-        Equipa Captain Mangi
-    </h1>
-    <br />
-    <h5> Somos uma equipa de 3 elementos do 2º ano do curso de GSI. </h5>
-    <h5> Este é o nosso projeto para o trabalho de grupo da cadeira de Desenvolvimentos de Aplicações II.</h5>
-    <br />
-    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#Texto">   Mais sobre o projeto </button>
-    <div class="collapse" id="Texto">
-
-        <h5> O projeto consiste na criação de um jogo chamado 7 passos. Optámos por dar ao nosso jogo um ambiente</h5>
-        <h5>assustador e divertido.</h5>
+<div class="row">
+    <div class="col-sm-12">
+        <h1>
+            Equipa Captain Mangi
+        </h1>
     </div>
-    <br />
+</div>
+<br/>
+<div class="row">
+    <div class="col-sm-7">
+        <h2>Breve descrição</h2>
+        <p> Somos uma equipa de 3 elementos do 2º ano do curso de GSI. </p>
+        <p> Este é o nosso projeto para o trabalho de grupo da cadeira de Desenvolvimentos de Aplicações II.</p>
+        <br />
+        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#Texto">   Mais sobre o projeto </button>
+        <div class="collapse" id="Texto">
+
+            <p> O projeto consiste na criação de um jogo chamado 7 passos. Optámos por dar ao nosso jogo um ambiente assustador mas divertido.</p>
+            <p> O tema são os Simpsons meet Friday Night at Freddy's. Precisas estar concentrado para poderes fazer as melhores opções, mas se tiveres muito concentro arriscas-te a saltar da cadeira. </p>
+        </div>
+    </div>
+    <div class="col-sm-5">
         <h2>
             Os membros da equipa
         </h2>
-        <br />
         <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
@@ -56,3 +62,5 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+    </div>
+</div>

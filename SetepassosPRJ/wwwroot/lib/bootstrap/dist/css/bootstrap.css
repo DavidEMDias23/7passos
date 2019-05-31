@@ -4589,11 +4589,12 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-  background-color: #222;
-  border-color: #080808;
+    background-color: #2e1546;
+    border-color: #e3cf29;
 }
 .navbar-inverse .navbar-brand {
-  color: #9d9d9d;
+   color: #c7c0cd;
+   text-shadow: 0 0 0.2px 0.2px black;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4604,7 +4605,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #9d9d9d;
+  color: #c7c0cd;
+  text-shadow: 0 0 0.3px 0.3px black;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {

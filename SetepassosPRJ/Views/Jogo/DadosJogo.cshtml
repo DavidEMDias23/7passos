@@ -2,15 +2,16 @@
 @{
 }
 <div class="row">
-    <div class="col-sm-12 text-center"><h1>Dados do Jogo</h1></div>
-</div>
-<br />
-<div class="row">
-    <div class="col-sm-6 text-center">
-        <p><strong>Nome do Jogador: </strong> @Model.Nome</p>
+    <div class="col-sm-4 text-center">
+        <h4><strong>Nome do Jogador: </strong></h4>
+        <p>@Model.Nome</p>
     </div>
-    <div class="col-sm-6 text-center">
-      <p><strong>Perfil Escolhido: </strong> @Model.PerfilTipo</p>
+    <div class="col-sm-4 text-center">
+    <h1>Dados do Jogo</h1>
+    </div>
+    <div class="col-sm-4 text-center">
+        <h4><strong>Perfil Escolhido: </strong></h4>
+        <p>@Model.PerfilTipo</p>
     </div>
 </div>
     <div class="row tabelaBonus">
@@ -51,18 +52,12 @@
         </div>
     </div>
     <div class="row tabelaBonus">
-        <div class="col-sm-12">
-        <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsitemsBonus" /> Total Moedas: <strong>@Model.MoedasOuroTotal</strong></p>
+        <div class="col-sm-6">
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsItemBonusMoeda" /> Total Moedas: <strong>@Model.MoedasOuroTotal</strong></p>
         </div>
-    </div>
-
-    @*<div class="row">
-        <div class="col-sm-12 text-center">
-             <h3>Pode sempre verificar o seu score na página de HiScores</h3>
-        </div>
-              <div class="col-sm-12 text-center">
+        <div class="col-sm-6 columncenter text-center">
             <a asp-controller="Home" asp-action="HiScores" class="btn btn-info">HiScores</a>
             <a asp-action="CriarJogo" class="btn btn-primary">Criar Jogo</a>
         </div>
-    </div>*@
+    </div>
 
