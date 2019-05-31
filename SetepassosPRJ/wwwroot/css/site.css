@@ -76,6 +76,14 @@ img {
     width: 5%;
     margin: 2px;
 }
+.botaoSom {
+    height: 15%;
+    width: 15%;
+    background: none;
+    border-color: none;
+    border-style: none;
+    display: inline-block;
+}
 
 .iconsItemsBonus {
     height: 7%;

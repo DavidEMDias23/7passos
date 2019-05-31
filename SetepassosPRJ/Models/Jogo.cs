@@ -45,6 +45,7 @@ namespace SetepassosPRJ.Models
         public bool EncontradoGato { get; set; }
         public bool EncontradoPocao { get; set; }
         public bool EncontradoOuro { get; set; }
+        public bool Sound { get; set; }
 
         public Result ResultadoAccao { get; set; }
 
@@ -89,6 +90,7 @@ namespace SetepassosPRJ.Models
             TotalMover = -1;
             TotalAtaques = 0;
             TotalAreasExaminadas = 0;
+            Sound = true;
 
             if (perfilTipoEscolhido == "S")
             {
@@ -570,6 +572,17 @@ namespace SetepassosPRJ.Models
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
         
+        public void ControlarSom()
+        {
+            if (Sound == true)
+            {
+                Sound = false;
+            }
+            else
+            {
+                Sound = true;
+            }
+        }
 
         public int CompareTo(object obj)
         {

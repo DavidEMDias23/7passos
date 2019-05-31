@@ -171,7 +171,7 @@
                     if (Model.UltimaAccao != PlayerAction.Attack && Model.UltimaAccao != PlayerAction.DrinkPotion)
                     {
                         <audio autoplay>
-                            <source src="~/sound/Doh_sound.mp3">
+                            <source src="~/sound/monster-@(Model.PerfilTipo)-sound.mp3">
                         </audio>
                     }
 
@@ -208,10 +208,10 @@
                     <div class="areabotoes">
                         @if (Model.Sala != 7 || (Model.Sala == 7 && Model.Chave == true))
                         {
-                        <div>
-                            <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover
-                        </div>
+                            <div>
+                                <input name="gameid" value="@Model.GameID" type="hidden" />
+                                <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover
+                            </div>
                         }
                         @if (Model.Sala != 1)
                         {
@@ -222,10 +222,10 @@
                         }
                         @if (Model.arraySalasExaminadas[Model.Sala] == false)
                         {
-                        <div>
-                            <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="SearchArea"><img src="~/images/btns/btn-examinar1.png" alt="Examinar"></button> @Model.TotalAreasExaminadas
-                        </div>
+                            <div>
+                                <input name="gameid" value="@Model.GameID" type="hidden" />
+                                <button class="BotoesJogo" type="submit" name="action" value="SearchArea"><img src="~/images/btns/btn-examinar1.png" alt="Examinar"></button> @Model.TotalAreasExaminadas
+                            </div>
                         }
                     </div>
                 }
@@ -245,16 +245,14 @@
                 }
                 @if (Model.PocoesVida > 0)
                 {
-                <div>
-                    <input name="gameid" value="@Model.GameID" type="hidden" />
-                    <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao1.png" alt="Beber Poção"></button>
-                </div>
-                }
-                <div>
                     <div>
                         <input name="gameid" value="@Model.GameID" type="hidden" />
-                        <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir1.png" alt="Desistir"></button>
+                        <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao1.png" alt="Beber Poção"></button>
                     </div>
+                }
+                <div>
+                    <input name="gameid" value="@Model.GameID" type="hidden" />
+                    <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir1.png" alt="Desistir"></button>
                 </div>
             </form>
         </div>
