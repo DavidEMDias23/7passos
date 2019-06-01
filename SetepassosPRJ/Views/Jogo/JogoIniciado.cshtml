@@ -121,6 +121,7 @@
                             <p class="MensagemAccao">@Model.MensagemAccao</p>
                         </div>
                         <div class="text-right">
+
                             @if (Model.EncontradoItem == true)
                             {
                                 <img src="~/images/Icons/icon-surpresa.png" class="iconsItems" />
@@ -132,6 +133,10 @@
                             @if (Model.EncontradoPocao == true)
                             {
                                 <img src="~/images/Icons/icon-pocaoVida.png" class="iconsItems" />
+                            }
+                            @if (Model.EncontradoChave == true)
+                            {
+                                <img src="~/images/Icons/icon-key.png" class="iconsItems" />
                             }
 
                         </div>

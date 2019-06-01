@@ -45,6 +45,7 @@ namespace SetepassosPRJ.Models
         public bool EncontradoGato { get; set; }
         public bool EncontradoPocao { get; set; }
         public bool EncontradoOuro { get; set; }
+        public bool EncontradoChave { get; set; }
 
         public Result ResultadoAccao { get; set; }
 
@@ -149,6 +150,7 @@ namespace SetepassosPRJ.Models
             ResultadoAccao = nGS.Result;
             LeveiDano = false;
             EncontradoItem = false;
+            EncontradoChave = false;
             EncontradoTrevo = false;
             EncontradoGato = false;
             EncontradoPocao = false;
@@ -315,6 +317,7 @@ namespace SetepassosPRJ.Models
                         Chave = nGS.FoundKey;
                         MensagemChave = " Found it! ";
                         MensagemAccao = " Encontraste a Chave! ";
+                        EncontradoChave = true;
                     }
                 }
                 if (nGS.FoundPotion == true)
