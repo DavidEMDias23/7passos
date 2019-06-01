@@ -45,7 +45,6 @@ namespace SetepassosPRJ.Models
         public bool EncontradoGato { get; set; }
         public bool EncontradoPocao { get; set; }
         public bool EncontradoOuro { get; set; }
-        public bool Sound { get; set; }
 
         public Result ResultadoAccao { get; set; }
 
@@ -90,7 +89,6 @@ namespace SetepassosPRJ.Models
             TotalMover = -1;
             TotalAtaques = 0;
             TotalAreasExaminadas = 0;
-            Sound = true;
 
             if (perfilTipoEscolhido == "S")
             {
@@ -506,7 +504,6 @@ namespace SetepassosPRJ.Models
             //Accao que terminou em vitória do jogo
             if (ResultadoAccao == Result.SuccessVictory)
             {
-                Terminado = true;
                 MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
                 if (UltimaAccao == PlayerAction.Flee)
                 {
@@ -519,6 +516,7 @@ namespace SetepassosPRJ.Models
             //Calcular bonus de fim de jogo
             if (ResultadoAccao == Result.SuccessVictory || PontosVida <= 0)
             {
+                Terminado = true;
                 CalcularBonus();
             }
 
@@ -532,10 +530,15 @@ namespace SetepassosPRJ.Models
                 PontosVida = PontosVida - 0.5;
                 MensagemPassarTempo = "Cansaço: -0.5";
             }
-            if (PontosVida <= 0)
+            if (PontosVida <= 0 && ResultadoAccao != Result.SuccessVictory)
             {
-                Terminado = true;
-                MensagemAccao = " Temos pena mas morreste! Fica para a próxima...";
+                MensagemAccao = " Temos pena mas morreste! Fica para a próxima... " + MensagemAccao;
+            }
+            if (PontosVida <= 0 && ResultadoAccao == Result.SuccessVictory)
+            {
+                PontosVida = PontosVida + 0.5;
+                MensagemPassarTempo = "0";
+                MensagemAccao = " Ganhas-te motivação extra para vencer o cançaso " + MensagemAccao;
             }
         }
 

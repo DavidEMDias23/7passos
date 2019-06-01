@@ -91,11 +91,11 @@
         </div>
         
         <div class="col-sm-7">
-            @if (Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu == true)
+            @if ((Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu == true) && Model.ResultadoAccao != Result.SuccessVictory)
             {
                 <form asp-action="DadosJogo" method="post">
                     <div class="text-center mensagemSaida">
-                        @Model.MensagemAccao
+                        @Model.MensagemAccaoFuga @Model.MensagemAccao 
                         <button class="BotaoSair" type="submit" name="gameid" value="@Model.GameID"><img src="~/images/btns/btn-sair.png" alt="Sair" z-index="3"></button>
                     </div>
                 </form>
@@ -104,11 +104,11 @@
             {
                 <form asp-action="DadosJogo" method="post">
                     <div class="text-center mensagemSaida">
-                        @Model.MensagemAccao
+                        @Model.MensagemAccaoFuga @Model.MensagemAccao
                         <button class="BotaoSair" type="submit" name="gameid" value="@Model.GameID"><img src="~/images/btns/btn-sair.png" alt="Sair"></button>
                     </div>
-                    <img src="~/images/Contextual/victory.png" />
                 </form>
+                <img src="~/images/Contextual/victory.png" />
             }
             else
             {
@@ -148,10 +148,10 @@
                         </div>
                     }
                     @if (Model.Monstro == true)
-                    { 
-                    <div>
-                    <p class="danoNoMonstro">@Model.MensagemDano</p>
-                    </div>
+                    {
+                        <div>
+                            <p class="danoNoMonstro">@Model.MensagemDano</p>
+                        </div>
                     }
                 </div>
                 @if (Model.EncontradoGato == true)
@@ -180,7 +180,7 @@
                     {
                         <div>
                             <img src="~/images/Inimigos/monster-@(Model.PerfilTipo)-bruised.png" class="monstro" />
-                         
+
                         </div>
                     }
                     else
@@ -193,16 +193,18 @@
             }
             @if (Model.LeveiDano == true)
             {
-                        <div class="puttop text-right">
-                            <img src="~/images/Contextual/blood.png" class="imagemblood" />
-                            <p class="danoNoJogador">@Model.MensagemVidaNeg</p>
-                        </div>
-                
+                <div class="puttop text-right">
+                    <img src="~/images/Contextual/blood.png" class="imagemblood" />
+                    <p class="danoNoJogador">@Model.MensagemVidaNeg</p>
+                </div>
+
             }
 
         </div>
         <div class="col-sm-3 text-center">
             <form action="AccaoJogo" method="post">
+                @if (Model.Terminado == false)
+                {
                 @if (Model.Monstro == false)
                 {
                     <div class="areabotoes">
@@ -254,6 +256,7 @@
                     <input name="gameid" value="@Model.GameID" type="hidden" />
                     <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir1.png" alt="Desistir"></button>
                 </div>
+                }
             </form>
         </div>
     </div>
