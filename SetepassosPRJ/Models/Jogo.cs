@@ -148,7 +148,7 @@ namespace SetepassosPRJ.Models
             Monstro = nGS.FoundEnemy;
             PontosAtaqueMonstro = nGS.EnemyAttackPoints;
             PontosSorteMonstro = nGS.EnemyLuckPoints;
-            DanoSofrido = Math.Round(nGS.EnemyDamageSuffered, 1, MidpointRounding.AwayFromZero);
+            DanoSofrido = nGS.EnemyDamageSuffered;
             UltimaAccao = nGS.Action;
             ResultadoAccao = nGS.Result;
             LeveiDano = false;
@@ -222,7 +222,7 @@ namespace SetepassosPRJ.Models
                 if (UltimaAccao == PlayerAction.Attack)
                 {
                     TotalAtaques = TotalAtaques + 1;
-                    double danoDado = PontosVidaMonstro - nGS.EnemyHealthPoints;
+                    double danoDado = PontosVidaMonstro - Math.Round(nGS.EnemyHealthPoints, 1);
 
                     //Ataque acertou ou falhou
                     if (danoDado > 0)
@@ -266,7 +266,7 @@ namespace SetepassosPRJ.Models
                 {
                     TotalAreasExaminadas = TotalAreasExaminadas + 1;
                     arraySalasExaminadas[Sala] = true;
-                    MensagemSalasExaminadas = MensagemSalasExaminadas + " " + Sala;
+                    SalasExaminadas();
                     //Detetar se apareceu monstro
                     if (Monstro == true)
                     {
@@ -452,7 +452,7 @@ namespace SetepassosPRJ.Models
             //Fazer acerto de vida quando levamos dano de inimigo
             if (DanoSofrido != 0)
             {
-                PontosVida = PontosVida - DanoSofrido;
+                PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
                 MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
                 LeveiDano = true;
                 if (DanoSofrido <= 1)
@@ -468,7 +468,7 @@ namespace SetepassosPRJ.Models
             //Sempre que houver combate acertar vida do monstro, fazer no fim para poder calcular dano que monstro levou.
             if ((nGS.FoundEnemy == true) || (nGS.FoundEnemy == false && UltimaAccao == PlayerAction.Attack))
             {
-                PontosVidaMonstro = Math.Round(nGS.EnemyHealthPoints, 1, MidpointRounding.AwayFromZero);
+                PontosVidaMonstro = Math.Round(nGS.EnemyHealthPoints, 1);
             }
 
             //Se a accao for Inválida
@@ -580,6 +580,18 @@ namespace SetepassosPRJ.Models
             Bonus = BonusVitoria + BonusRecuar + BonusLutar + BonusVida + BonusPocao + BonusChave + BonusInimigo + BonusItem;
             MoedasOuroTotal = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
+        }
+
+        public void SalasExaminadas()
+        {
+            MensagemSalasExaminadas = "";
+            for (int i = 1; i <= 7; i++)
+            {
+                if (arraySalasExaminadas[i])
+                {
+                    MensagemSalasExaminadas = MensagemSalasExaminadas + " " + Convert.ToString(i);
+                }
+            }
         }
 
         public int CompareTo(object obj)
