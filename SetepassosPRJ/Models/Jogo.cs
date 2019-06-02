@@ -64,6 +64,7 @@ namespace SetepassosPRJ.Models
         public string MensagemChave { get; set; }
         public string MensagemPassarTempo { get; set; }
         public string MensagemMeuAtaque { get; set; }
+        public string MensagemSalasExaminadas { get; set; }
 
         public int BonusVitoria { get; set; }
         public int BonusChave { get; set; }
@@ -78,7 +79,7 @@ namespace SetepassosPRJ.Models
 
         public PlayerAction UltimaAccao { get; set; }
 
-        
+
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
         {
             Nome = nomeEscolhido;
@@ -94,38 +95,38 @@ namespace SetepassosPRJ.Models
 
             if (perfilTipoEscolhido == "S")
             {
-                           
+
                 PontosVida = 3;
                 PontosAtaque = 3;
                 PontosSorte = 3;
-                  
+
 
             }
 
             if (perfilTipoEscolhido == "W")
             {
-               
+
                 PontosVida = 3;
                 PontosAtaque = 2;
                 PontosSorte = 4;
-            
+
 
             }
 
             if (perfilTipoEscolhido == "B")
             {
-                
+
                 PontosVida = 4;
                 PontosAtaque = 3;
                 PontosSorte = 2;
 
             }
 
-           
+
         }
         public void AtualizarJogo(GameStateApi nGS)
         {
-           
+
             MensagemAccao = "";
             MensagemAccaoMonstro = "";
             MensagemAccaoFuga = "";
@@ -141,7 +142,7 @@ namespace SetepassosPRJ.Models
             MensagemMeuAtaque = "";
             MensagemPassarTempo = "";
 
-            
+
             MoedasOuro = MoedasOuro + nGS.GoldFound;
             GameID = nGS.GameID;
             Monstro = nGS.FoundEnemy;
@@ -176,7 +177,7 @@ namespace SetepassosPRJ.Models
                 }
                 if (UltimaAccao == PlayerAction.GoBack)
                 {
-                    TotalMover = TotalMover +1;
+                    TotalMover = TotalMover + 1;
                     Recuou = true;
                     Sala = Sala - 1;
                     //Detetar se apareceu monstro
@@ -188,7 +189,7 @@ namespace SetepassosPRJ.Models
                 if (UltimaAccao == PlayerAction.Flee)
                 {
                     TotalMover = TotalMover + 1;
-                     NumFugas = NumFugas + 1;
+                    NumFugas = NumFugas + 1;
                     //Detetar se inimigo deu dano para meter a mensagem de acordo
                     if (DanoSofrido == 0)
                     {
@@ -206,14 +207,14 @@ namespace SetepassosPRJ.Models
                     }
                     if (Sala < 7)
                     {
-                        Sala = Sala +1;
+                        Sala = Sala + 1;
                     }
                     else
                     {
                         if (Chave == false)
-                            {
-                             Sala = Sala - 1;
-                            }
+                        {
+                            Sala = Sala - 1;
+                        }
                     }
                 }
 
@@ -264,7 +265,8 @@ namespace SetepassosPRJ.Models
                 if (UltimaAccao == PlayerAction.SearchArea)
                 {
                     TotalAreasExaminadas = TotalAreasExaminadas + 1;
-                    arraySalasExaminadas[Sala] = true;  
+                    arraySalasExaminadas[Sala] = true;
+                    MensagemSalasExaminadas = MensagemSalasExaminadas + " " + Sala;
                     //Detetar se apareceu monstro
                     if (Monstro == true)
                     {
@@ -339,7 +341,7 @@ namespace SetepassosPRJ.Models
                 }
                 if (nGS.FoundItem == true)
                 {
-                    
+
                     EncontradoItem = true;
                     NumItensEncontrados = NumItensEncontrados + 1;
                     MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA que: ";
@@ -348,11 +350,11 @@ namespace SetepassosPRJ.Models
                         MensagemAccao = MensagemAccao + "deu-te vida! ";
                         if (PontosVida + nGS.ItemHealthEffect <= 5)
                         {
-                        double VidaGanha = nGS.ItemHealthEffect;
-                        MensagemVidaPos = "+" + VidaGanha;
-                        PontosVida = PontosVida + VidaGanha;
+                            double VidaGanha = nGS.ItemHealthEffect;
+                            MensagemVidaPos = "+" + VidaGanha;
+                            PontosVida = PontosVida + VidaGanha;
                         }
-                        else 
+                        else
                         {
                             double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
                             double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
@@ -440,9 +442,9 @@ namespace SetepassosPRJ.Models
                     MensagemOuro = "+" + Convert.ToString(nGS.GoldFound);
                     EncontradoOuro = true;
                     if (nGS.GoldFound > 100)
-                       {    
-                        MensagemPlim = "Nham Nham Nham...";                  
-                       }
+                    {
+                        MensagemPlim = "Nham Nham Nham...";
+                    }
                 }
 
             }
@@ -465,10 +467,10 @@ namespace SetepassosPRJ.Models
 
             //Sempre que houver combate acertar vida do monstro, fazer no fim para poder calcular dano que monstro levou.
             if ((nGS.FoundEnemy == true) || (nGS.FoundEnemy == false && UltimaAccao == PlayerAction.Attack))
-                {
-                    PontosVidaMonstro = nGS.EnemyHealthPoints;
-                }
-            
+            {
+                PontosVidaMonstro = Math.Round(nGS.EnemyHealthPoints, 1, MidpointRounding.AwayFromZero);
+            }
+
             //Se a accao for Inválida
             if (ResultadoAccao == Result.InvalidAction)
             {
@@ -527,7 +529,7 @@ namespace SetepassosPRJ.Models
 
         }
 
-        
+
         public void PassagemTempo()
         {
             if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
@@ -549,7 +551,7 @@ namespace SetepassosPRJ.Models
 
         public void CalcularBonus()
         {
-            
+
             if (ResultadoAccao == Result.SuccessVictory)
             {
                 BonusVitoria = 3000;
@@ -579,7 +581,7 @@ namespace SetepassosPRJ.Models
             MoedasOuroTotal = MoedasOuro + Bonus;
             MensagemOuro = "Ganhaste um Bonus de " + Bonus;
         }
-        
+
         public int CompareTo(object obj)
         {
             Jogo j = (Jogo)obj;
