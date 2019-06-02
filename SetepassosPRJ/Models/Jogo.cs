@@ -46,6 +46,7 @@ namespace SetepassosPRJ.Models
         public bool EncontradoPocao { get; set; }
         public bool EncontradoOuro { get; set; }
         public bool EncontradoChave { get; set; }
+        public double DanoSofrido { get; set; }
 
         public Result ResultadoAccao { get; set; }
 
@@ -146,6 +147,7 @@ namespace SetepassosPRJ.Models
             Monstro = nGS.FoundEnemy;
             PontosAtaqueMonstro = nGS.EnemyAttackPoints;
             PontosSorteMonstro = nGS.EnemyLuckPoints;
+            DanoSofrido = Math.Round(nGS.EnemyDamageSuffered, 1, MidpointRounding.AwayFromZero);
             UltimaAccao = nGS.Action;
             ResultadoAccao = nGS.Result;
             LeveiDano = false;
@@ -188,7 +190,7 @@ namespace SetepassosPRJ.Models
                     TotalMover = TotalMover + 1;
                      NumFugas = NumFugas + 1;
                     //Detetar se inimigo deu dano para meter a mensagem de acordo
-                    if (nGS.EnemyDamageSuffered == 0)
+                    if (DanoSofrido == 0)
                     {
                         MensagemAccaoFuga = MensagemAccaoFuga + " Escapaste por um triz! ";
                         MensagemVidaNeg = "Miss";
@@ -231,7 +233,7 @@ namespace SetepassosPRJ.Models
                         MensagemDano = "MISS";
                     }
                     //Detetar se inimigo falhou ataque
-                    if (nGS.EnemyDamageSuffered == 0)
+                    if (DanoSofrido == 0)
                     {
                         MensagemAccaoMonstro = MensagemAccaoMonstro + " Uff... o gajo falhou!";
                         MensagemVidaNeg = "Miss";
@@ -446,16 +448,16 @@ namespace SetepassosPRJ.Models
             }
 
             //Fazer acerto de vida quando levamos dano de inimigo
-            if (nGS.EnemyDamageSuffered != 0)
+            if (DanoSofrido != 0)
             {
-                PontosVida = PontosVida - nGS.EnemyDamageSuffered;
-                MensagemVidaNeg = "-" + Convert.ToString(nGS.EnemyDamageSuffered);
+                PontosVida = PontosVida - DanoSofrido;
+                MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
                 LeveiDano = true;
-                if (nGS.EnemyDamageSuffered <=1)
+                if (DanoSofrido <= 1)
                 {
                     MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te de raspão! ";
                 }
-                if (nGS.EnemyDamageSuffered > 1)
+                if (DanoSofrido > 1)
                 {
                     MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te em cheio! ";
                 }
