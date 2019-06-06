@@ -12,7 +12,7 @@ namespace SetepassosPRJ.Controllers
     {
         public IActionResult Index()
         {
-            List<Jogo> melhoresJogos = RepositorioJogos.GetTop(3);
+            List<HiScores> melhoresJogos = RepositorioHiScoresdbContext.GetTop(3);
             return View(melhoresJogos);
         }
 
@@ -24,7 +24,7 @@ namespace SetepassosPRJ.Controllers
         public IActionResult HiScores()
         {
 
-            List<Jogo> melhoresJogos = RepositorioJogos.GetTop(10);
+            List<HiScores> melhoresJogos = RepositorioHiScoresdbContext.GetTop(10);
             return View(melhoresJogos);
         }
 

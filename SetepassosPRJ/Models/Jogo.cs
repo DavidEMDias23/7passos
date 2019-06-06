@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace SetepassosPRJ.Models
 {
+    public enum ResultadoJogo { Derrota, Desistiu, Vitoria }
     public class Jogo : IComparable
     {
 
@@ -17,6 +18,7 @@ namespace SetepassosPRJ.Models
         public int Sala { get; set; }
         public bool Desistiu { get; set; }
         public bool Terminado { get; set; }
+        public bool Derrota { get; set; }
 
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
@@ -74,10 +76,14 @@ namespace SetepassosPRJ.Models
         public int BonusRecuar { get; set; }
         public int BonusLutar { get; set; }
         public int BonusVida { get; set; }
+       
 
         public bool[] arraySalasExaminadas = new bool[8];
 
         public PlayerAction UltimaAccao { get; set; }
+
+        public ResultadoJogo ResultadoJogo { get; set; }
+       
 
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
@@ -511,6 +517,7 @@ namespace SetepassosPRJ.Models
             //Accao que terminou em vitória do jogo
             if (ResultadoAccao == Result.SuccessVictory)
             {
+                ResultadoJogo = ResultadoJogo.Vitoria;
                 MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
                 if (UltimaAccao == PlayerAction.Flee)
                 {
@@ -526,6 +533,19 @@ namespace SetepassosPRJ.Models
                 Terminado = true;
                 CalcularBonus();
             }
+
+            if (ResultadoAccao == Result.GameHasEnded && PontosVida <= 0 || ResultadoAccao == Result.Success && PontosVida <= 0)
+            {
+                Derrota = true;
+            }
+
+            if(Derrota == true)
+            {
+                ResultadoJogo = ResultadoJogo.Derrota;
+            }
+
+            
+
 
         }
 

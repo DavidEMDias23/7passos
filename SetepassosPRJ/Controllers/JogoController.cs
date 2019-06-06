@@ -44,7 +44,7 @@ namespace SetepassosPRJ.Controllers
             if (ModelState.IsValid)
             {
                 Jogo JogoNovo = new Jogo(j.Nome, j.PerfilTipo);
-
+                
 
                 HttpClient client = NewGameHttpClient.Client;
                 string path = "/api/NewGame";
@@ -63,6 +63,7 @@ namespace SetepassosPRJ.Controllers
 
                 JogoNovo.AtualizarJogo(gs);
                 RepositorioJogos.AdicionarJogo(JogoNovo);
+               
                 return View("JogoIniciado", JogoNovo);
             }
             else
@@ -81,6 +82,7 @@ namespace SetepassosPRJ.Controllers
         public async Task<IActionResult> AccaoJogo(int gameid, PlayerAction action)
         {
             Jogo JogoAtual = RepositorioJogos.GetJogo(gameid);
+            HiScores ScoreAtual = RepositorioHiScoresdbContext.GetScore(gameid);
 
             if (action != PlayerAction.Quit)
             {
@@ -100,13 +102,24 @@ namespace SetepassosPRJ.Controllers
                 GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
                 JogoAtual.AtualizarJogo(gs);
+                
+                
             }
             else
             {
                 JogoAtual.MensagemAccao = "Desististe do Jogo";
                 JogoAtual.CalcularBonus();
                 JogoAtual.Desistiu = true;
+                JogoAtual.ResultadoJogo = ResultadoJogo.Desistiu;
                 JogoAtual.Terminado = true;
+                
+            }
+
+            if(JogoAtual.Terminado)
+            {
+                HiScores NovoScore = new HiScores();
+                NovoScore.AtualizarScores(JogoAtual);
+                RepositorioHiScoresdbContext.AdicionarScore(NovoScore);
             }
             return View("JogoIniciado", JogoAtual);
         }
