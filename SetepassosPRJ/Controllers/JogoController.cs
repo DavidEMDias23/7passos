@@ -160,7 +160,7 @@ namespace SetepassosPRJ.Controllers
         public async Task<IActionResult> AccaoJogoAutonomo(int gameid, PlayerAction action)
         {
             JogoAutonomo JogoAtual = RepositorioJogosAutonomos.GetJogo(gameid);
-            HiScores ScoreAtual = RepositorioHiScoresdbContext.GetScore(gameid);
+            
             
             if (JogoAtual.TomarAccao != PlayerAction.Quit && JogoAtual.Rondas > 0)
             {
@@ -189,9 +189,6 @@ namespace SetepassosPRJ.Controllers
                 JogoAtual.Desistiu = true;
                 JogoAtual.ResultadoJogo = ResultadoJogo.Desistiu;
                 JogoAtual.Terminado = true;
-                HiScores NovoScore = new HiScores();
-                NovoScore.AtualizarScores(JogoAtual);
-                RepositorioHiScoresdbContext.AdicionarScore(NovoScore);
                 return View("DadosJogoAutonomo", JogoAtual);
             }
             
