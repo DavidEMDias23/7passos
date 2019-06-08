@@ -3,33 +3,38 @@
     ViewData["Title"] = "Novo Jogo";
 }
 
+<h1> Modo de Jogo: Normal </h1>
+<br/>
 <form asp-action="CriarJogo" method="post">
-        <div asp-validation-summary="All"></div>
-        <div class="form-group">
-            <label asp-for="Nome">Nome </label>
-            <input class="form-control" asp-for="Nome" />
-        </div>
-   
-   
-        <div class="form-group">
-                   <img src="~/images/Nerd-Char.png" alt="HTML5 Icon" class="charpick">
-                <label class="ArrangeChars">
-                    <input class="form-control" type="radio" asp-for="PerfilTipo" value="W" checked>Nerd
-                </label>
-                    <img src="~/images/Fat-Char.png" alt="HTML5 Icon" class="charpick">
-                <label class="ArrangeChars">
-                    <input class="form-control" type="radio" asp-for="PerfilTipo" value="B">Gordo
-                </label>
-                    <img src="~/images/Old-Char.png" alt="HTML5 Icon" class="charpick">
-                <label class="ArrangeChars">
-                    <input class="form-control" type="radio" asp-for="PerfilTipo" value="S">velha louca
-                </label>
-            </div>
-                           
-       <div>
-            <input type="image" src="~/images/btns/btn-jogar.png" value="CriarJogo" class="BotaoJogar"/>
-       </div>
-       
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Nome">Nome </label>
+        <input class="form-control" asp-for="Nome" />
+    </div>
+
+
+    <div class="form-group">
+        <img src="~/images/Nerd-Char.png" alt="HTML5 Icon" class="charpick">
+        <label class="ArrangeChars">
+            <input class="form-control" type="radio" asp-for="PerfilTipo" value="W" checked>Nerd
+        </label>
+        <img src="~/images/Fat-Char.png" alt="HTML5 Icon" class="charpick">
+        <label class="ArrangeChars">
+            <input class="form-control" type="radio" asp-for="PerfilTipo" value="B">Gordo
+        </label>
+        <img src="~/images/Old-Char.png" alt="HTML5 Icon" class="charpick">
+        <label class="ArrangeChars">
+            <input class="form-control" type="radio" asp-for="PerfilTipo" value="S">velha louca
+        </label>
+    </div>
+
+    <div class="text-center">
+        <input type="image" src="~/images/btns/btn-jogar.png" value="CriarJogo" class="BotaoJogar" />
+    </div>
+    <div class="text-right">
+        <a asp-action="CriarJogoAutonomo"><img src="~/images/btns/btn-autonomo.png" class="BotaoJogar" /></a>
+    </div>
+
 
 
 </form>

@@ -1,0 +1,40 @@
+﻿@model SetepassosPRJ.Models.JogoAutonomo
+@{
+    ViewData["Title"] = "Modo Autonomo";
+}
+
+<h1> Modo de Jogo: Autónomo</h1>
+<br />
+
+<form asp-action="CriarJogoAutonomo" method="post">
+    <div class="form-group text-center">
+        <img src="~/images/Old-Char.png" alt="HTML5 Icon" class="charpick">
+        <label class="ArrangeChars">
+            <input class="form-control" type="radio" asp-for="Nome" value="teste1" checked>Auto 3
+        </label>
+        <label class="ArrangeChars">
+            <input class="form-control" type="radio" asp-for="Nome" value="teste2" checked>Auto 7
+        </label>
+        <label class="ArrangeChars">
+            <input class="form-control" type="radio" asp-for="Nome" value="teste3" checked>Auto 0
+        </label>
+
+
+        <div class="explicacaoAutonomo">
+            <p> Auto 3: Neste modo o jogo fará apenas 3 rondas e ou morre ou desiste. </p>
+            <p> Auto 7: Neste modo o jogo fará apenas 7 rondas e ou morre ou desiste. </p>
+            <p> Auto 0: Neste modo o jogo fará no máximo 40 rondas, tentando ganhar. Se não morrer nem ganhar o jogo desiste ao fim das 40 rondas.</p>
+        </div>
+    </div>
+    <div class="text-center">
+        <input type="image" value="CriarJogoAutonomo" src="~/images/btns/btn-jogar.png" class="BotaoJogar" />
+    </div>
+    <div class="text-right">
+        <a asp-action="CriarJogo"><img src="~/images/btns/btn-normal.png" class="BotaoJogar" /></a>
+    </div>
+</form>
+
+
+
+
+

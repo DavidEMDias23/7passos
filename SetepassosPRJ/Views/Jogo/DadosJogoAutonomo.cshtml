@@ -1,0 +1,63 @@
+﻿@model SetepassosPRJ.Models.JogoAutonomo
+@{
+}
+<div class="row">
+    <div class="col-sm-4 text-center">
+        <h4><strong>Nome do Jogador: </strong></h4>
+        <p>@Model.Nome</p>
+    </div>
+    <div class="col-sm-4 text-center">
+    <h1>Dados do Jogo</h1>
+    </div>
+    <div class="col-sm-4 text-center">
+        <h4><strong>Perfil Escolhido: </strong></h4>
+        <p>@Model.PerfilTipo</p>
+    </div>
+</div>
+    <div class="row tabelaBonus">
+        <div class="col-sm-6 text-center">
+            <h2>Conquistas</h2>
+            <p class="MensagemBonus">
+                <img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @if (Model.Chave == true)
+                {
+                    @:Sim
+                }
+                else
+                {
+                    @:Não
+                }
+            </p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-ouro.png" class="iconsItemsBonus" /> @Model.MoedasOuro</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.NumInimigosDerrotados</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.NumItensEncontrados</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.PocoesVida </p>
+            <p class="MensagemBonus">Fugas: @Model.NumFugas</p>
+            <p class="MensagemBonus">Áreas Examinadas: @Model.TotalAreasExaminadas</p>
+            <p class="MensagemBonus">Ataques: @Model.TotalAtaques</p>
+            <p class="MensagemBonus">Movimentos: @Model.TotalMover</p>
+        </div>
+
+        <div class="col-sm-6 text-center">
+            <h2>Bónus</h2>
+            <p class="MensagemBonus">Ganhar o Jogo: @Model.BonusVitoria Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @Model.BonusChave Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.BonusInimigo Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.BonusItem Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.BonusPocao Moedas</p>
+            <p class="MensagemBonus">Ganhar sem Recuar: @Model.BonusRecuar Moedas </p>
+            <p class="MensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Moedas</p>
+            <p class="MensagemBonus">Ganhar com menos de 0.5 pontos de vida: @Model.BonusVida Moedas</p>
+            <br />
+            <p class="MensagemAccaoMonstro">Bonus Total: @Model.Bonus</p>
+        </div>
+    </div>
+    <div class="row tabelaBonus">
+        <div class="col-sm-6">
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsItemBonusMoeda" /> Total Moedas: <strong>@Model.MoedasOuroTotal</strong></p>
+        </div>
+        <div class="col-sm-6 columncenter text-center">
+            <a asp-controller="Home" asp-action="HiScores" class="btn btn-info">HiScores</a>
+            <a asp-action="CriarJogo" class="btn btn-primary">Criar Jogo</a>
+        </div>
+    </div>
+

@@ -76,14 +76,6 @@ img {
     width: 5%;
     margin: 2px;
 }
-.botaoSom {
-    height: 15%;
-    width: 15%;
-    background: none;
-    border-color: none;
-    border-style: none;
-    display: inline-block;
-}
 
 .iconsItemsBonus {
     height: 7%;
@@ -312,6 +304,15 @@ h4 {
     border: outset;
     border-color:maroon;
     border-width: 5px;
+}
+.explicacaoAutonomo {
+    background-color: black;
+    border: outset;
+    border-color: mediumpurple;
+    border-width: 5px;
+    padding: 10px;
+    color: white;
+    font-size: 0.9vw;
 }
 
 /*Mensagens de contexto*/

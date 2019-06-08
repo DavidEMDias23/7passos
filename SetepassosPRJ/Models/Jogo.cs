@@ -18,7 +18,6 @@ namespace SetepassosPRJ.Models
         public int Sala { get; set; }
         public bool Desistiu { get; set; }
         public bool Terminado { get; set; }
-        public bool Derrota { get; set; }
 
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
@@ -514,10 +513,15 @@ namespace SetepassosPRJ.Models
             {
                 MensagemAccao = "!! Este jogo já terminou !!";
             }
-            //Accao que terminou em vitória do jogo
+ 
+            PassagemTempo();
+
+            //Calcular bonus de fim de jogo
             if (ResultadoAccao == Result.SuccessVictory)
             {
+                Terminado = true;
                 ResultadoJogo = ResultadoJogo.Vitoria;
+                CalcularBonus();
                 MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
                 if (UltimaAccao == PlayerAction.Flee)
                 {
@@ -525,22 +529,9 @@ namespace SetepassosPRJ.Models
                 }
             }
 
-            PassagemTempo();
-
-            //Calcular bonus de fim de jogo
-            if (ResultadoAccao == Result.SuccessVictory || PontosVida <= 0)
+            if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
             {
                 Terminado = true;
-                CalcularBonus();
-            }
-
-            if (ResultadoAccao == Result.GameHasEnded && PontosVida <= 0 || ResultadoAccao == Result.Success && PontosVida <= 0)
-            {
-                Derrota = true;
-            }
-
-            if(Derrota == true)
-            {
                 ResultadoJogo = ResultadoJogo.Derrota;
             }
 
@@ -550,7 +541,7 @@ namespace SetepassosPRJ.Models
         }
 
 
-        public void PassagemTempo()
+        public virtual void PassagemTempo()
         {
             if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
@@ -569,7 +560,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        public void CalcularBonus()
+        public virtual void CalcularBonus()
         {
 
             if (ResultadoAccao == Result.SuccessVictory)
@@ -614,7 +605,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        public int CompareTo(object obj)
+        public virtual int CompareTo(object obj)
         {
             Jogo j = (Jogo)obj;
 

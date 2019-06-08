@@ -123,5 +123,78 @@ namespace SetepassosPRJ.Controllers
             }
             return View("JogoIniciado", JogoAtual);
         }
+
+        [HttpGet]
+        public IActionResult CriarJogoAutonomo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CriarJogoAutonomo(string Nome)
+        {
+                JogoAutonomo JogoNovo = new JogoAutonomo(Nome);    
+
+                HttpClient client = NewGameHttpClient.Client;
+                string path = "/api/NewGame";
+
+                NovoJogoApiRequest req = new NovoJogoApiRequest(JogoNovo.Nome, JogoNovo.PerfilTipo);
+                string json = JsonConvert.SerializeObject(req);
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
+                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
+                string json_r = await response.Content.ReadAsStringAsync();
+                GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
+
+                JogoNovo.AtualizarJogoAutonomo(gs);
+                RepositorioJogosAutonomos.AdicionarJogo(JogoNovo);
+
+                 return RedirectToAction("AccaoJogoAutonomo", new { gameid = JogoNovo.GameID, action = JogoNovo.TomarAccao });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AccaoJogoAutonomo(int gameid, PlayerAction action)
+        {
+            JogoAutonomo JogoAtual = RepositorioJogosAutonomos.GetJogo(gameid);
+            HiScores ScoreAtual = RepositorioHiScoresdbContext.GetScore(gameid);
+
+            if (JogoAtual.TomarAccao != PlayerAction.Quit && JogoAtual.Rondas < 40)
+            {
+                HttpClient client = NewGameHttpClient.Client;
+                string path = "/api/Play";
+
+                AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(gameid, action);
+                string json = JsonConvert.SerializeObject(aj);
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
+                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
+                string json_r = await response.Content.ReadAsStringAsync();
+                GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
+
+                JogoAtual.AtualizarJogo(gs);
+                JogoAtual.Rondas = JogoAtual.Rondas + 1; 
+                return RedirectToAction("AccaoJogoAutonomo", new { JogoAtual.GameID, JogoAtual.TomarAccao });
+            }
+            else
+            {
+                JogoAtual.CalcularBonus();
+                JogoAtual.Desistiu = true;
+                JogoAtual.ResultadoJogo = ResultadoJogo.Desistiu;
+                JogoAtual.Terminado = true;
+                HiScores NovoScore = new HiScores();
+                NovoScore.AtualizarScores(JogoAtual);
+                RepositorioHiScoresdbContext.AdicionarScore(NovoScore);
+                return View("DadosJogoAutonomo", JogoAtual);
+            }
+            
+        }
     }
 }
