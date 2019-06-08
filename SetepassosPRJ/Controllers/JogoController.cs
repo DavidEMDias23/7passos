@@ -161,8 +161,8 @@ namespace SetepassosPRJ.Controllers
         {
             JogoAutonomo JogoAtual = RepositorioJogosAutonomos.GetJogo(gameid);
             HiScores ScoreAtual = RepositorioHiScoresdbContext.GetScore(gameid);
-
-            if (JogoAtual.TomarAccao != PlayerAction.Quit && JogoAtual.Rondas < 40)
+            
+            if (JogoAtual.TomarAccao != PlayerAction.Quit && JogoAtual.Rondas > 0)
             {
                 HttpClient client = NewGameHttpClient.Client;
                 string path = "/api/Play";
@@ -179,8 +179,8 @@ namespace SetepassosPRJ.Controllers
                 string json_r = await response.Content.ReadAsStringAsync();
                 GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
-                JogoAtual.AtualizarJogo(gs);
-                JogoAtual.Rondas = JogoAtual.Rondas + 1; 
+                JogoAtual.AtualizarJogoAutonomo(gs);
+                JogoAtual.Rondas = JogoAtual.Rondas - 1; 
                 return RedirectToAction("AccaoJogoAutonomo", new { JogoAtual.GameID, JogoAtual.TomarAccao });
             }
             else

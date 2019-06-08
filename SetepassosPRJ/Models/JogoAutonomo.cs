@@ -10,6 +10,18 @@ namespace SetepassosPRJ.Models
 
         public JogoAutonomo(string nomeEscolhido) : base(nomeEscolhido, "S")
         {
+            if (Nome == "Auto3")
+            {
+                Rondas = 3;
+            }
+            if (Nome == "Auto7")
+            {
+                Rondas = 7;
+            }
+            if (Nome == "Auto0")
+            {
+                Rondas = 40;
+            }
 
         }
 
@@ -32,7 +44,7 @@ namespace SetepassosPRJ.Models
             EncontradoPocao = false;
             EncontradoOuro = false;
             TomarAccao = PlayerAction.Null;
-            Rondas = 0;
+            
 
 
             //Acoes com Sucesso//
