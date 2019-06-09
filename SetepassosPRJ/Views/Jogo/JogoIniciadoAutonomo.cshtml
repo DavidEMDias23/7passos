@@ -32,14 +32,22 @@
 
         </div>
         <div class="col-sm-3">
+            @if (Model.TotalAreasExaminadas != 0 && Model.Monstro == false)
+            {
+                <div>
+                    <img src="~/images/Icons/icon-search.png" class="iconsMonstro" /> <strong>@Model.MensagemSalasExaminadas</strong>
+                </div>
+            }
             @if (Model.Monstro == true)
             {
                 <div>
                     <img src="~/images/Icons/icon-monstro-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
                     <img src="~/images/Icons/icon-monstro-forca.png" class="iconsMonstro" /> <strong>@Model.PontosAtaqueMonstro</strong>
-                    <img src="~/images/Icons/icon-monstro-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong>
+                    <img src="~/images/Icons/icon-monstro-vida.png" class="iconsMonstro" /> <strong>@Model.PontosVidaMonstro</strong> <p class="MensagemDano">@Model.MensagemDano</p>
                 </div>
-
+                <div>
+                    <p class="MensagemMeuAtaque text-center">@Model.MensagemMeuAtaque</p>
+                </div>
             }
         </div>
         <div class="col-sm-5">
@@ -52,6 +60,7 @@
                 @if (Model.Chave)
                 {
                     <img src="~/images/Icons/icon-key.png" class="icons" />
+                    <p class="MensagemOutro">@Model.MensagemChave</p>
                 }
                 else
                 {
@@ -65,19 +74,20 @@
             <div class="areadados">
 
                 <div>
-                    <img src="~/images/Icons/icon-vida.png" class="icons" />  <strong>@Model.PontosVida</strong> 
+                    <img src="~/images/Icons/icon-vida.png" class="icons" />  <strong>@Model.PontosVida</strong>  <p class="MensagemVidaPos">@Model.MensagemVidaPos</p> <p class="MensagemVidaNeg">@Model.MensagemVidaNeg</p>  <p class="MensagemPassarTempo">  @Model.MensagemPassarTempo</p>
                 </div>
                 <div>
-                    <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  <strong>@Model.PocoesVida</strong> 
+                    <img src="~/images/Icons/icon-pocaoVida.png" class="icons" />  <strong>@Model.PocoesVida</strong> <p class="MensagemOutro" display="inline-block">@Model.MensagemPocao</p>
+                </div>
                 <div>
-                    <img src="~/images/Icons/icon-forca.png" class="icons" />  <strong>@Model.PontosAtaque</strong> 
+                    <img src="~/images/Icons/icon-forca.png" class="icons" />  <strong>@Model.PontosAtaque</strong>  <p class="MensagemOutro" display="inline-block">@Model.MensagemAtaque</p>
                 </div>
 
                 <div>
-                    <img src="~/images/Icons/icon-luck.png" class="icons" />  <strong>@Model.PontosSorte</strong> 
+                    <img src="~/images/Icons/icon-luck.png" class="icons" />  <strong>@Model.PontosSorte</strong> <p class="MensagemOutro">@Model.MensagemSorte</p>
                 </div>
                 <div class="iconMoeda">
-                    <img src="~/images/Icons/icon-moeda.png" class="icons" />  <strong>@Model.MoedasOuro</strong> 
+                    <img src="~/images/Icons/icon-moeda.png" class="icons" />  <strong>@Model.MoedasOuro</strong>  <p class="MensagemOutro"> @Model.MensagemOuro @Model.MensagemPlim</p>
                 </div>
                 <div>
                     <p>ID: @Model.GameID</p>
@@ -90,7 +100,8 @@
             @if ((Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu == true) && Model.ResultadoAccao != Result.SuccessVictory)
             {
                 <form asp-action="DadosJogo" method="post">
-                    <div class="text-center">
+                    <div class="text-center mensagemSaida">
+                        @Model.MensagemAccaoFuga @Model.MensagemAccao
                         <button class="BotaoSair" type="submit" name="gameid" value="@Model.GameID"><img src="~/images/btns/btn-sair.png" alt="Sair" z-index="3"></button>
                     </div>
                 </form>
@@ -98,7 +109,8 @@
             else if (Model.ResultadoAccao == Result.SuccessVictory)
             {
                 <form asp-action="DadosJogo" method="post">
-                    <div class="text-center">
+                    <div class="text-center mensagemSaida">
+                        @Model.MensagemAccaoFuga @Model.MensagemAccao
                         <button class="BotaoSair" type="submit" name="gameid" value="@Model.GameID"><img src="~/images/btns/btn-sair.png" alt="Sair"></button>
                     </div>
                 </form>
@@ -108,6 +120,12 @@
             {
                 <div class="areajogavel">
                     <div class="text-right">
+                        <div>
+                            <p class="MensagemAccaoFuga"> @Model.MensagemAccaoFuga</p>
+                        </div>
+                        <div>
+                            <p class="MensagemAccao">@Model.MensagemAccao</p>
+                        </div>
                         <div class="text-right">
 
                             @if (Model.EncontradoItem == true)
@@ -128,7 +146,9 @@
                             }
 
                         </div>
-
+                        <div>
+                            <p class="MensagemAccaoMonstro">@Model.MensagemAccaoMonstro</p>
+                        </div>
                     </div>
 
 
@@ -138,13 +158,15 @@
                             <img src="~/images/Icons/icon-ouro.png" class="iconsGold" />
                         </div>
                     }
-
+                    @if (Model.MensagemDano != "")
+                    {
+                        <div>
+                            <p class="danoNoMonstro">@Model.MensagemDano</p>
+                        </div>
+                    }
                 </div>
                 @if (Model.EncontradoGato == true)
                 {
-                    <audio autoplay>
-                        <source src="~/sound/cat audio.mp3">
-                    </audio>
                     <div class="imagemgatopreto">
                         <img src="~/images/Icons/icon-gatopreto.png" />
                     </div>
@@ -154,21 +176,17 @@
 
                 @if (Model.Monstro == true)
                 {
-                    if (Model.UltimaAccao != PlayerAction.Attack && Model.UltimaAccao != PlayerAction.DrinkPotion)
-                    {
-                        <audio autoplay>
-                            <source src="~/sound/monster-@(Model.PerfilTipo)-sound.mp3">
-                        </audio>
-                    }
 
                     <!--Imagem do Monstro-->
-                   
+                        <div>
+                            <img src="~/images/Inimigos/monster-@(Model.PerfilTipo).png" class="monstro" />
+                        </div>
                 }
             }
             @if (Model.LeveiDano == true)
             {
                 <div class="puttop text-right">
-                    <img src="~/images/Contextual/blood.png" class="imagemblood" />
+                    <p class="danoNoJogador">@Model.MensagemVidaNeg</p>
                 </div>
 
             }
@@ -178,56 +196,23 @@
             <form action="AccaoJogo" method="post">
                 @if (Model.Terminado == false)
                 {
-                    @if (Model.Monstro == false)
-                    {
-                        <div class="areabotoes">
-                            @if (Model.Sala != 7 || (Model.Sala == 7 && Model.Chave == true))
-                            {
-                                <div>
-                                    <input name="gameid" value="@Model.GameID" type="hidden" />
-                                    <button class="BotoesJogo" type="submit" name="action" value="GoForward"><img src="~/images/btns/btn-avancar1.png" alt="Avançar"></button> @Model.TotalMover
-                                </div>
-                            }
-                            @if (Model.Sala != 1)
-                            {
-                                <div>
-                                    <input name="gameid" value="@Model.GameID" type="hidden" />
-                                    <button class="BotoesJogo" type="submit" name="action" value="GoBack"><img src="~/images/btns/btn-recuar1.png" alt="Recuar"></button> @Model.TotalMover
-                                </div>
-                            }
-                            @if (Model.arraySalasExaminadas[Model.Sala] == false)
-                            {
-                                <div>
-                                    <input name="gameid" value="@Model.GameID" type="hidden" />
-                                    <button class="BotoesJogo" type="submit" name="action" value="SearchArea"><img src="~/images/btns/btn-examinar1.png" alt="Examinar"></button> @Model.TotalAreasExaminadas
-                                </div>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="areabotoes">
-
-                            <div>
-                                <input name="gameid" value="@Model.GameID" type="hidden" />
-                                <button class="BotoesJogo" type="submit" name="action" value="Attack"><img src="~/images/btns/btn-atacar1.png" alt="Atacar"></button> @Model.TotalAtaques
-                            </div>
-                            <div>
-                                <input name="gameid" value="@Model.GameID" type="hidden" />
-                                <button class="BotoesJogo" type="submit" name="action" value="Flee"><img src="~/images/btns/btn-fugir1.png" alt="Fugir"></button> @Model.TotalMover
-                            </div>
-                        </div>
-                    }
-                    @if (Model.PocoesVida > 0)
-                    {
-                        <div>
-                            <input name="gameid" value="@Model.GameID" type="hidden" />
-                            <button class="BotoesJogo" type="submit" name="action" value="DrinkPotion"><img src="~/images/btns/btn-pocao1.png" alt="Beber Poção"></button>
-                        </div>
-                    }
+     
+                <div class="areabotoes">
                     <div>
-                        <input name="gameid" value="@Model.GameID" type="hidden" />
-                        <button class="BotoesJogo" type="submit" name="action" value="Quit"><img src="~/images/btns/btn-desistir1.png" alt="Desistir"></button>
+                        TotalMover: @Model.TotalMover
+                    </div>
+                    <div>
+                        Total Areas Examinadas: @Model.TotalAreasExaminadas
+                    </div>
+
+                   <div>
+                    TotalAtaques: @Model.TotalAtaques
+                   </div>
+
+                <div>
+                    <input name="gameid" value="@Model.GameID" type="hidden" />
+                    <button class="btn btn-success" type="submit" name="action" value="@Model.TomarAccao">Proxima Accao</button>
+                </div>
                     </div>
                 }
             </form>

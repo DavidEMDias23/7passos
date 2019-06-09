@@ -50,6 +50,7 @@ namespace SetepassosPRJ.Models
         public double DanoSofrido { get; set; }
 
         public Result ResultadoAccao { get; set; }
+        public PlayerAction TomarAccao { get; set; }
 
         public string MensagemAccao { get; set; }
         public string MensagemAccaoMonstro { get; set; }
@@ -75,6 +76,8 @@ namespace SetepassosPRJ.Models
         public int BonusRecuar { get; set; }
         public int BonusLutar { get; set; }
         public int BonusVida { get; set; }
+
+        public bool Autonomo { get; set; } 
        
 
         public bool[] arraySalasExaminadas = new bool[8];
@@ -85,10 +88,11 @@ namespace SetepassosPRJ.Models
        
 
 
-        public Jogo(string nomeEscolhido, string perfilTipoEscolhido)
+        public Jogo(string nomeEscolhido, string perfilTipoEscolhido, bool modoEscolhido)
         {
             Nome = nomeEscolhido;
             PerfilTipo = perfilTipoEscolhido;
+            Autonomo = modoEscolhido;
             MoedasOuro = 0;
             Sala = 0;
             PocoesVida = 1;
@@ -535,9 +539,7 @@ namespace SetepassosPRJ.Models
                 ResultadoJogo = ResultadoJogo.Derrota;
             }
 
-            
-
-
+            AccaoAutonomo();
         }
 
 
@@ -602,6 +604,90 @@ namespace SetepassosPRJ.Models
                 {
                     MensagemSalasExaminadas = MensagemSalasExaminadas + " " + Convert.ToString(i);
                 }
+            }
+        }
+
+        public void AccaoAutonomo()
+        {
+            //Detetar se existe monstro na view
+            if (Monstro == true)
+            {
+                if (PontosSorteMonstro < PontosSorte)
+                {
+                    if (PontosAtaqueMonstro < 4)
+                    {
+                        if (PontosVida > 1.5)
+                        {
+                            TomarAccao = PlayerAction.Attack;
+                        }
+                        else
+                        {
+                            if (PocoesVida > 0)
+                            {
+                                TomarAccao = PlayerAction.DrinkPotion;
+                            }
+                            else
+                            {
+                                TomarAccao = PlayerAction.Flee;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        TomarAccao = PlayerAction.Flee;
+                    }
+                }
+                else
+                {
+                    if (PontosAtaqueMonstro < 3)
+                    {
+                        if (PontosVida > 1.5)
+                        {
+                            TomarAccao = PlayerAction.Attack;
+                        }
+                        else
+                        {
+                            if (PocoesVida > 0)
+                            {
+                                TomarAccao = PlayerAction.DrinkPotion;
+                            }
+                            else
+                            {
+                                TomarAccao = PlayerAction.Flee;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        TomarAccao = PlayerAction.Flee;
+                    }
+                }
+            }
+            else
+            {
+                if (Chave == true)
+                {
+                    TomarAccao = PlayerAction.GoForward;
+                }
+                else
+                {
+                    if (arraySalasExaminadas[Sala] == true)
+                    {
+                        if (Sala < 7)
+                        {
+                            TomarAccao = PlayerAction.GoForward;
+                        }
+                        else
+                        {
+                            TomarAccao = PlayerAction.Quit;
+                        }
+                    }
+                    else
+                    {
+                        TomarAccao = PlayerAction.SearchArea;
+                    }
+                }
+
             }
         }
 

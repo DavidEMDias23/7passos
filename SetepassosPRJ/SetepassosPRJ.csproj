@@ -20,6 +20,9 @@
     <Content Update="Views\Jogo\JogoAutonomoIniciado.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Jogo\JogoIniciadoAutonomo.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Jogo\JogoIniciado.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
