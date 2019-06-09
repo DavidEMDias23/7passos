@@ -83,45 +83,6 @@ namespace SetepassosPRJ.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CriarJogoAutonomo(NovoJogo j)
-        {
-            if (ModelState.IsValid)
-            {
-                Jogo JogoNovo = new Jogo(j.Nome, j.PerfilTipo, j.Autonomo);
-
-                HttpClient client = NewGameHttpClient.Client;
-                string path = "/api/NewGame";
-
-                NovoJogoApiRequest req = new NovoJogoApiRequest(j.Nome, j.PerfilTipo);
-                string json = JsonConvert.SerializeObject(req);
-
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
-                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.SendAsync(request);
-                if (!response.IsSuccessStatusCode) { return Redirect("/"); }
-
-                string json_r = await response.Content.ReadAsStringAsync();
-                GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
-
-                JogoNovo.AtualizarJogo(gs);
-                RepositorioJogos.AdicionarJogo(JogoNovo);
-                if (JogoNovo.Autonomo == false)
-                {
-                    return View("JogoIniciado", JogoNovo);
-                }
-                else
-                {
-                    return View("JogoIniciadoAutonomo", JogoNovo);
-                }
-            }
-            else
-            {
-                return View();
-            }
-        }
-
         [HttpGet]
         public IActionResult AccaoJogo()
         {
@@ -183,7 +144,7 @@ namespace SetepassosPRJ.Controllers
                 
             }
 
-            if(JogoAtual.Terminado)
+            if(JogoAtual.Terminado && JogoAtual.Autonomo == false)
             {
                 HiScores NovoScore = new HiScores();
                 NovoScore.AtualizarScores(JogoAtual);

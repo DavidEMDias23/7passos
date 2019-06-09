@@ -11,6 +11,7 @@ namespace SetepassosPRJ.Models
         public string PerfilTipo { get; set; }
         public int MoedasOuro { get; set; }
         public double PontosVida { get; set; }
+        public double PontosVidaMax { get; set; }
         public int PontosAtaque { get; set; }
         public int PontosSorte { get; set; }
         public int PocoesVida { get; set; }
@@ -108,6 +109,7 @@ namespace SetepassosPRJ.Models
                 PontosVida = 3;
                 PontosAtaque = 3;
                 PontosSorte = 3;
+                PontosVidaMax = PontosVida;
 
 
             }
@@ -118,6 +120,7 @@ namespace SetepassosPRJ.Models
                 PontosVida = 3;
                 PontosAtaque = 2;
                 PontosSorte = 4;
+                PontosVidaMax = PontosVida;
 
 
             }
@@ -128,6 +131,7 @@ namespace SetepassosPRJ.Models
                 PontosVida = 4;
                 PontosAtaque = 3;
                 PontosSorte = 2;
+                PontosVidaMax = PontosVida;
 
             }
 
@@ -294,32 +298,16 @@ namespace SetepassosPRJ.Models
                     PocoesUsadas = +1;
                     PocoesVida = PocoesVida - 1;
                     MensagemPocao = "-1";
-                    if (PerfilTipo == "B")
-                    {
-                        if (PontosVida < 4)
+                        if (PontosVida < PontosVidaMax)
                         {
-                            MensagemVidaPos = "+" + Convert.ToString(4 - PontosVida);
+                            MensagemVidaPos = "+" + Convert.ToString(PontosVidaMax - PontosVida);
                             MensagemAccao = " Bebeste uma imperial! ";
-                            PontosVida = 4;
+                            PontosVida = PontosVidaMax;
                         }
                         else
                         {
                             MensagemAccao = " Bêbado! A tua vida já estava cheia... ";
                         }
-                    }
-                    if (PerfilTipo == "W" || PerfilTipo == "S")
-                    {
-                        if (PontosVida < 3)
-                        {
-                            MensagemVidaPos = "+" + Convert.ToString(3 - PontosVida);
-                            MensagemAccao = " Bebeste uma imperial! ";
-                            PontosVida = 3;
-                        }
-                        else
-                        {
-                            MensagemAccao = " Bêbado! A tua vida já estava cheia... ";
-                        }
-                    }
                 }
 
                 //Encontrar Items
@@ -368,13 +356,23 @@ namespace SetepassosPRJ.Models
                             double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
                             double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
                             MensagemVidaPos = "+" + VidaGanha;
+                            PontosVida = 5;
                         }
                     }
                     else if (nGS.ItemHealthEffect < 0)
                     {
-                        MensagemVidaNeg = Convert.ToString(nGS.ItemHealthEffect);
+                        
                         MensagemAccao = MensagemAccao + "Era leite estragado! ";
-                        PontosVida = PontosVida + nGS.ItemHealthEffect;
+                        if (PontosVida + nGS.ItemHealthEffect > 0)
+                        {
+                            MensagemVidaNeg = Convert.ToString(nGS.ItemHealthEffect);
+                            PontosVida = PontosVida + nGS.ItemHealthEffect;
+                        }
+                        else
+                        {
+                            MensagemVidaNeg = "-" + Convert.ToString(PontosVida);
+                            PontosVida = 0;
+                        }
                     }
 
                     if (nGS.ItemAttackEffect > 0 && PontosAtaque < 5)
@@ -537,6 +535,7 @@ namespace SetepassosPRJ.Models
             {
                 Terminado = true;
                 ResultadoJogo = ResultadoJogo.Derrota;
+                CalcularBonus();
             }
 
             AccaoAutonomo();
