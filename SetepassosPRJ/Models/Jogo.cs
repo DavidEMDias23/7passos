@@ -552,7 +552,10 @@ namespace SetepassosPRJ.Models
                 CalcularBonus();
             }
 
-            AccaoAutonomo();
+            if (Autonomo == true)
+            {
+                AccaoAutonomo();
+            }
         }
 
 
