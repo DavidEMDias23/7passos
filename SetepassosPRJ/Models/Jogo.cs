@@ -634,7 +634,7 @@ namespace SetepassosPRJ.Models
             //Detetar se existe monstro na view
             if (Monstro == true)
             {
-                if (PontosSorteMonstro < PontosSorte)
+                if (PontosSorteMonstro <= PontosSorte)
                 {
                     if (PontosAtaqueMonstro < 4)
                     {
@@ -655,8 +655,45 @@ namespace SetepassosPRJ.Models
                         }
                     }
                     else
-                    {
-                        TomarAccao = PlayerAction.Flee;
+                    { 
+                        if (Chave == false)
+                        {
+                            if (Sala > 5)
+                            {
+                                if (PontosVida < 2 && PocoesVida > 0)
+                                {
+                                    TomarAccao = PlayerAction.DrinkPotion;
+                                }
+                                else
+                                {
+                                    TomarAccao = PlayerAction.Attack;
+                                }
+                            }
+                            else
+                            {
+                                if (PontosVida < 2 && PocoesVida > 0)
+                                {
+                                    TomarAccao = PlayerAction.DrinkPotion;
+
+                                }
+                                else
+                                {
+                                    TomarAccao = PlayerAction.Flee;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (PontosVida < 2.2 && PocoesVida > 0)
+                            {
+                                TomarAccao = PlayerAction.DrinkPotion;
+                            }
+                            else
+                            {
+                                TomarAccao = PlayerAction.Flee;
+                            }
+                        }
+
                     }
                 }
                 else
