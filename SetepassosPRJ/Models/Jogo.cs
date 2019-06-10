@@ -300,7 +300,7 @@ namespace SetepassosPRJ.Models
                     MensagemPocao = "-1";
                         if (PontosVida < PontosVidaMax)
                         {
-                            MensagemVidaPos = "+" + Convert.ToString(PontosVidaMax - PontosVida);
+                            MensagemVidaPos = "+" + (PontosVidaMax - PontosVida);
                             MensagemAccao = " Bebeste uma imperial! ";
                             PontosVida = PontosVidaMax;
                         }
@@ -353,9 +353,10 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
-                            double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
-                            MensagemVidaPos = "+" + VidaGanha;
+                            //double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
+                            //double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
+                            //MensagemVidaPos = "+" + VidaGanha;
+                            MensagemVidaPos = "+" + nGS.ItemHealthEffect;
                             PontosVida = 5;
                         }
                     }
@@ -370,7 +371,8 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            MensagemVidaNeg = "-" + Convert.ToString(PontosVida);
+                            //MensagemVidaNeg = "-" + Convert.ToString(PontosVida);
+                            MensagemVidaNeg = "-" + nGS.ItemHealthEffect;
                             PontosVida = 0;
                         }
                     }
@@ -386,15 +388,16 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            int AtaqueGanhoDiferenca = PontosAtaque + nGS.ItemAttackEffect - 5;
-                            int AtaqueGanho = nGS.ItemAttackEffect - AtaqueGanhoDiferenca;
-                            PontosAtaque = PontosAtaque + AtaqueGanho;
-                            MensagemAtaque = "+" + AtaqueGanho;
+                            //int AtaqueGanhoDiferenca = PontosAtaque + nGS.ItemAttackEffect - 5;
+                            //int AtaqueGanho = nGS.ItemAttackEffect - AtaqueGanhoDiferenca;
+                            //PontosAtaque = PontosAtaque + AtaqueGanho;
+                            //MensagemAtaque = "+" + AtaqueGanho;
+                            PontosAtaque = 5;
+                            MensagemAtaque = "+" + nGS.ItemAttackEffect;
                         }
                     }
                     else if (nGS.ItemAttackEffect < 0)
                     {
-                        MensagemAtaque = Convert.ToString(nGS.ItemAttackEffect);
                         MensagemAccao = MensagemAccao + "Diminuiu o ataque! ";
                         if (PontosAtaque + nGS.ItemAttackEffect >= 0)
                         {
@@ -403,9 +406,10 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            int AtaquePerdidoDiferenca = PontosAtaque + nGS.ItemAttackEffect;
+                            //int AtaquePerdidoDiferenca = PontosAtaque + nGS.ItemAttackEffect;
+                            //MensagemAtaque = "-" + (nGS.ItemAttackEffect - AtaquePerdidoDiferenca);
+                            MensagemAtaque = "-" + nGS.ItemAttackEffect;
                             PontosAtaque = 0;
-                            MensagemAtaque = "-" + (nGS.ItemAttackEffect - AtaquePerdidoDiferenca);
                         }
                     }
 
@@ -416,14 +420,16 @@ namespace SetepassosPRJ.Models
                         MensagemAccao = MensagemAccao + "Tinha um trevo 4 folhas! ";
                         if (PontosSorte + nGS.ItemLuckEffect <= 5)
                         {
-                            MensagemSorte = "+" + Convert.ToString(nGS.ItemLuckEffect);
+                            MensagemSorte = "+" + nGS.ItemLuckEffect;
                             PontosSorte = PontosSorte + nGS.ItemLuckEffect;
                         }
                         else
                         {
-                            int SorteGanhaDiferenca = PontosSorte + nGS.ItemLuckEffect - 5;
-                            MensagemSorte = "+" + SorteGanhaDiferenca;
-                            PontosSorte = PontosSorte + SorteGanhaDiferenca;
+                            //int SorteGanhaDiferenca = PontosSorte + nGS.ItemLuckEffect - 5;
+                            //MensagemSorte = "+" + SorteGanhaDiferenca;
+                            //PontosSorte = PontosSorte + SorteGanhaDiferenca;
+                            MensagemSorte = "+" + nGS.ItemLuckEffect;
+                            PontosSorte = 5;
                         }
                     }
                     else if (nGS.ItemLuckEffect < 0)
@@ -437,8 +443,9 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            int SortePerdidaDiferenca = PontosSorte + nGS.ItemLuckEffect;
-                            MensagemSorte = Convert.ToString(nGS.ItemLuckEffect - SortePerdidaDiferenca);
+                            //int SortePerdidaDiferenca = PontosSorte + nGS.ItemLuckEffect;
+                            //MensagemSorte = Convert.ToString(nGS.ItemLuckEffect - SortePerdidaDiferenca);
+                            MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
                             PontosSorte = 0;
                         }
                     }
@@ -459,7 +466,14 @@ namespace SetepassosPRJ.Models
             //Fazer acerto de vida quando levamos dano de inimigo
             if (DanoSofrido != 0)
             {
-                PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
+                if (PontosVida - DanoSofrido < 0)
+                {
+                    PontosVida = 0;
+                }
+                else
+                {
+                    PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
+                }
                 MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
                 LeveiDano = true;
                 if (DanoSofrido <= 1)
@@ -546,12 +560,20 @@ namespace SetepassosPRJ.Models
         {
             if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
-                PontosVida = PontosVida - 0.5;
-                MensagemPassarTempo = "Cansaço: -0.5";
+                if (PontosVida - 0.5 < 0)
+                {
+                    PontosVida = 0;
+                }
+                else
+                {
+                    PontosVida = PontosVida - 0.5;
+                    MensagemPassarTempo = "Cansaço: -0.5";
+                }
             }
             if (PontosVida <= 0 && ResultadoAccao != Result.SuccessVictory)
             {
                 MensagemAccao = " Temos pena mas morreste! Fica para a próxima... " + MensagemAccao;
+
             }
             if (PontosVida <= 0 && ResultadoAccao == Result.SuccessVictory)
             {
@@ -559,6 +581,7 @@ namespace SetepassosPRJ.Models
                 MensagemPassarTempo = "0";
                 MensagemAccao = " Ganhas-te motivação extra para vencer o cançaso " + MensagemAccao;
             }
+          
         }
 
         public virtual void CalcularBonus()
