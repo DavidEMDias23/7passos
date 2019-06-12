@@ -79,15 +79,15 @@ namespace SetepassosPRJ.Models
         public int BonusLutar { get; set; }
         public int BonusVida { get; set; }
 
-        public bool Autonomo { get; set; } 
-       
+        public bool Autonomo { get; set; }
+
 
         public bool[] arraySalasExaminadas = new bool[8];
 
         public PlayerAction UltimaAccao { get; set; }
 
         public ResultadoJogo ResultadoJogo { get; set; }
-       
+
 
 
         public Jogo(string nomeEscolhido, string perfilTipoEscolhido, bool modoEscolhido)
@@ -114,17 +114,17 @@ namespace SetepassosPRJ.Models
 
                 if (Autonomo == true)
                 {
-                    if (nomeEscolhido == "Teste3")
+                    if (nomeEscolhido == "Auto3")
                     {
-                        Rondas = 3;
+                        Rondas = 2;
                     }
-                    if (nomeEscolhido == "Teste7")
+                    if (nomeEscolhido == "Auto7")
                     {
-                        Rondas = 7;
+                        Rondas = 6;
                     }
-                    if (nomeEscolhido == "Teste0")
+                    if (nomeEscolhido == "Auto0")
                     {
-                        Rondas = 40;
+                        Rondas = 50;
                     }
                 }
 
@@ -314,16 +314,16 @@ namespace SetepassosPRJ.Models
                     PocoesUsadas = +1;
                     PocoesVida = PocoesVida - 1;
                     MensagemPocao = "-1";
-                        if (PontosVida < PontosVidaMax)
-                        {
-                            MensagemVidaPos = "+" + (PontosVidaMax - PontosVida);
-                            MensagemAccao = " Bebeste uma imperial! ";
-                            PontosVida = PontosVidaMax;
-                        }
-                        else
-                        {
-                            MensagemAccao = " Bêbado! A tua vida já estava cheia... ";
-                        }
+                    if (PontosVida < PontosVidaMax)
+                    {
+                        MensagemVidaPos = "+" + (PontosVidaMax - PontosVida);
+                        MensagemAccao = " Bebeste uma imperial! ";
+                        PontosVida = PontosVidaMax;
+                    }
+                    else
+                    {
+                        MensagemAccao = " Bêbado! A tua vida já estava cheia... ";
+                    }
                 }
 
                 //Encontrar Items
@@ -378,7 +378,7 @@ namespace SetepassosPRJ.Models
                     }
                     else if (nGS.ItemHealthEffect < 0)
                     {
-                        
+
                         MensagemAccao = MensagemAccao + "Era leite estragado! ";
                         if (PontosVida + nGS.ItemHealthEffect > 0)
                         {
@@ -545,7 +545,7 @@ namespace SetepassosPRJ.Models
             {
                 MensagemAccao = "!! Este jogo já terminou !!";
             }
- 
+
             PassagemTempo();
 
             //Calcular bonus de fim de jogo
@@ -570,7 +570,7 @@ namespace SetepassosPRJ.Models
 
             if (Autonomo == true)
             {
-                AccaoAutonomo();
+                AccaoAutonomo(nGS.RoundNumber);
             }
         }
 
@@ -600,7 +600,7 @@ namespace SetepassosPRJ.Models
                 MensagemPassarTempo = "0";
                 MensagemAccao = " Ganhas-te motivação extra para vencer o cançaso " + MensagemAccao;
             }
-          
+
         }
 
         public virtual void CalcularBonus()
@@ -648,7 +648,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        public void AccaoAutonomo()
+        public void AccaoAutonomo(int numeroRondas)
         {
             //Detetar se existe monstro na view
             if (Monstro == true)
@@ -674,7 +674,7 @@ namespace SetepassosPRJ.Models
                         }
                     }
                     else
-                    { 
+                    {
                         if (Chave == false)
                         {
                             if (Sala > 5)
@@ -757,7 +757,7 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            TomarAccao = PlayerAction.Quit;
+                            TomarAccao = PlayerAction.GoBack;
                         }
                     }
                     else

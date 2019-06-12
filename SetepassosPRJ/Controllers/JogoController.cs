@@ -70,7 +70,7 @@ namespace SetepassosPRJ.Controllers
                 // SE FOR AUTONOMO fazer o ciclo while
                 else
                 {
-                   while (gs.RoundNumber <= JogoNovo.Rondas)
+                    while (gs.RoundNumber < JogoNovo.Rondas)
                     {
 
                         if (JogoNovo.TomarAccao != PlayerAction.Quit)
@@ -91,7 +91,6 @@ namespace SetepassosPRJ.Controllers
                             gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
                             JogoNovo.AtualizarJogo(gs);
-
                         }
                         else
                         {
@@ -118,12 +117,31 @@ namespace SetepassosPRJ.Controllers
                             JogoNovo.Desistiu = true;
                             JogoNovo.ResultadoJogo = ResultadoJogo.Desistiu;
                             JogoNovo.Terminado = true;
-                        }
-                        if (JogoNovo.Terminado == true)
-                        {
                             break;
                         }
-                        
+                    }
+                    if (gs.RoundNumber == JogoNovo.Rondas)
+                    {
+                        HttpClient clientAuton = NewGameHttpClient.Client;
+                        path = "/api/Play";
+
+                        AtualizarJogoApiRequest ajAuton = new AtualizarJogoApiRequest(JogoNovo.GameID, PlayerAction.Quit);
+                        json = JsonConvert.SerializeObject(ajAuton);
+
+                        request = new HttpRequestMessage(HttpMethod.Post, path);
+                        request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                        response = await clientAuton.SendAsync(request);
+                        if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
+                        json_r = await response.Content.ReadAsStringAsync();
+                        gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
+
+
+                        JogoNovo.CalcularBonus();
+                        JogoNovo.Desistiu = true;
+                        JogoNovo.ResultadoJogo = ResultadoJogo.Desistiu;
+                        JogoNovo.Terminado = true;
                     }
                     return View("DadosJogo", JogoNovo);
                 }
@@ -170,8 +188,8 @@ namespace SetepassosPRJ.Controllers
                 GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
                 JogoAtual.AtualizarJogo(gs);
-                
-                
+
+
             }
             else
             {
@@ -191,17 +209,17 @@ namespace SetepassosPRJ.Controllers
                 string json_r = await response.Content.ReadAsStringAsync();
                 GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
-               
+
 
                 JogoAtual.MensagemAccao = "Desististe do Jogo";
                 JogoAtual.CalcularBonus();
                 JogoAtual.Desistiu = true;
                 JogoAtual.ResultadoJogo = ResultadoJogo.Desistiu;
                 JogoAtual.Terminado = true;
-                
+
             }
 
-            if(JogoAtual.Terminado && JogoAtual.Autonomo == false)
+            if (JogoAtual.Terminado && JogoAtual.Autonomo == false)
             {
                 HiScores NovoScore = new HiScores();
                 NovoScore.AtualizarScores(JogoAtual);
