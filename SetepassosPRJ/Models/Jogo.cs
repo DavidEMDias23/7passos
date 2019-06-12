@@ -114,15 +114,15 @@ namespace SetepassosPRJ.Models
 
                 if (Autonomo == true)
                 {
-                    if (nomeEscolhido == "Auto3")
+                    if (nomeEscolhido == "auto3")
                     {
-                        Rondas = 2;
+                        Rondas = 3;
                     }
-                    if (nomeEscolhido == "Auto7")
+                    if (nomeEscolhido == "auto7")
                     {
-                        Rondas = 6;
+                        Rondas = 7;
                     }
-                    if (nomeEscolhido == "Auto0")
+                    if (nomeEscolhido == "auto0")
                     {
                         Rondas = 50;
                     }
@@ -560,7 +560,7 @@ namespace SetepassosPRJ.Models
                     NumFugas = NumFugas + 1;
                 }
             }
-
+           // if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
             if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
             {
                 Terminado = true;

@@ -70,7 +70,8 @@ namespace SetepassosPRJ.Controllers
                 // SE FOR AUTONOMO fazer o ciclo while
                 else
                 {
-                    while (gs.RoundNumber < JogoNovo.Rondas)
+                    while (gs.RoundNumber < JogoNovo.Rondas && 
+                            (JogoNovo.Terminado == false))
                     {
 
                         if (JogoNovo.TomarAccao != PlayerAction.Quit)

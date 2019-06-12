@@ -5,14 +5,59 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SetepassosPRJ.Models;
 
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 namespace SetepassosPRJ.Controllers
 {
-    [Route("api/HiScores")]
-    public class HiScoresApiController : Controller
+    [Route("api/[controller]")]
+    public class HiScoresAPIController : Controller
     {
+        // GET: api/<controller>
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
+        // GET api/<controller>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
 
+        // POST api/<controller>
+        public class JogoArgs
+        {
+            public string nomejogador { get; set; }
+            public int n { get; set; }
+        }
 
+        [HttpPost]
+        public List<HiScores>Post([FromBody]JogoArgs j)
+        {
+            if (j.nomejogador != null)
+            {
+                List<HiScores> mj = RepositorioHiScoresdbContext.MelhoresJogos(j.n, j.nomejogador);
+                return mj;
+            }
+            else
+            {
+                List<HiScores> mjtodos = RepositorioHiScoresdbContext.GetTop(j.n);
+                    return mjtodos;
+            }
+        }
 
+        // PUT api/<controller>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        // DELETE api/<controller>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }

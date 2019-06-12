@@ -67,5 +67,39 @@ namespace SetepassosPRJ.Models
             }
             return null;
         }
+
+        public static List<HiScores> MelhoresJogos(int n, string nomejogador)
+        {
+
+            List<HiScores> Melhoresjogos = new List<HiScores>();
+            foreach (HiScores jogo in ListaScores)
+            {
+                if (jogo.Nome == nomejogador)
+                {
+                    Melhoresjogos.Add(jogo);
+                }
+            }
+                if (Melhoresjogos == null)
+                {
+                return GetTop(n);
+                }
+            Melhoresjogos.Sort();
+            Melhoresjogos.Reverse();
+
+            List<HiScores> jogosTop = new List<HiScores>();
+            int rank = 1;
+            foreach (HiScores jogo in Melhoresjogos)
+            {
+                jogo.Posicao = rank;
+                jogosTop.Add(jogo);
+                rank++;
+                if (jogosTop.Count == n)
+                {
+                    break;
+                }
+            }
+            return jogosTop;
+        }
+
     }
 }
