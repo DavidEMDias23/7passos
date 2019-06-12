@@ -73,8 +73,6 @@ namespace SetepassosPRJ.Controllers
                     while (gs.RoundNumber < JogoNovo.Rondas)
                     {
 
-                        if (JogoNovo.TomarAccao != PlayerAction.Quit)
-                        {
                             HttpClient clientAuton = NewGameHttpClient.Client;
                             path = "/api/Play";
 
@@ -91,47 +89,19 @@ namespace SetepassosPRJ.Controllers
                             gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
                             JogoNovo.AtualizarJogo(gs);
-                        }
-                        else
-                        {
-
-                            client = NewGameHttpClient.Client;
-                            path = "/api/Play";
-
-                            AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(JogoNovo.GameID, JogoNovo.TomarAccao);
-                            json = JsonConvert.SerializeObject(aj);
-
-                            HttpRequestMessage requestAuton = new HttpRequestMessage(HttpMethod.Post, path);
-                            request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                            response = await client.SendAsync(requestAuton);
-                            if (!response.IsSuccessStatusCode) { return Redirect("/"); }
-
-                            json_r = await response.Content.ReadAsStringAsync();
-                            gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
-
-
-
-                            JogoNovo.MensagemAccao = "Desististe do Jogo";
-                            JogoNovo.CalcularBonus();
-                            JogoNovo.Desistiu = true;
-                            JogoNovo.ResultadoJogo = ResultadoJogo.Desistiu;
-                            JogoNovo.Terminado = true;
-                            break;
-                        }
                     }
                     if (gs.RoundNumber == JogoNovo.Rondas)
                     {
-                        HttpClient clientAuton = NewGameHttpClient.Client;
+                        client = NewGameHttpClient.Client;
                         path = "/api/Play";
 
-                        AtualizarJogoApiRequest ajAuton = new AtualizarJogoApiRequest(JogoNovo.GameID, PlayerAction.Quit);
-                        json = JsonConvert.SerializeObject(ajAuton);
+                        AtualizarJogoApiRequest aja = new AtualizarJogoApiRequest(JogoNovo.GameID, PlayerAction.Quit);
+                        json = JsonConvert.SerializeObject(aja);
 
                         request = new HttpRequestMessage(HttpMethod.Post, path);
                         request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-                        response = await clientAuton.SendAsync(request);
+                       response = await client.SendAsync(request);
                         if (!response.IsSuccessStatusCode) { return Redirect("/"); }
 
                         json_r = await response.Content.ReadAsStringAsync();
