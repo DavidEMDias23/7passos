@@ -14,7 +14,7 @@ namespace SetepassosPRJ.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -41,8 +41,6 @@ namespace SetepassosPRJ.Migrations
                     b.Property<int>("PocoesObtidas");
 
                     b.Property<int>("PocoesUsadas");
-
-                    b.Property<int>("Posicao");
 
                     b.Property<int>("ResultadoJogo");
 

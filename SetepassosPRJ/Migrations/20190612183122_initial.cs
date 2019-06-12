@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SetepassosPRJ.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,6 @@ namespace SetepassosPRJ.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: true),
-                    Posicao = table.Column<int>(nullable: false),
                     NumFugas = table.Column<int>(nullable: false),
                     NumInimigosDerrotados = table.Column<int>(nullable: false),
                     NumItensEncontrados = table.Column<int>(nullable: false),
