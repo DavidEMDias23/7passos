@@ -570,7 +570,7 @@ namespace SetepassosPRJ.Models
 
             if (Autonomo == true)
             {
-                AccaoAutonomo(nGS.RoundNumber);
+                AccaoAutonomo();
             }
         }
 
@@ -648,7 +648,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        public void AccaoAutonomo(int numeroRondas)
+        public void AccaoAutonomo()
         {
             //Detetar se existe monstro na view
             if (Monstro == true)

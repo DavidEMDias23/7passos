@@ -8,10 +8,11 @@
     </div>
     <div class="col-sm-4 text-center">
     <h1>Dados do Jogo</h1>
+    <p>GameID: @Model.GameID</p>
     </div>
     <div class="col-sm-4 text-center">
         <h4><strong>Perfil Escolhido: </strong></h4>
-        <p>@Model.PerfilTipo</p>
+        <p>@Model.PerfilTipo </p>
     </div>
 </div>
     <div class="row tabelaBonus">
@@ -48,7 +49,7 @@
             <p class="MensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Moedas</p>
             <p class="MensagemBonus">Ganhar com vida inferior a 0.5: @Model.BonusVida Moedas</p>
             <br />
-            <p class="MensagemAccaoMonstro">Bonus Total: @Model.Bonus</p>
+            <p class="MensagemAccaoMonstro">Bonus Total: @Model.Bonus</p> 
         </div>
     </div>
     <div class="row tabelaBonus">
