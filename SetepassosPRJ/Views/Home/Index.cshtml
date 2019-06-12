@@ -21,6 +21,7 @@
             }
             else
             {
+            int rank = 1;
             <div class="text-center">
                 <table id="tabela" class="table table-condensed">
                     <thead>
@@ -34,10 +35,11 @@
                         @foreach (HiScores jogo in Model)
                         {
                             <tr>
-                                <td>@jogo.Posicao</td>
+                                <td>@rank</td>
                                 <td>@jogo.Nome</td>
                                 <td>@jogo.MoedasOuroTotal</td>
                             </tr>
+                            rank++;
                         }
                     </tbody>
                 </table>

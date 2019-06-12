@@ -33,8 +33,6 @@ namespace SetepassosPRJ.Models
         public int PocoesObtidas { get; set; }
         public int PocoesUsadas { get; set; }
         public int GameID { get; set; }
-        public int Posicao { get; set; }
-
 
         public int TotalMover { get; set; }
         public int TotalAtaques { get; set; }

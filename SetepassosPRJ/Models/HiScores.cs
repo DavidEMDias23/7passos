@@ -9,7 +9,6 @@ namespace SetepassosPRJ.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public int Posicao { get; set; }
         public int NumFugas { get; set; }
         public int NumInimigosDerrotados { get; set; }
         public int NumItensEncontrados { get; set; }
@@ -33,7 +32,6 @@ namespace SetepassosPRJ.Models
             PocoesObtidas = j.PocoesObtidas;
             PocoesUsadas = j.PocoesUsadas;
             GameID = j.GameID;
-            Posicao = j.Posicao;
             MoedasOuroTotal = j.MoedasOuroTotal;
             ResultadoJogo = j.ResultadoJogo;
             TotalAreasExaminadas = j.TotalAreasExaminadas;

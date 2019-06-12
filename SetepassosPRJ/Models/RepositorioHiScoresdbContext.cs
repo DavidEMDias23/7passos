@@ -44,7 +44,6 @@ namespace SetepassosPRJ.Models
             int rank = 1;
             foreach (HiScores jogo in jogosTerminados)
             {
-                jogo.Posicao = rank;
                 jogosTop.Add(jogo);
                 rank++;
                 if (jogosTop.Count == n)
@@ -90,7 +89,6 @@ namespace SetepassosPRJ.Models
             int rank = 1;
             foreach (HiScores jogo in Melhoresjogos)
             {
-                jogo.Posicao = rank;
                 jogosTop.Add(jogo);
                 rank++;
                 if (jogosTop.Count == n)

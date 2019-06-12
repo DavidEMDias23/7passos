@@ -30,35 +30,5 @@ namespace SetepassosPRJ.Models
             }
             return null;
         }
-
-        //public static List<Jogo> GetTop(int n)
-        //{
-
-        //    List<Jogo> jogosTerminados = new List<Jogo>();
-        //    foreach (Jogo jogo in ListaJogos)
-        //    {
-        //        if (jogo.Terminado == true)
-        //        {
-        //            jogosTerminados.Add(jogo);
-        //        }
-        //    }
-        //    jogosTerminados.Sort();
-        //    jogosTerminados.Reverse();
-
-        //    List<Jogo> jogosTop = new List<Jogo>();
-        //    int rank = 1;
-        //    foreach (Jogo jogo in jogosTerminados)
-        //    {
-        //        jogo.Posicao = rank;
-        //        jogosTop.Add(jogo);
-        //        rank++;
-        //        if (jogosTop.Count == n)
-        //        {
-        //            break;
-        //        }
-        //    }
-        //    return jogosTop;
-        //}
-
     }
 }

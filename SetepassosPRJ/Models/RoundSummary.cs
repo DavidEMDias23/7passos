@@ -10,7 +10,6 @@ namespace SetepassosPRJ.Models
         //Dados Ronda
         public int NumeroRonda { get; set; }
         public PlayerAction DecisaoTomada { get; set; }
-        public int Posicao { get; set; }
         public int NumInimigosDerrotados { get; set; }
         public int NumFugas { get; set; }
         public int NumItensEncontrados { get; set; }
