@@ -19,6 +19,7 @@ namespace SetepassosPRJ.Models
         public int Sala { get; set; }
         public bool Desistiu { get; set; }
         public bool Terminado { get; set; }
+        public int Rondas { get; set; }
 
         public bool Monstro { get; set; }
         public bool ItemSurpresa { get; set; }
@@ -111,6 +112,21 @@ namespace SetepassosPRJ.Models
                 PontosSorte = 3;
                 PontosVidaMax = PontosVida;
 
+                if (Autonomo == true)
+                {
+                    if (nomeEscolhido == "Teste3")
+                    {
+                        Rondas = 3;
+                    }
+                    if (nomeEscolhido == "Teste7")
+                    {
+                        Rondas = 7;
+                    }
+                    if (nomeEscolhido == "Teste0")
+                    {
+                        Rondas = 40;
+                    }
+                }
 
             }
 

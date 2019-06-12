@@ -62,13 +62,70 @@ namespace SetepassosPRJ.Controllers
 
                 JogoNovo.AtualizarJogo(gs);
                 RepositorioJogos.AdicionarJogo(JogoNovo);
+
                 if (JogoNovo.Autonomo == false)
                 {
                     return View("JogoIniciado", JogoNovo);
                 }
+                // SE FOR AUTONOMO fazer o ciclo while
                 else
                 {
-                    return View("JogoIniciadoAutonomo", JogoNovo);
+                   while (gs.RoundNumber <= JogoNovo.Rondas)
+                    {
+
+                        if (JogoNovo.TomarAccao != PlayerAction.Quit)
+                        {
+                            HttpClient clientAuton = NewGameHttpClient.Client;
+                            path = "/api/Play";
+
+                            AtualizarJogoApiRequest ajAuton = new AtualizarJogoApiRequest(JogoNovo.GameID, JogoNovo.TomarAccao);
+                            json = JsonConvert.SerializeObject(ajAuton);
+
+                            request = new HttpRequestMessage(HttpMethod.Post, path);
+                            request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                            response = await clientAuton.SendAsync(request);
+                            if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
+                            json_r = await response.Content.ReadAsStringAsync();
+                            gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
+
+                            JogoNovo.AtualizarJogo(gs);
+
+                        }
+                        else
+                        {
+
+                            client = NewGameHttpClient.Client;
+                            path = "/api/Play";
+
+                            AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(JogoNovo.GameID, JogoNovo.TomarAccao);
+                            json = JsonConvert.SerializeObject(aj);
+
+                            HttpRequestMessage requestAuton = new HttpRequestMessage(HttpMethod.Post, path);
+                            request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                            response = await client.SendAsync(requestAuton);
+                            if (!response.IsSuccessStatusCode) { return Redirect("/"); }
+
+                            json_r = await response.Content.ReadAsStringAsync();
+                            gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
+
+
+
+                            JogoNovo.MensagemAccao = "Desististe do Jogo";
+                            JogoNovo.CalcularBonus();
+                            JogoNovo.Desistiu = true;
+                            JogoNovo.ResultadoJogo = ResultadoJogo.Desistiu;
+                            JogoNovo.Terminado = true;
+                        }
+                        if (JogoNovo.Terminado == true)
+                        {
+                            break;
+                        }
+                        
+                    }
+                    return View("DadosJogo", JogoNovo);
                 }
             }
             else
@@ -159,96 +216,5 @@ namespace SetepassosPRJ.Controllers
                 return View("JogoIniciadoAutonomo", JogoAtual);
             }
         }
-
-        //[HttpGet]
-        //public IActionResult CriarJogoAutonomo()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> CriarJogoAutonomo(string Nome)
-        //{
-        //        JogoAutonomo JogoNovo = new JogoAutonomo(Nome);    
-
-        //        HttpClient client = NewGameHttpClient.Client;
-        //        string path = "/api/NewGame";
-
-        //        NovoJogoApiRequest req = new NovoJogoApiRequest(JogoNovo.Nome, JogoNovo.PerfilTipo);
-        //        string json = JsonConvert.SerializeObject(req);
-
-        //        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
-        //        request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-        //        HttpResponseMessage response = await client.SendAsync(request);
-        //        if (!response.IsSuccessStatusCode) { return Redirect("/"); }
-
-        //        string json_r = await response.Content.ReadAsStringAsync();
-        //        GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
-
-        //        JogoNovo.AtualizarJogoAutonomo(gs);
-        //        RepositorioJogosAutonomos.AdicionarJogo(JogoNovo);
-
-        //         return RedirectToAction("JogoIniciadoAutonomo", JogoNovo);
-        //}
-
-        //[HttpGet]
-        //public IActionResult AccaoJogoAutonomo()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AccaoJogoAutonomo(int gameid, PlayerAction action)
-        //{
-        //    JogoAutonomo JogoAtual = RepositorioJogosAutonomos.GetJogo(gameid);
-            
-            
-        //    if (JogoAtual.TomarAccao != PlayerAction.Quit && JogoAtual.Rondas > 0)
-        //    {
-        //        HttpClient client = NewGameHttpClient.Client;
-        //        string path = "/api/Play";
-
-        //        AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(gameid, action);
-        //        string json = JsonConvert.SerializeObject(aj);
-
-        //        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
-        //        request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-        //        HttpResponseMessage response = await client.SendAsync(request);
-        //        if (!response.IsSuccessStatusCode) { return Redirect("/"); }
-
-        //        string json_r = await response.Content.ReadAsStringAsync();
-        //        GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
-
-        //        JogoAtual.AtualizarJogoAutonomo(gs);
-        //        JogoAtual.Rondas = JogoAtual.Rondas - 1;
-        //        return View("JogoIniciadoAutonomo", JogoAtual);
-        //    }
-        //    else
-        //    {
-        //        HttpClient client = NewGameHttpClient.Client;
-        //        string path = "/api/Play";
-
-        //        AtualizarJogoApiRequest aj = new AtualizarJogoApiRequest(gameid, action);
-        //        string json = JsonConvert.SerializeObject(aj);
-
-        //        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
-        //        request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-        //        HttpResponseMessage response = await client.SendAsync(request);
-        //        if (!response.IsSuccessStatusCode) { return Redirect("/"); }
-
-        //        string json_r = await response.Content.ReadAsStringAsync();
-        //        GameStateApi gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
-
-        //        JogoAtual.CalcularBonus();
-        //        JogoAtual.Desistiu = true;
-        //        JogoAtual.ResultadoJogo = ResultadoJogo.Desistiu;
-        //        JogoAtual.Terminado = true;
-        //        return View("DadosJogoAutonomo", JogoAtual);
-        //    }
-            
-        // }
     }
 }

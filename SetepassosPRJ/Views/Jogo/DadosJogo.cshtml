@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-sm-4 text-center">
         <h4><strong>Nome do Jogador: </strong></h4>
-        <p>@Model.Nome</p>
+        @if (Model.Autonomo == true) { <strong>Autonomo:</strong> } <p>@Model.Nome</p>
     </div>
     <div class="col-sm-4 text-center">
     <h1>Dados do Jogo</h1>
