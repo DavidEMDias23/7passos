@@ -38,7 +38,7 @@
                     <img src="~/images/Icons/icon-search.png" class="iconsMonstro" /> <strong>@Model.MensagemSalasExaminadas</strong>
                 </div>
             }
-            @if (Model.Monstro == true)
+            @if (Model.Monstro)
             {
                 <div>
                     <img src="~/images/Icons/icon-monstro-luck.png" class="iconsMonstro" /> <strong>@Model.PontosSorteMonstro</strong>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="col-sm-7">
-            @if ((Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu == true) && Model.ResultadoAccao != Result.SuccessVictory)
+            @if ((Model.PontosVida <= 0 || Model.ResultadoAccao == Result.GameHasEnded || Model.Desistiu) && Model.ResultadoAccao != Result.SuccessVictory)
             {
                 <form asp-action="DadosJogo" method="post">
                     <div class="text-center mensagemSaida">
@@ -128,19 +128,19 @@
                         </div>
                         <div class="text-right">
 
-                            @if (Model.EncontradoItem == true)
+                            @if (Model.EncontradoItem)
                             {
                                 <img src="~/images/Icons/icon-surpresa.png" class="iconsItems" />
                             }
-                            @if (Model.EncontradoTrevo == true)
+                            @if (Model.EncontradoTrevo)
                             {
                                 <img src="~/images/Icons/icon-luck.png" class="iconsItems" />
                             }
-                            @if (Model.EncontradoPocao == true)
+                            @if (Model.EncontradoPocao)
                             {
                                 <img src="~/images/Icons/icon-pocaoVida.png" class="iconsItems" />
                             }
-                            @if (Model.EncontradoChave == true)
+                            @if (Model.Chave)
                             {
                                 <img src="~/images/Icons/icon-key.png" class="iconsItems" />
                             }
@@ -152,7 +152,7 @@
                     </div>
 
 
-                    @if (Model.EncontradoOuro == true)
+                    @if (Model.MoedasOuroRecebidas > 0)
                     {
                         <div class="text-right inline-block">
                             <img src="~/images/Icons/icon-ouro.png" class="iconsGold" />
@@ -165,7 +165,7 @@
                         </div>
                     }
                 </div>
-                @if (Model.EncontradoGato == true)
+                @if (Model.EncontradoGato)
                 {
                     <audio autoplay>
                         <source src="~/sound/cat audio.mp3">
@@ -177,7 +177,7 @@
 
 
 
-                @if (Model.Monstro == true)
+                @if (Model.Monstro)
                 {
                     if (Model.UltimaAccao != PlayerAction.Attack && Model.UltimaAccao != PlayerAction.DrinkPotion)
                     {
@@ -202,7 +202,7 @@
                     }
                 }
             }
-            @if (Model.LeveiDano == true)
+            @if (Model.DanoSofrido > 0)
             {
                 <div class="puttop text-right">
                     <img src="~/images/Contextual/blood.png" class="imagemblood" />
@@ -219,7 +219,7 @@
                     @if (Model.Monstro == false)
                     {
                         <div class="areabotoes">
-                            @if (Model.Sala != 7 || (Model.Sala == 7 && Model.Chave == true))
+                            @if (Model.Sala != 7 || (Model.Sala == 7 && Model.Chave))
                             {
                                 <div>
                                     <input name="gameid" value="@Model.GameID" type="hidden" />
