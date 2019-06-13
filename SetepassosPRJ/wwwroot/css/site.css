@@ -33,6 +33,14 @@ img {
     width: 100%;
 }
 
+.rowBottun {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
 .column {
     display: flex;
     flex-direction: column;
@@ -61,8 +69,25 @@ img {
     filter: brightness(1.6);
 }
 
-.BotaoJogar:hover {
-    filter: brightness(1.4);
+.BotaoJogar {
+    height: 17%;
+    width: 17%;
+    display:inline-block;
+    margin-top:8px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.BotaoModo {
+    height: 17%;
+    width: 17%;
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.BotaoJogar:hover, .BotaoModo:hover {
+    filter: brightness(1.2);
 }
 
 .icons {
@@ -104,8 +129,8 @@ img {
 
 
 .charpick {
-   width: 22%;
-   height: 22%;
+   width: 20%;
+   height: 20%;
 }
 .ArrangeChars {
     display: inline-block;
@@ -310,9 +335,10 @@ h4 {
     border: outset;
     border-color: mediumpurple;
     border-width: 5px;
-    padding: 10px;
+    padding: 6px;
     color: white;
-    font-size: 0.9vw;
+    font-size: 1vw;
+    text-align:center;
 }
 
 /*Mensagens de contexto*/

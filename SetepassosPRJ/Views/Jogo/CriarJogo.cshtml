@@ -4,7 +4,6 @@
 }
 
 <h1> Modo de Jogo: Normal </h1>
-<br/>
 <form asp-action="CriarJogo" method="post">
     <div asp-validation-summary="All"></div>
     <div class="form-group">
@@ -27,16 +26,10 @@
             <input class="form-control" type="radio" asp-for="PerfilTipo" value="S">velha louca
         </label>
     </div>
-
-    <div class="text-center">
-        <input type="image" src="~/images/btns/btn-jogar.png" value="CriarJogo" class="BotaoJogar" />
+    <div class="rowBottun">
+            <input type="image" src="~/images/btns/btn-jogar.png" value="CriarJogo" class="BotaoJogar" />
+              <a asp-action="CriarJogoAutonomo" class="BotaoModo"><img src="~/images/btns/btn-autonomo.png" /></a>
     </div>
-    <div class="text-right">
-        <a asp-action="CriarJogoAutonomo"><img src="~/images/btns/btn-autonomo.png" class="BotaoJogar" /></a>
-    </div>
-
-
-
 </form>
 
 
