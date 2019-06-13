@@ -153,23 +153,7 @@ namespace SetepassosPRJ.Models
         }
         public void AtualizarJogo(GameStateApi nGS)
         {
-
-            MensagemAccao = "";
-            MensagemAccaoMonstro = "";
-            MensagemAccaoFuga = "";
-            MensagemVidaPos = "";
-            MensagemVidaNeg = "";
-            MensagemAtaque = "";
-            MensagemSorte = "";
-            MensagemOuro = "";
-            MensagemPlim = "";
-            MensagemPocao = "";
-            MensagemDano = "";
-            MensagemChave = "";
-            MensagemMeuAtaque = "";
-            MensagemPassarTempo = "";
-
-
+            AtualizarMensagerns();
             MoedasOuro = MoedasOuro + nGS.GoldFound;
             GameID = nGS.GameID;
             Monstro = nGS.FoundEnemy;
@@ -185,7 +169,6 @@ namespace SetepassosPRJ.Models
             EncontradoGato = false;
             EncontradoPocao = false;
             EncontradoOuro = false;
-
 
             //Acoes com Sucesso//
             if (ResultadoAccao == Result.Success)
@@ -305,24 +288,8 @@ namespace SetepassosPRJ.Models
                     }
                 }
 
-
                 //Beber Pocao Sucesso
-                if (UltimaAccao == PlayerAction.DrinkPotion)
-                {
-                    PocoesUsadas = +1;
-                    PocoesVida = PocoesVida - 1;
-                    MensagemPocao = "-1";
-                    if (PontosVida < PontosVidaMax)
-                    {
-                        MensagemVidaPos = "+" + (PontosVidaMax - PontosVida);
-                        MensagemAccao = " Bebeste uma imperial! ";
-                        PontosVida = PontosVidaMax;
-                    }
-                    else
-                    {
-                        MensagemAccao = " Bêbado! A tua vida já estava cheia... ";
-                    }
-                }
+                BeberPocao();
 
                 //Encontrar Items
                 if (Chave == false)
@@ -367,16 +334,12 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            //double VidaGanhaDiferenca = PontosVida + nGS.ItemHealthEffect - 5;
-                            //double VidaGanha = nGS.ItemHealthEffect - VidaGanhaDiferenca;
-                            //MensagemVidaPos = "+" + VidaGanha;
                             MensagemVidaPos = "+" + nGS.ItemHealthEffect;
                             PontosVida = 5;
                         }
                     }
                     else if (nGS.ItemHealthEffect < 0)
                     {
-
                         MensagemAccao = MensagemAccao + "Era leite estragado! ";
                         if (PontosVida + nGS.ItemHealthEffect > 0)
                         {
@@ -385,7 +348,6 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            //MensagemVidaNeg = "-" + Convert.ToString(PontosVida);
                             MensagemVidaNeg = "-" + nGS.ItemHealthEffect;
                             PontosVida = 0;
                         }
@@ -402,10 +364,6 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            //int AtaqueGanhoDiferenca = PontosAtaque + nGS.ItemAttackEffect - 5;
-                            //int AtaqueGanho = nGS.ItemAttackEffect - AtaqueGanhoDiferenca;
-                            //PontosAtaque = PontosAtaque + AtaqueGanho;
-                            //MensagemAtaque = "+" + AtaqueGanho;
                             PontosAtaque = 5;
                             MensagemAtaque = "+" + nGS.ItemAttackEffect;
                         }
@@ -420,13 +378,10 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            //int AtaquePerdidoDiferenca = PontosAtaque + nGS.ItemAttackEffect;
-                            //MensagemAtaque = "-" + (nGS.ItemAttackEffect - AtaquePerdidoDiferenca);
                             MensagemAtaque = "-" + nGS.ItemAttackEffect;
                             PontosAtaque = 0;
                         }
                     }
-
 
                     if (nGS.ItemLuckEffect > 0)
                     {
@@ -439,9 +394,6 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            //int SorteGanhaDiferenca = PontosSorte + nGS.ItemLuckEffect - 5;
-                            //MensagemSorte = "+" + SorteGanhaDiferenca;
-                            //PontosSorte = PontosSorte + SorteGanhaDiferenca;
                             MensagemSorte = "+" + nGS.ItemLuckEffect;
                             PontosSorte = 5;
                         }
@@ -457,8 +409,6 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            //int SortePerdidaDiferenca = PontosSorte + nGS.ItemLuckEffect;
-                            //MensagemSorte = Convert.ToString(nGS.ItemLuckEffect - SortePerdidaDiferenca);
                             MensagemSorte = Convert.ToString(nGS.ItemLuckEffect);
                             PontosSorte = 0;
                         }
@@ -476,96 +426,21 @@ namespace SetepassosPRJ.Models
                 }
 
             }
-
             //Fazer acerto de vida quando levamos dano de inimigo
-            if (DanoSofrido != 0)
-            {
-                if (PontosVida - DanoSofrido < 0)
-                {
-                    PontosVida = 0;
-                }
-                else
-                {
-                    PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
-                }
-                MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
-                LeveiDano = true;
-                if (DanoSofrido <= 1)
-                {
-                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te de raspão! ";
-                }
-                if (DanoSofrido > 1)
-                {
-                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te em cheio! ";
-                }
-            }
+            AcertoVida();
 
             //Sempre que houver combate acertar vida do monstro, fazer no fim para poder calcular dano que monstro levou.
             if ((nGS.FoundEnemy == true) || (nGS.FoundEnemy == false && UltimaAccao == PlayerAction.Attack))
             {
                 PontosVidaMonstro = Math.Round(nGS.EnemyHealthPoints, 1);
             }
-
             //Se a accao for Inválida
-            if (ResultadoAccao == Result.InvalidAction)
-            {
-                if (UltimaAccao == PlayerAction.SearchArea)
-                {
-                    MensagemAccao = "Essa acção não é válida. Já tinhas procurado esta sala.";
-                }
-                if (UltimaAccao == PlayerAction.GoForward)
-                {
-                    MensagemAccao = "Não podes andar para a frente.";
-                }
-                if (UltimaAccao == PlayerAction.GoBack)
-                {
-                    MensagemAccao = "Não podes andar para trás.";
-                }
-                if (UltimaAccao == PlayerAction.Flee)
-                {
-                    MensagemAccao = "Não podes fugir.";
-                }
-                if (UltimaAccao == PlayerAction.Attack)
-                {
-                    MensagemAccao = "Não podes atacar.";
-                }
-                if (UltimaAccao == PlayerAction.DrinkPotion)
-                {
-                    MensagemAccao = "Não podes beber cerveja agora.";
-                }
-                if (UltimaAccao == PlayerAction.Quit)
-                {
-                    MensagemAccao = "Não dá para desistir.";
-                }
-            }
+            AccãoInvalida();
             //Accao em jogo terminado
-            if (ResultadoAccao == Result.GameHasEnded)
-            {
-                MensagemAccao = "!! Este jogo já terminou !!";
-            }
-
+            AccaoJogoTerminado();
             PassagemTempo();
-
             //Calcular bonus de fim de jogo
-            if (ResultadoAccao == Result.SuccessVictory)
-            {
-                Terminado = true;
-                ResultadoJogo = ResultadoJogo.Vitoria;
-                CalcularBonus();
-                MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
-                if (UltimaAccao == PlayerAction.Flee)
-                {
-                    NumFugas = NumFugas + 1;
-                }
-            }
-           // if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
-            if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
-            {
-                Terminado = true;
-                ResultadoJogo = ResultadoJogo.Derrota;
-                CalcularBonus();
-            }
-
+            CalcularBonusFimDeJogo();
             if (Autonomo == true)
             {
                 AccaoAutonomo();
@@ -782,5 +657,135 @@ namespace SetepassosPRJ.Models
             else
                 return 0;
         }
+
+        public void AtualizarMensagerns()
+        {
+            MensagemAccao = "";
+            MensagemAccaoMonstro = "";
+            MensagemAccaoFuga = "";
+            MensagemVidaPos = "";
+            MensagemVidaNeg = "";
+            MensagemAtaque = "";
+            MensagemSorte = "";
+            MensagemOuro = "";
+            MensagemPlim = "";
+            MensagemPocao = "";
+            MensagemDano = "";
+            MensagemChave = "";
+            MensagemMeuAtaque = "";
+            MensagemPassarTempo = "";
+        }
+
+        public void AccãoInvalida()
+        {
+            if (ResultadoAccao == Result.InvalidAction)
+            {
+                if (UltimaAccao == PlayerAction.SearchArea)
+                {
+                    MensagemAccao = "Essa acção não é válida. Já tinhas procurado esta sala.";
+                }
+                if (UltimaAccao == PlayerAction.GoForward)
+                {
+                    MensagemAccao = "Não podes andar para a frente.";
+                }
+                if (UltimaAccao == PlayerAction.GoBack)
+                {
+                    MensagemAccao = "Não podes andar para trás.";
+                }
+                if (UltimaAccao == PlayerAction.Flee)
+                {
+                    MensagemAccao = "Não podes fugir.";
+                }
+                if (UltimaAccao == PlayerAction.Attack)
+                {
+                    MensagemAccao = "Não podes atacar.";
+                }
+                if (UltimaAccao == PlayerAction.DrinkPotion)
+                {
+                    MensagemAccao = "Não podes beber cerveja agora.";
+                }
+                if (UltimaAccao == PlayerAction.Quit)
+                {
+                    MensagemAccao = "Não dá para desistir.";
+                }
+            }
+        }
+
+        public void AccaoJogoTerminado()
+        {
+            if (ResultadoAccao == Result.GameHasEnded)
+            {
+                MensagemAccao = "!! Este jogo já terminou !!";
+            }
+        }
+
+        public void CalcularBonusFimDeJogo()
+        {
+            if (ResultadoAccao == Result.SuccessVictory)
+            {
+                Terminado = true;
+                ResultadoJogo = ResultadoJogo.Vitoria;
+                CalcularBonus();
+                MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
+                if (UltimaAccao == PlayerAction.Flee)
+                {
+                    NumFugas = NumFugas + 1;
+                }
+            }
+            // if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
+            if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
+            {
+                Terminado = true;
+                ResultadoJogo = ResultadoJogo.Derrota;
+                CalcularBonus();
+            }
+        }
+
+        public void AcertoVida()
+        {
+            if (DanoSofrido != 0)
+            {
+                if (PontosVida - DanoSofrido < 0)
+                {
+                    PontosVida = 0;
+                }
+                else
+                {
+                    PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
+                }
+                MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
+                LeveiDano = true;
+                if (DanoSofrido <= 1)
+                {
+                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te de raspão! ";
+                }
+                if (DanoSofrido > 1)
+                {
+                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te em cheio! ";
+                }
+            }
+        }
+
+        public void BeberPocao()
+        {
+            if (UltimaAccao == PlayerAction.DrinkPotion)
+            {
+                PocoesUsadas = PocoesUsadas + 1;
+                PocoesVida = PocoesVida - 1;
+                MensagemPocao = "-1";
+                if (PontosVida < PontosVidaMax)
+                {
+                    MensagemVidaPos = "+" + (PontosVidaMax - PontosVida);
+                    MensagemAccao = " Bebeste uma imperial! ";
+                    PontosVida = PontosVidaMax;
+                }
+                else
+                {
+                    MensagemAccao = " Bêbado! A tua vida já estava cheia... ";
+                }
+            }
+        
+        }
     }
 }
+
