@@ -183,7 +183,7 @@ namespace SetepassosPRJ.Models
 
         private void PassagemTempo()
         {
-            if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7) && ResultadoAccao != Result.SuccessVictory)
+            if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
                 if (PontosVida - 0.5 < 0)
                 {
@@ -198,6 +198,7 @@ namespace SetepassosPRJ.Models
 
                 if (ResultadoAccao == Result.SuccessVictory) // Mandar mensagem especifica no caso de vencer com cansaço
                 {
+                    PontosVida = PontosVida + 0.5;
                     MensagemPassarTempo = "0";
                     MensagemAccao = " Ganhaste motivação extra para vencer o cançaso " + MensagemAccao;
                 }
