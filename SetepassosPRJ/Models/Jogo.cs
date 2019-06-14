@@ -185,23 +185,21 @@ namespace SetepassosPRJ.Models
         {
             if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
-                if (PontosVida - 0.5 < 0)
-                {
-                    PontosVida = 0;
-                    MensagemPassarTempo = "Cansaço: -0.5";
-                }
-                else
-                {
+                
                     PontosVida = PontosVida - 0.5;
                     MensagemPassarTempo = "Cansaço: -0.5";
-                }
-
+                
                 if (ResultadoAccao == Result.SuccessVictory) // Mandar mensagem especifica no caso de vencer com cansaço
                 {
                     PontosVida = PontosVida + 0.5;
                     MensagemPassarTempo = "0";
                     MensagemAccao = " Ganhaste motivação extra para vencer o cançaso " + MensagemAccao;
                 }
+                if (PontosVida < 0)
+                {
+                    PontosVida = 0;
+                }
+
             }
 
             if (PontosVida <= 0 && ResultadoAccao != Result.SuccessVictory)
