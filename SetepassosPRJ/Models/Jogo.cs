@@ -173,7 +173,7 @@ namespace SetepassosPRJ.Models
             AccaoInvalida(); //Se a accao for Inválida
             AcertoVida(); //Fazer acerto de vida de combate
             PassagemTempo(); //Contabilizar acções e detetar cansaço
-            CalcularBonusFimDeJogo(); //Calcular bonus de fim de jogo
+            DetetarSeGanhouJogo(); //Calcular bonus de fim de jogo
             if (Autonomo)  //Deteta se jogo está em modo autónomo
             {
                 AccaoAutonomo(); //Metodo para decidir ação a tomar
@@ -183,11 +183,12 @@ namespace SetepassosPRJ.Models
 
         private void PassagemTempo()
         {
-            if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
+            if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7) && ResultadoAccao != Result.SuccessVictory)
             {
                 if (PontosVida - 0.5 < 0)
                 {
                     PontosVida = 0;
+                    MensagemPassarTempo = "Cansaço: -0.5";
                 }
                 else
                 {
@@ -195,12 +196,11 @@ namespace SetepassosPRJ.Models
                     MensagemPassarTempo = "Cansaço: -0.5";
                 }
 
-            if (ResultadoAccao == Result.SuccessVictory)
-            {
-                PontosVida = PontosVida + 0.5;
-                MensagemPassarTempo = "0";
-                MensagemAccao = " Ganhaste motivação extra para vencer o cançaso " + MensagemAccao;
-            }
+                if (ResultadoAccao == Result.SuccessVictory) // Mandar mensagem especifica no caso de vencer com cansaço
+                {
+                    MensagemPassarTempo = "0";
+                    MensagemAccao = " Ganhaste motivação extra para vencer o cançaso " + MensagemAccao;
+                }
             }
 
             if (PontosVida <= 0 && ResultadoAccao != Result.SuccessVictory)
@@ -424,7 +424,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        private void CalcularBonusFimDeJogo()
+        private void DetetarSeGanhouJogo()
         {
             if (ResultadoAccao == Result.SuccessVictory)
             {
@@ -432,12 +432,17 @@ namespace SetepassosPRJ.Models
                 ResultadoJogo = ResultadoJogo.Vitoria;
                 CalcularBonus();
                 MensagemAccao = "* * * Parabéns * * * !!! VENCESTE O JOGO !!!";
-                if (UltimaAccao == PlayerAction.Flee)
+                switch (UltimaAccao) // Atualizar numero de fugas ou movimentos efetuados no caso de terminar em vitória
                 {
-                    NumFugas = NumFugas + 1;
+                    case PlayerAction.Flee:
+                        NumFugas = NumFugas + 1;
+                        break;
+                    case PlayerAction.GoForward:
+                        TotalMover = TotalMover + 1;
+                        break;
                 }
             }
-            // if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
+            
             if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
             {
                 Terminado = true;
@@ -459,7 +464,6 @@ namespace SetepassosPRJ.Models
                 {
                     PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
                 }
-                MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
                 if (DanoSofrido <= 1)
                 {
                     MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo viu-te de raspão! ";
@@ -468,6 +472,7 @@ namespace SetepassosPRJ.Models
                 {
                     MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te em cheio! ";
                 }
+                MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
             }
 
             //Sempre que houver combate acertar vida do monstro
@@ -563,12 +568,12 @@ namespace SetepassosPRJ.Models
                         TotalMover = TotalMover + 1;
                         NumFugas = NumFugas + 1;
                         //Detetar se inimigo deu dano para meter a mensagem de acordo
-                        if (DanoSofrido == 0)
+                        if (DanoSofrido == 0) //Mensagem de contexto expecifica para fugir sem levar dano
                         {
                             MensagemAccaoFuga = MensagemAccaoFuga + " Escapaste por um triz! ";
                             MensagemVidaNeg = "Miss";
                         }
-                        else
+                        else //Mensagem de contexto expecifica para fugir mas levando dano
                         {
                             MensagemAccaoFuga = MensagemAccaoFuga + " Fugiste mas ainda te bateu. ";
                         }
@@ -600,7 +605,7 @@ namespace SetepassosPRJ.Models
                 case PlayerAction.Attack:
                     {
                         TotalAtaques = TotalAtaques + 1;
-                        double danoDado = PontosVidaMonstro - Math.Round(PontosVidaMonstroAtuais, 1);
+                        double danoDado = Math.Round(PontosVidaMonstro, 1) - Math.Round(PontosVidaMonstroAtuais, 1);
 
                         //Ataque acertou ou falhou
                         if (danoDado > 0)
@@ -706,7 +711,7 @@ namespace SetepassosPRJ.Models
                 }
                 else if (EfeitoVidaItem < 0)
                 {
-                    MensagemAccao = MensagemAccao + "Era leite estragado! ";
+                    MensagemAccao = MensagemAccao + "Era leite azedo! ";
                     if (PontosVida + EfeitoVidaItem > 0)
                     {
                         MensagemVidaNeg = Convert.ToString(EfeitoVidaItem);
@@ -714,7 +719,7 @@ namespace SetepassosPRJ.Models
                     }
                     else
                     {
-                        MensagemVidaNeg = "-" + EfeitoVidaItem;
+                        MensagemVidaNeg = Convert.ToString(EfeitoVidaItem);
                         PontosVida = 0;
                     }
                 }
@@ -787,7 +792,7 @@ namespace SetepassosPRJ.Models
                 MoedasOuro = MoedasOuro + MoedasOuroRecebidas;
                 if (MoedasOuroRecebidas > 100)
                 {
-                    MensagemPlim = "Nham Nham Nham...";
+                    MensagemPlim = "Nham Nham.";
                 }
 
         }
