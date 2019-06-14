@@ -189,11 +189,12 @@ namespace SetepassosPRJ.Models
                     PontosVida = PontosVida - 0.5;
                     MensagemPassarTempo = "Cansaço: -0.5";
                 
+                //Na última jogada (GoForward ou Flee na última sala, para a vitória) não se aplica cansaço, qualquer que seja a vida.
                 if (ResultadoAccao == Result.SuccessVictory) // Mandar mensagem especifica no caso de vencer com cansaço
                 {
                     PontosVida = PontosVida + 0.5;
                     MensagemPassarTempo = "0";
-                    MensagemAccao = " Ganhaste motivação extra para vencer o cançaso " + MensagemAccao;
+                    MensagemAccao = " Ganhaste motivação extra para vencer o cansaço " + MensagemAccao;
                 }
                 if (PontosVida < 0)
                 {
