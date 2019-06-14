@@ -16,6 +16,7 @@ body {
     background-image: url('../images/Layout/Entrance v2.jpg');
     background-size:cover;
     background-repeat: no-repeat;
+    background-color:black;
 }
 
 /*tornar imagens responsivas*/
@@ -459,3 +460,29 @@ h4 {
     text-shadow: 0.8px 0.8px 0.8px black;
 }
 
+.ImagemInstrucoes {
+    position: relative;
+    height: 50%;
+    width: 90%;
+}
+
+.ImagemBotoes {
+    height: 60%;
+    width: 60%;
+}
+
+.iconChave {
+    height: 10%;
+    width: 10%;
+}
+
+.iconMapaSala {
+    height: 10%;
+    width: 30%;
+}
+
+.ImagemInstrucoesSM {
+    position: relative;
+    height: 80%;
+    width: 90%;
+}
