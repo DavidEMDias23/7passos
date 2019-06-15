@@ -158,12 +158,7 @@
                             <img src="~/images/Icons/icon-ouro.png" class="iconsGold" />
                         </div>
                     }
-                    @if (Model.MensagemDano != "")
-                    {
-                        <div>
-                            <p class="danoNoMonstro">@Model.MensagemDano</p>
-                        </div>
-                    }
+
                 </div>
                 @if (Model.EncontradoGato)
                 {
@@ -190,12 +185,14 @@
                     @if (Model.MensagemDano != "" && Model.MensagemDano != "MISS")
                     {
                         <div>
+                            <p class="danoNoMonstro">@Model.MensagemDano</p>
                             <img src="~/images/Inimigos/monster-@(Model.PerfilTipo)-bruised.png" class="monstro" />
 
                         </div>
                     }
                     else
                     {
+                        <p class="danoNoMonstro">@Model.MensagemDano</p>
                         <div>
                             <img src="~/images/Inimigos/monster-@(Model.PerfilTipo).png" class="monstro" />
                         </div>
