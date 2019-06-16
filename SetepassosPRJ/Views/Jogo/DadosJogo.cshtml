@@ -41,21 +41,21 @@
 
         <div class="col-sm-6 text-center">
             <h2>Bónus</h2>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @Model.BonusChave Moedas</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.BonusInimigo Moedas</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.BonusItem Moedas</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.BonusPocao Moedas</p>
-            <p class="MensagemBonus">Ganhar o Jogo: @Model.BonusVitoria Moedas</p>
-            <p class="MensagemBonus">Ganhar sem Recuar: @Model.BonusRecuar Moedas </p>
-            <p class="MensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Moedas</p>
-            <p class="MensagemBonus">Ganhar com vida inferior a 0.5: @Model.BonusVida Moedas</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @Model.BonusChave Donuts</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.BonusInimigo Donuts</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.BonusItem Donuts</p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.BonusPocao Donuts</p>
+            <p class="MensagemBonus">Ganhar o Jogo: @Model.BonusVitoria Donuts</p>
+            <p class="MensagemBonus">Ganhar sem Recuar: @Model.BonusRecuar Donuts </p>
+            <p class="MensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Donuts</p>
+            <p class="MensagemBonus">Ganhar com vida inferior a 0.5: @Model.BonusVida Donuts</p>
             <br />
             <p class="MensagemAccaoMonstro">Bonus Total: @Model.Bonus</p> 
         </div>
     </div>
     <div class="row tabelaBonus">
         <div class="col-sm-6">
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsItemBonusMoeda" /> Total Moedas: <strong>@Model.MoedasOuroTotal</strong> <strong>@Model.ResultadoJogo</strong></p>
+            <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsItemBonusMoeda" /> Total Donuts: <strong>@Model.MoedasOuroTotal</strong> <strong>@Model.ResultadoJogo</strong></p>
         </div>
         <div class="col-sm-6 columncenter text-center">
             <a asp-controller="Home" asp-action="HiScores" class="btn btn-info">HiScores</a>

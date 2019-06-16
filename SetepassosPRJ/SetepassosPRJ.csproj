@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Home\InstrucoesBonus.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Jogo\CriarJogoAutonomo.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

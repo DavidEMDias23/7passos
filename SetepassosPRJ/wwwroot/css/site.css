@@ -331,6 +331,16 @@ h4 {
     border-color:maroon;
     border-width: 5px;
 }
+
+.tabelaInstrucoes {
+    background-color: black;
+    border:outset;
+    border-color: gold;
+    border-width: 1px;
+    font-size: 0.8vw;
+    padding:2px;
+    margin: 0;
+}
 .explicacaoAutonomo {
     background-color: black;
     border: outset;
@@ -494,14 +504,14 @@ h4 {
 /** LightBox Effext **/
 
 .thumbnail {
-    max-width: 90%;
+    max-width: 40%;
 }
 .italic {
     font-style: italic;
 }
 
 .small {
-    font-size: 18px;
+    font-size: 0.7vw;
 }
 .lightbox {
     display: none;

@@ -756,7 +756,7 @@ namespace SetepassosPRJ.Models
                 if (EfeitoSorteItem > 0)
                 {
                     EncontradoTrevo = true;
-                    MensagemAccao = MensagemAccao + "Tinha um trevo 4 folhas! ";
+                    MensagemAccao = MensagemAccao + "E Tinha um trevo de 4 folhas! ";
                     if (PontosSorte + EfeitoSorteItem <= 5)
                     {
                         MensagemSorte = "+" + EfeitoSorteItem;
