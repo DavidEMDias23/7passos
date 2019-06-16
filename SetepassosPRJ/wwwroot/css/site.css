@@ -271,7 +271,7 @@ input[type='radio'] {
 .monstro {
     position: fixed;
     width: 20%;
-    bottom: 10%;
+    bottom: 5%;
     left: 23%;
     z-index: -1;
     display:inline-block;
@@ -449,9 +449,9 @@ h4 {
 }
 .imagemgatopreto {
     position: fixed;
-    top: 60%;
+    top: 55%;
     left: 60%;
-    width: 50%;
+    width: 20%;
 }
 .iconsGold {
     height: 13%;

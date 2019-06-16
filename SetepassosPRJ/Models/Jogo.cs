@@ -694,7 +694,7 @@ namespace SetepassosPRJ.Models
             {
 
                 NumItensEncontrados = NumItensEncontrados + 1;
-                MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA que: ";
+                MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA: ";
                 if (EfeitoVidaItem > 0 && PontosVida < 5)
                 {
                     MensagemAccao = MensagemAccao + "deu-te vida! ";
@@ -756,7 +756,7 @@ namespace SetepassosPRJ.Models
                 if (EfeitoSorteItem > 0)
                 {
                     EncontradoTrevo = true;
-                    MensagemAccao = MensagemAccao + "E Tinha um trevo de 4 folhas! ";
+                    MensagemAccao = MensagemAccao + "Tinha um trevo de 4 folhas! ";
                     if (PontosSorte + EfeitoSorteItem <= 5)
                     {
                         MensagemSorte = "+" + EfeitoSorteItem;
