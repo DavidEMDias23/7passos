@@ -30,7 +30,7 @@ namespace SetepassosPRJ.Models
         public int TotalAtaques { get; set; }
         public double PercentagemAreasInvestigadas { get; set; }
 
-        public RoundSummary(Jogo j, int rondaAtual)
+        public void AtualizarRondas(Jogo j, int rondaAtual)
         {
             GameID = j.GameID;
             NumeroRonda = rondaAtual;

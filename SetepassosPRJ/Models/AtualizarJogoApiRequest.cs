@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SetepassosPRJ.Models
 {
-    public enum PlayerAction { GoForward, GoBack, SearchArea, DrinkPotion, Attack, Flee, Quit, Null }
+    public enum PlayerAction { GoForward, GoBack, SearchArea, DrinkPotion, Attack, Flee, Quit, TomarAcao }
 
     public class AtualizarJogoApiRequest
     {
