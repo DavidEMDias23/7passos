@@ -1,0 +1,117 @@
+﻿@model List<RoundSummary>
+{
+    ViewData["Title"] = "Round Summary";
+}
+
+@if (Model.Count == 0)
+{
+    <h2>Não existem jogos registados.</h2>
+}
+else
+{
+    int numRondas = Model.Count;
+    <div class="text-center">
+        <table id="tabela" class="table table-condensed">
+            <thead>
+                <tr>
+                    Summario das Rondas
+                    <th class="text-center" scope="col">Nº da Ronda</th>
+                    <th class="text-center" scope="col">Decisão Tomada</th>
+                    <th class="text-center" scope="col">Sala</th>
+                    <th class="text-center" scope="col">Monstros Derrotados</th>
+                    <th class="text-center" scope="col">Fugas</th>
+                    <th class="text-center" scope="col">Itens Encontrados</th>
+                    <th class="text-center" scope="col">Chave Encontrada?</th>
+                    <th class="text-center" scope="col">Moedas de Ouro</th>
+                    <th class="text-center" scope="col">Pontos Vida</th>
+                    <th class="text-center" scope="col">Pontos Ataque</th>
+                    <th class="text-center" scope="col">Pontos Sorte</th>
+                    <th class="text-center" scope="col">Poções Vida</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>@Model.LastOrDefault().NumeroRonda</td>
+                        <td>@Model.LastOrDefault().DecisaoTomada</td>
+                        <td>@Model.LastOrDefault().Posicao</td>
+                        <td>@Model.LastOrDefault().NumInimigosDerrotados</td>
+                        <td>@Model.LastOrDefault().NumFugas </td>
+                        <td>@Model.LastOrDefault().NumItensEncontrados</td>
+                        <td>
+                            @if (Model.LastOrDefault().Chave)
+                            {
+                                @:Sim
+                            }
+                            else
+                            {
+                                @:Não
+                            }
+                        </td>
+                        <td>@Model.LastOrDefault().MoedasOuro</td>
+                        <td> @Model.LastOrDefault().PontosVida</td>
+                        <td>@Model.LastOrDefault().PontosAtaque</td>
+                        <td>@Model.LastOrDefault().PontosSorte</td>
+                        <td>@Model.LastOrDefault().PocoesVida</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table id="tabela" class="table table-condensed">
+            <thead>
+                <tr>
+                    Final do jogo
+                    <th class="text-center" scope="col">Nº da Ronda</th>
+                    <th class="text-center" scope="col">Pontuação Final</th>
+                    <th class="text-center" scope="col">Resultado Final</th>
+                    <th class="text-center" scope="col">Chave Encontrada?</th>
+                    <th class="text-center" scope="col">Passos Frente/Trás</th>
+                    <th class="text-center" scope="col">Poções Usadas</th>
+                    <th class="text-center" scope="col">Ataques</th>
+                    <th class="text-center" scope="col">Fugas</th>
+                    <th class="text-center" scope="col">Monstros Derrotados</th>
+                    <th class="text-center" scope="col">Itens Encontrados</th>
+                    <th class="text-center" scope="col">Áreas Investigadas</th>
+                    <th class="text-center" scope="col">% Áreas Examinadas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (RoundSummary r in Model)
+                {
+                    <tr>
+                        <td>@numRondas</td>
+                        <td>@r.MoedasOuroTotal</td>
+                        @if (r.ResultadoJogo == ResultadoJogo.Vitoria)
+                        {
+                            @:Vitoria
+                        }
+                        else if (r.ResultadoJogo == ResultadoJogo.Derrota)
+                        {
+                            @:Derrota
+                        }
+                        @if (r.ResultadoJogo == ResultadoJogo.Desistiu)
+                        {
+                            @:Desistiu
+                        }
+                        <td>
+                            @if (r.Chave)
+                            {
+                                @:Sim
+                            }
+                            else
+                            {
+                                @:Não
+                            }
+                        <td>@(r.TotalMover - r.NumFugas)</td>
+                        <td>@r.PocoesUsadas</td>
+                        <td> @r.TotalAtaques </td>
+                        <td>@r.NumFugas</td>
+                        <td>@r.NumInimigosDerrotados</td>
+                        <td> @r.NumItensEncontrados</td>
+                        <td>@r.TotalAreasExaminadas</td>
+                        <td>@r.PercentagemAreasInvestigadas</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

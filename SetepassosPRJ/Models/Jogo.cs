@@ -105,54 +105,42 @@ namespace SetepassosPRJ.Models
             TotalAtaques = 0;
             TotalAreasExaminadas = 0;
 
-            if (perfilTipoEscolhido == "S")
+            switch (PerfilTipo)
             {
-
-                PontosVida = 3;
-                PontosAtaque = 3;
-                PontosSorte = 3;
-                PontosVidaMax = PontosVida;
-
-                if (Autonomo)
-                {
-                    if (nomeEscolhido == "auto3")
+                case "S":
+                    PontosVida = 3;
+                    PontosAtaque = 3;
+                    PontosSorte = 3;
+                    PontosVidaMax = PontosVida;
+                    if (Autonomo)
                     {
-                        Rondas = 3;
+                        switch (nomeEscolhido)
+                        {
+                            case "auto3":
+                                Rondas = 3;
+                                break;
+                            case "auto7":
+                                Rondas = 7;
+                                break;
+                            case "auto0":
+                                Rondas = 50;
+                                break;
+                        }
                     }
-                    if (nomeEscolhido == "auto7")
-                    {
-                        Rondas = 7;
-                    }
-                    if (nomeEscolhido == "auto0")
-                    {
-                        Rondas = 50;
-                    }
-                }
-
+                    break;
+                case "W":
+                    PontosVida = 3;
+                    PontosAtaque = 2;
+                    PontosSorte = 4;
+                    PontosVidaMax = PontosVida;
+                    break;
+                case "B":
+                    PontosVida = 4;
+                    PontosAtaque = 3;
+                    PontosSorte = 2;
+                    PontosVidaMax = PontosVida;
+                    break;
             }
-
-            if (perfilTipoEscolhido == "W")
-            {
-
-                PontosVida = 3;
-                PontosAtaque = 2;
-                PontosSorte = 4;
-                PontosVidaMax = PontosVida;
-
-
-            }
-
-            if (perfilTipoEscolhido == "B")
-            {
-
-                PontosVida = 4;
-                PontosAtaque = 3;
-                PontosSorte = 2;
-                PontosVidaMax = PontosVida;
-
-            }
-
-
         }
 
         // Atualizar o estado do Jogo
@@ -163,17 +151,17 @@ namespace SetepassosPRJ.Models
             AtualizarVariaveisDoJogo(nGS); //Atualizar variáveis do jogo vindas do GameState
             if (ResultadoAccao == Result.Success)  // Atualizar jogo sempre que existem accoes com Sucesso//
             {
-                ResultadoAccaoSucesso(); //Chamado metodo para atualizar jogo consoante a accao
+                AtualizarAccaoSucesso(); //Chamado metodo para atualizar jogo consoante a accao
                 VerificarItensEncontrados(); //Verificar itens encontrados
                 if (MoedasOuroRecebidas > 0) //Deteta se foram encontradas moedas
                 {
                     AtualizarMoedas(); //Atualizar moedas de ouro do modelo
                 }
             }
-            AccaoInvalida(); //Se a accao for Inválida
-            AcertoVida(); //Fazer acerto de vida de combate
-            PassagemTempo(); //Contabilizar acções e detetar cansaço
-            DetetarSeGanhouJogo(); //Calcular bonus de fim de jogo
+            AccaoInvalida(); //Se a accao for inválida para debug
+            AcertarVida(); //Fazer acerto de vida de combate
+            PassarTempo(); //Contabilizar acções e detetar cansaço
+            DetetarSeJogoAcabou(); //Detetar se jogo acabou
             if (Autonomo)  //Deteta se jogo está em modo autónomo
             {
                 AccaoAutonomo(); //Metodo para decidir ação a tomar
@@ -181,31 +169,24 @@ namespace SetepassosPRJ.Models
         }
 
 
-        private void PassagemTempo()
+        private void PassarTempo()
         {
             if ((TotalAreasExaminadas > 7) || (TotalAtaques > 7) || (TotalMover > 7))
             {
                 
-                    PontosVida = PontosVida - 0.5;
-                    MensagemPassarTempo = "Cansaço: -0.5";
+                PontosVida = PontosVida - 0.5;
+                MensagemPassarTempo = "Cansaço: -0.5";
                 
                 //Na última jogada (GoForward ou Flee na última sala, para a vitória) não se aplica cansaço, qualquer que seja a vida.
                 if (ResultadoAccao == Result.SuccessVictory) // Mandar mensagem especifica no caso de vencer com cansaço
                 {
                     PontosVida = PontosVida + 0.5;
                     MensagemPassarTempo = "0";
-                    MensagemAccao = " Ganhaste motivação extra para vencer o cansaço " + MensagemAccao;
                 }
-                if (PontosVida < 0)
+                if (PontosVida < 0) // Não deixar vida negativa
                 {
                     PontosVida = 0;
                 }
-
-            }
-
-            if (PontosVida <= 0 && ResultadoAccao != Result.SuccessVictory)
-            {
-                MensagemAccao = " Temos pena mas morreste! Fica para a próxima... " + MensagemAccao;
 
             }
         }
@@ -257,122 +238,283 @@ namespace SetepassosPRJ.Models
 
         public void AccaoAutonomo() //Metodo para estratégia do jogo autonomo
         {
-            //Detetar se existe monstro na view
+            // Estratégia que apenas tem em conta a nossa vida para beber poção, ataca todos os monstros, e procura todas as áreas, tenta ganhar com menos de 0.5 quando possível.
             if (Monstro)
             {
-                if (PontosSorteMonstro <= PontosSorte)
+                if (PontosVida < 1.8 && PocoesVida > 0)
                 {
-                    if (PontosAtaqueMonstro < 4)
-                    {
-                        if (PontosVida > 1.5)
-                        {
-                            TomarAccao = PlayerAction.Attack;
-                        }
-                        else
-                        {
-                            if (PocoesVida > 0)
-                            {
-                                TomarAccao = PlayerAction.DrinkPotion;
-                            }
-                            else
-                            {
-                                TomarAccao = PlayerAction.Flee;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (Chave == false)
-                        {
-                            if (Sala > 5)
-                            {
-                                if (PontosVida < 2 && PocoesVida > 0)
-                                {
-                                    TomarAccao = PlayerAction.DrinkPotion;
-                                }
-                                else
-                                {
-                                    TomarAccao = PlayerAction.Attack;
-                                }
-                            }
-                            else
-                            {
-                                if (PontosVida < 2 && PocoesVida > 0)
-                                {
-                                    TomarAccao = PlayerAction.DrinkPotion;
-
-                                }
-                                else
-                                {
-                                    TomarAccao = PlayerAction.Flee;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (PontosVida < 2.2 && PocoesVida > 0)
-                            {
-                                TomarAccao = PlayerAction.DrinkPotion;
-                            }
-                            else
-                            {
-                                TomarAccao = PlayerAction.Flee;
-                            }
-                        }
-
-                    }
+                    TomarAccao = PlayerAction.DrinkPotion;
                 }
                 else
                 {
-                    if (PontosAtaqueMonstro < 3)
+                    if (Sala < 7)
                     {
-                        if (PontosVida > 1.5)
-                        {
-                            TomarAccao = PlayerAction.Attack;
-                        }
-                        else
-                        {
-                            if (PocoesVida > 0)
-                            {
-                                TomarAccao = PlayerAction.DrinkPotion;
-                            }
-                            else
-                            {
-                                TomarAccao = PlayerAction.Flee;
-                            }
-                        }
+                        TomarAccao = PlayerAction.Attack;
                     }
                     else
                     {
-                        TomarAccao = PlayerAction.Flee;
+                        if (Chave == true && PocoesVida == 0)
+                        {
+                            TomarAccao = PlayerAction.Flee;
+                        }
+                        else
+                        {
+                            TomarAccao = PlayerAction.Attack;
+                        }
                     }
                 }
             }
             else
             {
-                if (Chave)
+                if (arraySalasExaminadas[Sala] == false)
                 {
-                    TomarAccao = PlayerAction.GoForward;
+                    TomarAccao = PlayerAction.SearchArea;
                 }
                 else
                 {
-                    if (arraySalasExaminadas[Sala])
+                    if (Sala == 7)
                     {
-                        if (Sala < 7)
+                        if (PontosVida % 1 != 0 && PontosVida > 1) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5
                         {
-                            TomarAccao = PlayerAction.GoForward;
+                            TomarAccao = PlayerAction.GoBack;
                         }
                         else
                         {
-                            TomarAccao = PlayerAction.GoBack;
+                            TomarAccao = PlayerAction.GoForward;
                         }
                     }
                     else
                     {
-                        TomarAccao = PlayerAction.SearchArea;
+                        TomarAccao = PlayerAction.GoForward;
                     }
                 }
+            }
+        }
 
+        // Estratégia que tem em conta várias condicionantes. Ganha mais vezes que a anterior, consegue melhor score médio, não consegue scores maximos tão altos como a anterior.
+
+        //if (Monstro)
+        //{
+        //    if (arraySalasExaminadas[Sala + 1] == false) //Estamos a andar para a frente
+        //    {
+        //        if (PontosSorteMonstro < 5)
+        //        {
+        //            if (PontosAtaqueMonstro < 4)
+        //            {
+        //                if (PontosVida > 1.6)
+        //                {
+        //                    TomarAccao = PlayerAction.Attack;
+        //                }
+        //                else
+        //                {
+        //                    if (PocoesVida > 0)
+        //                    {
+        //                        TomarAccao = PlayerAction.DrinkPotion;
+        //                    }
+        //                    else
+        //                    {
+        //                        TomarAccao = PlayerAction.Flee;
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (Chave == false)
+        //                {
+        //                    if (Sala > 3)
+        //                    {
+        //                        if (PontosVida < 1.9 && PocoesVida > 0)
+        //                        {
+        //                            TomarAccao = PlayerAction.DrinkPotion;
+        //                        }
+        //                        else
+        //                        {
+        //                            TomarAccao = PlayerAction.Attack;
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        if (PontosVida < 1.9 && PocoesVida > 0)
+        //                        {
+        //                            TomarAccao = PlayerAction.DrinkPotion;
+        //                        }
+        //                        else
+        //                        {
+        //                            TomarAccao = PlayerAction.Flee;
+        //                        }
+        //                    }
+        //                }
+        //                else // se já tenho chave
+        //                {
+        //                    if (PontosVida < 1.9 && PocoesVida > 1) // Se tiver mais de 1 poção bebe para tentar matar o monstro caso contrário é preferivel guardar poção
+        //                    {
+        //                        TomarAccao = PlayerAction.DrinkPotion;
+        //                    }
+        //                    else
+        //                    {
+        //                        if (PontosVidaMonstro >= 1) // não vale a pena tentar matar
+        //                        {
+        //                            TomarAccao = PlayerAction.Flee;
+        //                        }
+        //                        else // se vida do monstro for 1 ou menos, tentamos matar
+        //                        {
+        //                            TomarAccao = PlayerAction.Attack;
+        //                        }
+        //                    }
+        //                }
+
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (Sala < 3)
+        //            {
+        //                if (PontosAtaqueMonstro < 5)
+        //                {
+        //                    if (PontosVida > 1.8)
+        //                    {
+        //                        TomarAccao = PlayerAction.Attack;
+        //                    }
+        //                    else
+        //                    {
+        //                        if (PocoesVida > 0)
+        //                        {
+        //                            TomarAccao = PlayerAction.DrinkPotion;
+        //                        }
+        //                        else
+        //                        {
+        //                            TomarAccao = PlayerAction.Flee;
+        //                        }
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    TomarAccao = PlayerAction.Flee;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (PontosVida > 1.9)
+        //                {
+        //                    TomarAccao = PlayerAction.Attack;
+        //                }
+        //                else
+        //                {
+        //                    if (PocoesVida > 0)
+        //                    {
+        //                        TomarAccao = PlayerAction.DrinkPotion;
+        //                    }
+        //                    else
+        //                    {
+        //                        if (PontosVidaMonstro <= 1)
+        //                        {
+        //                            TomarAccao = PlayerAction.Attack;
+        //                        }
+        //                        else
+        //                        {
+        //                            TomarAccao = PlayerAction.Flee;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    else //Se a sala seguinte já foi examinada e temos monstro na view é porque ainda não temos chave e temos de matar o monstro para tentar encontrar
+        //    {
+        //        if (Chave == false) //confirmar que a chave não apareceu ao examinar a sala
+        //        {
+        //            if (PontosVida < 1.9 && PocoesVida > 0)
+        //            {
+        //                TomarAccao = PlayerAction.DrinkPotion;
+        //            }
+        //            else
+        //            {
+        //                TomarAccao = PlayerAction.Attack;
+        //            }
+        //        }
+        //        else //se já temos chave é porque apareceu quando examinámos a sala também apareceu o monstro e a chave
+        //        {
+        //            if (PontosVidaMonstro < 1 && PontosVida > 1.9)
+        //            {
+        //                TomarAccao = PlayerAction.Attack; //vamos tentar mesmo assim matar este monstro
+        //            }
+        //            else
+        //            {
+        //                TomarAccao = PlayerAction.Flee; //vamos tentar ganhar, não vale a pena gastarmos poção porque dá-nos bonus
+        //            }
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    if (Chave)
+        //    {
+        //        if (Sala == 7)
+        //        {
+        //            if (PontosVida % 1 != 0 && PontosVida > 1) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5
+        //            {
+        //                if (DetetarMonstroSala6()) //Se existir monstro na sala 6 não vale a pena tentar.
+        //                {
+        //                    TomarAccao = PlayerAction.GoForward;
+        //                }
+        //                else //Vamos recuar e avançar até termos menos de 0.5 de vida.
+        //                {
+        //                    TomarAccao = PlayerAction.GoBack;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                TomarAccao = PlayerAction.GoForward;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (TomarAccao == PlayerAction.Attack && arraySalasExaminadas[Sala] == false && arraySalasExaminadas[7] == false) //se a ultima acao foi atacar, acabámos de matar um monstro e nunca tivémos na sala 7 podemos arriscar procurar a sala
+        //            {
+        //                TomarAccao = PlayerAction.SearchArea;
+        //            }
+        //            else //se não acabámos de matar um mosntro ou se já tivemos na sala 7 não vale a pena arriscar encontrar um monstro visto que já temos chave.
+        //            {
+        //                TomarAccao = PlayerAction.GoForward;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (arraySalasExaminadas[Sala]) //se esta sala já foi examinada
+        //        {
+        //            if (Sala < 7)
+        //            {
+        //                if (arraySalasExaminadas[Sala + 1]) //se já examinámos a sala seguinte  e não temos chave é porque tamos a tentar recuar e procurar
+        //                {
+        //                    TomarAccao = PlayerAction.GoBack;
+        //                }
+        //                else // se nunca examinámos a sala seguinte é porque não estamos a tentar recuar
+        //                {
+        //                    TomarAccao = PlayerAction.GoForward;
+        //                }
+        //            }
+        //            else //se na sala 7 não temos chave, deixámos numa sala com monstro temos de recuar
+        //            {
+        //                TomarAccao = PlayerAction.GoBack;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            TomarAccao = PlayerAction.SearchArea;
+        //        }
+        //    }
+        //}
+
+        private bool DetetarMonstroSala6()
+        {
+            if (TomarAccao == PlayerAction.Flee)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -424,7 +566,7 @@ namespace SetepassosPRJ.Models
             }
         }
 
-        private void DetetarSeGanhouJogo()
+        private void DetetarSeJogoAcabou()
         {
             if (ResultadoAccao == Result.SuccessVictory)
             {
@@ -443,30 +585,30 @@ namespace SetepassosPRJ.Models
                 }
             }
             
-            if (ResultadoAccao != Result.SuccessVictory && PontosVida <= 0)
+            if (ResultadoAccao != Result.SuccessVictory && PontosVida == 0)
             {
                 Terminado = true;
                 ResultadoJogo = ResultadoJogo.Derrota;
                 CalcularBonus();
+                MensagemAccao = MensagemAccao + " Temos pena mas morreste! Fica para a próxima... ";
             }
         }
 
-        private void AcertoVida()
+        private void AcertarVida()
         {
             //Acertar vida do jogador
             if (DanoSofrido > 0)
             {
                 if (PontosVida - DanoSofrido < 0)
-                {
                     PontosVida = 0;
-                }
                 else
                 {
                     PontosVida = Math.Round(PontosVida - DanoSofrido, 1);
                 }
+
                 if (DanoSofrido <= 1)
                 {
-                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo viu-te de raspão! ";
+                    MensagemAccaoMonstro = MensagemAccaoMonstro + " O inimigo acertou-te de raspão! ";
                 }
                 if (DanoSofrido > 1)
                 {
@@ -474,6 +616,7 @@ namespace SetepassosPRJ.Models
                 }
                 MensagemVidaNeg = "-" + Convert.ToString(DanoSofrido);
             }
+            
 
             //Sempre que houver combate acertar vida do monstro
             if ((Monstro) || (Monstro == false && UltimaAccao == PlayerAction.Attack))
@@ -530,7 +673,7 @@ namespace SetepassosPRJ.Models
         }
 
         //Método para realizar accao
-        private void ResultadoAccaoSucesso()
+        private void AtualizarAccaoSucesso()
         {
             switch (UltimaAccao)
             {
@@ -552,12 +695,15 @@ namespace SetepassosPRJ.Models
                 case PlayerAction.GoBack:
                     {
                         TotalMover = TotalMover + 1;
-                        Recuou = true;
                         Sala = Sala - 1;
                         //Detetar se apareceu monstro
                         if (Monstro)
                         {
-                            MensagemAccao = MensagemAccao + " Deste de caras com um inimigo! ";
+                            MensagemAccao = MensagemAccao + " Deste de caras com o inimigo! ";
+                        }
+                        if (Recuou == false)
+                        {
+                            Recuou = true;
                         }
                         break;
                     }
@@ -568,19 +714,19 @@ namespace SetepassosPRJ.Models
                         TotalMover = TotalMover + 1;
                         NumFugas = NumFugas + 1;
                         //Detetar se inimigo deu dano para meter a mensagem de acordo
-                        if (DanoSofrido == 0) //Mensagem de contexto expecifica para fugir sem levar dano
+                        if (DanoSofrido == 0) //Mensagens de contexto para fugir sem levar dano
                         {
                             MensagemAccaoFuga = MensagemAccaoFuga + " Escapaste por um triz! ";
-                            MensagemVidaNeg = "Miss";
+                            MensagemVidaNeg = "Miss"; 
                         }
-                        else //Mensagem de contexto expecifica para fugir mas levando dano
+                        else //Mensagem de contexto para fugir mas levando dano
                         {
                             MensagemAccaoFuga = MensagemAccaoFuga + " Fugiste mas ainda te bateu. ";
                         }
                         //Detetar se na sala para onde fugimos tem inimigo
                         if (Monstro)
                         {
-                            MensagemAccao = MensagemAccao + " Azar...Fugiste para uma sala com outro inimigo! ";
+                            MensagemAccao = MensagemAccao + " Azar...Fugiste para uma sala com outro inimigo! "; 
                         }
                         if (Sala < 7)
                         {
@@ -605,9 +751,9 @@ namespace SetepassosPRJ.Models
                 case PlayerAction.Attack:
                     {
                         TotalAtaques = TotalAtaques + 1;
-                        double danoDado = Math.Round(PontosVidaMonstro, 1) - Math.Round(PontosVidaMonstroAtuais, 1);
+                        double danoDado = Math.Round(PontosVidaMonstro, 1) - Math.Round(PontosVidaMonstroAtuais, 1); //danoDado ao inimigo
 
-                        //Ataque acertou ou falhou
+                        //Ataque acertou ou falhou, atualizar mensagens de contexto de acordo
                         if (danoDado > 0)
                         {
                             MensagemDano = "-" + Convert.ToString(danoDado) + " Hit";
@@ -616,27 +762,26 @@ namespace SetepassosPRJ.Models
                         {
                             MensagemDano = "MISS";
                         }
-                        //Detetar se inimigo falhou ataque
+                        //Detetar se inimigo falhou ataque, atualizar mensagens de contexto de acordo
                         if (DanoSofrido == 0)
                         {
                             MensagemAccaoMonstro = MensagemAccaoMonstro + " Uff... o gajo falhou!";
                             MensagemVidaNeg = "Miss";
                         }
                         //Mensagem ataque personalizada
-                        if (PerfilTipo == "S")
+                        switch (PerfilTipo)
                         {
-                            MensagemMeuAtaque = "Atiraste um gato!";
+                            case "S":
+                                MensagemMeuAtaque = "Atiraste um gato!";
+                                break;
+                            case "B":
+                                MensagemMeuAtaque = "Deste um arroto mortífero...";
+                                break;
+                            case "W":
+                                MensagemMeuAtaque = "Mandaste-lhe com a calculadora.";
+                                break;
                         }
-                        if (PerfilTipo == "B")
-                        {
-                            MensagemMeuAtaque = "Deste um arroto mortífero...";
-                        }
-                        if (PerfilTipo == "W")
-                        {
-                            MensagemMeuAtaque = "Mandaste-lhe com a calculadora.";
-                        }
-                        //Detetar se monstro morre
-                        if (Monstro == false)
+                        if (Monstro == false) //Detetar se monstro morre
                         {
                             NumInimigosDerrotados = NumInimigosDerrotados + 1;
                             MensagemAccaoMonstro = MensagemAccaoMonstro + " Mataste o inimigo!!! ";
@@ -650,12 +795,11 @@ namespace SetepassosPRJ.Models
                         TotalAreasExaminadas = TotalAreasExaminadas + 1;
                         arraySalasExaminadas[Sala] = true;
                         SalasExaminadas();
-                        //Detetar se apareceu monstro
-                        if (Monstro)
+                        if (Monstro) //Detetar se apareceu monstro
                         {
                             MensagemAccaoFuga = MensagemAccaoFuga + " O inimigo estava escondido! ";
                         }
-                        if (Monstro == false && EncontradoChave == false && EncontradoItem == false && MoedasOuroRecebidas == 0 && EncontradoPocao == false)
+                        if (Monstro == false && EncontradoChave == false && EncontradoItem == false && MoedasOuroRecebidas == 0 && EncontradoPocao == false) //Se não apareceu nada
                         {
                             MensagemAccao = MensagemAccao + " Examinaste a área mas não encontraste nada. ";
                         }
@@ -692,34 +836,31 @@ namespace SetepassosPRJ.Models
             }
             if (EncontradoItem)
             {
-
                 NumItensEncontrados = NumItensEncontrados + 1;
                 MensagemAccao = MensagemAccao + " Encontraste ITEM SURPRESA: ";
                 if (EfeitoVidaItem > 0 && PontosVida < 5)
                 {
                     MensagemAccao = MensagemAccao + "deu-te vida! ";
-                    if (PontosVida + EfeitoVidaItem <= 5)
+                    MensagemVidaPos = "+" + EfeitoVidaItem;
+                    if (PontosVida + EfeitoVidaItem < 5) //Atualizar mensagens de contexto e vida
                     {
-                        MensagemVidaPos = "+" + EfeitoVidaItem;
                         PontosVida = PontosVida + EfeitoVidaItem;
                     }
-                    else
+                    else //Atualizar mensagens de contexto e vida
                     {
-                        MensagemVidaPos = "+" + EfeitoVidaItem;
                         PontosVida = 5;
                     }
                 }
                 else if (EfeitoVidaItem < 0)
                 {
                     MensagemAccao = MensagemAccao + "Era leite azedo! ";
+                    MensagemVidaNeg = Convert.ToString(EfeitoVidaItem);
                     if (PontosVida + EfeitoVidaItem > 0)
                     {
-                        MensagemVidaNeg = Convert.ToString(EfeitoVidaItem);
                         PontosVida = PontosVida + EfeitoVidaItem;
                     }
                     else
                     {
-                        MensagemVidaNeg = Convert.ToString(EfeitoVidaItem);
                         PontosVida = 0;
                     }
                 }
@@ -727,28 +868,26 @@ namespace SetepassosPRJ.Models
                 if (EfeitoAtaqueItem > 0 && PontosAtaque < 5)
                 {
                     MensagemAccao = MensagemAccao + "Aumentou o ataque! ";
-                    if (PontosAtaque + EfeitoAtaqueItem <= 5)
+                    MensagemAtaque = "+" + EfeitoAtaqueItem;
+                    if (PontosAtaque + EfeitoAtaqueItem < 5)
                     {
-                        MensagemAtaque = "+" + EfeitoAtaqueItem;
                         PontosAtaque = PontosAtaque + EfeitoAtaqueItem;
                     }
                     else
                     {
                         PontosAtaque = 5;
-                        MensagemAtaque = "+" + EfeitoAtaqueItem;
                     }
                 }
                 else if (EfeitoAtaqueItem < 0)
                 {
                     MensagemAccao = MensagemAccao + "Diminuiu o ataque! ";
-                    if (PontosAtaque + EfeitoAtaqueItem >= 0)
+                    MensagemAtaque = Convert.ToString(EfeitoAtaqueItem);
+                    if (PontosAtaque + EfeitoAtaqueItem > 0)
                     {
                         PontosAtaque = PontosAtaque + EfeitoAtaqueItem;
-                        MensagemAtaque = Convert.ToString(EfeitoAtaqueItem);
                     }
                     else
                     {
-                        MensagemAtaque = "-" + EfeitoAtaqueItem;
                         PontosAtaque = 0;
                     }
                 }
@@ -757,14 +896,13 @@ namespace SetepassosPRJ.Models
                 {
                     EncontradoTrevo = true;
                     MensagemAccao = MensagemAccao + "Tinha um trevo de 4 folhas! ";
-                    if (PontosSorte + EfeitoSorteItem <= 5)
+                    MensagemSorte = "+" + EfeitoSorteItem;
+                    if (PontosSorte + EfeitoSorteItem < 5)
                     {
-                        MensagemSorte = "+" + EfeitoSorteItem;
                         PontosSorte = PontosSorte + EfeitoSorteItem;
                     }
                     else
                     {
-                        MensagemSorte = "+" + EfeitoSorteItem;
                         PontosSorte = 5;
                     }
                 }
@@ -772,14 +910,13 @@ namespace SetepassosPRJ.Models
                 {
                     MensagemAccao = MensagemAccao + "Atiçou um gato preto. ";
                     EncontradoGato = true;
-                    if (PontosSorte + EfeitoSorteItem >= 0)
+                    MensagemSorte = Convert.ToString(EfeitoSorteItem);
+                    if (PontosSorte + EfeitoSorteItem > 0)
                     {
-                        MensagemSorte = Convert.ToString(EfeitoSorteItem);
                         PontosSorte = PontosSorte + EfeitoSorteItem;
                     }
                     else
                     {
-                        MensagemSorte = Convert.ToString(EfeitoSorteItem);
                         PontosSorte = 0;
                     }
                 }
@@ -794,7 +931,6 @@ namespace SetepassosPRJ.Models
                 {
                     MensagemPlim = "Nham Nham.";
                 }
-
         }
     }
 }

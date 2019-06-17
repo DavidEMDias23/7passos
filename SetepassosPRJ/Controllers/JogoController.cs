@@ -90,6 +90,8 @@ namespace SetepassosPRJ.Controllers
                             gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
                             JogoNovo.AtualizarJogo(gs);
+                            //RoundSummary rs = new RoundSummary(JogoNovo, gs.RoundNumber);
+                            //RepositorioRondas.AdicionarRonda(rs);
                     }
                     if (gs.RoundNumber == JogoNovo.Rondas)
                     {

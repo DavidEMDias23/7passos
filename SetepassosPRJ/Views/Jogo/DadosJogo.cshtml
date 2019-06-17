@@ -18,7 +18,7 @@
     <div class="row tabelaBonus">
         <div class="col-sm-6 text-center">
             <h2>Conquistas</h2>
-            <p class="MensagemBonus">
+            <p class="mensagemBonus">
                 <img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @if (Model.Chave == true)
                 {
                     @:Sim
@@ -28,34 +28,34 @@
                     @:Não
                 }
             </p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-ouro.png" class="iconsItemsBonus" /> @Model.MoedasOuro</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.NumInimigosDerrotados</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.NumItensEncontrados</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.PocoesVida </p>
-            <p class="MensagemBonus">Fugas: @Model.NumFugas</p>
-            <p class="MensagemBonus">Áreas Examinadas: @Model.TotalAreasExaminadas</p>
-            <p class="MensagemBonus">Ataques: @Model.TotalAtaques</p>
-            <p class="MensagemBonus">Movimentos: @Model.TotalMover</p>
-            <p class="MensagemBonus"> Vida do jogador: @Model.PontosVida</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-bonus-ouro.png" class="iconsItemsBonus" /> @Model.MoedasOuro</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.NumInimigosDerrotados</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.NumItensEncontrados</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.PocoesVida </p>
+            <p class="mensagemBonus">Fugas: @Model.NumFugas</p>
+            <p class="mensagemBonus">Áreas Examinadas: @Model.TotalAreasExaminadas</p>
+            <p class="mensagemBonus">Ataques: @Model.TotalAtaques</p>
+            <p class="mensagemBonus">Movimentos: @Model.TotalMover</p>
+            <p class="mensagemBonus"> Vida do jogador: @Model.PontosVida</p>
         </div>
 
         <div class="col-sm-6 text-center">
             <h2>Bónus</h2>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @Model.BonusChave Donuts</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.BonusInimigo Donuts</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.BonusItem Donuts</p>
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.BonusPocao Donuts</p>
-            <p class="MensagemBonus">Ganhar o Jogo: @Model.BonusVitoria Donuts</p>
-            <p class="MensagemBonus">Ganhar sem Recuar: @Model.BonusRecuar Donuts </p>
-            <p class="MensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Donuts</p>
-            <p class="MensagemBonus">Ganhar com vida inferior a 0.5: @Model.BonusVida Donuts</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-key.png" class="iconsItemsBonus" /> @Model.BonusChave Donuts</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-enemy.png" class="iconsItemsBonus" /> @Model.BonusInimigo Donuts</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-bonus-surpresa.png" class="iconsItemsBonus" /> @Model.BonusItem Donuts</p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-pocaoVida.png" class="iconsItemsBonus" /> @Model.BonusPocao Donuts</p>
+            <p class="mensagemBonus">Ganhar o Jogo: @Model.BonusVitoria Donuts</p>
+            <p class="mensagemBonus">Ganhar sem Recuar: @Model.BonusRecuar Donuts </p>
+            <p class="mensagemBonus">Ganhar sem Lutar: @Model.BonusLutar Donuts</p>
+            <p class="mensagemBonus">Ganhar com vida inferior a 0.5: @Model.BonusVida Donuts</p>
             <br />
-            <p class="MensagemAccaoMonstro">Bonus Total: @Model.Bonus</p> 
+            <p class="mensagemAccaoMonstro">Bonus Total: @Model.Bonus</p> 
         </div>
     </div>
     <div class="row tabelaBonus">
         <div class="col-sm-6">
-            <p class="MensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsItemBonusMoeda" /> Total Donuts: <strong>@Model.MoedasOuroTotal</strong> <strong>@Model.ResultadoJogo</strong></p>
+            <p class="mensagemBonus"><img src="~/images/Icons/icon-moeda.png" class="iconsItemBonusMoeda" /> Total Donuts: <strong>@Model.MoedasOuroTotal</strong> <strong>@Model.ResultadoJogo</strong></p>
         </div>
         <div class="col-sm-6 columncenter text-center">
             <a asp-controller="Home" asp-action="HiScores" class="btn btn-info">HiScores</a>

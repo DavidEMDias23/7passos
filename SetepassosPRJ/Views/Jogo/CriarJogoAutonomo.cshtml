@@ -8,26 +8,26 @@
 <form asp-action="CriarJogo" method="post">
     <div class="form-group text-center">
         <img src="~/images/Old-Char.png" alt="HTML5 Icon" class="charpick">
-        <label class="ArrangeChars">
+        <label class="arrangeChars">
             <input class="form-control" type="radio" asp-for="Nome" value="auto3" checked>Auto 3
         </label>
-        <label class="ArrangeChars">
+        <label class="arrangeChars">
             <input class="form-control" type="radio" asp-for="Nome" value="auto7">Auto 7
         </label>
-        <label class="ArrangeChars">
+        <label class="arrangeChars">
             <input class="form-control" type="radio" asp-for="Nome" value="auto0">Auto 0
         </label>
     </div>
     <div class="explicacaoAutonomo">
         <p> Auto 3: Neste modo o jogo fará apenas 3 rondas e ou morre ou desiste. </p>
         <p> Auto 7: Neste modo o jogo fará apenas 7 rondas e ou morre ou desiste. </p>
-        <p> Auto 0: Neste modo o jogo fará no máximo 40 rondas, tentando ganhar. Se não morrer nem ganhar o jogo desiste ao fim das 40 rondas.</p>
+        <p> Auto 0: Neste modo o jogo fará no máximo 50 rondas, tentando ganhar. Se não morrer nem ganhar o jogo desiste ao fim das 50 rondas.</p>
     </div>
-    <div class="rowBottun">
+    <div class="rowButton">
         <input name="PerfilTipo" value="S" type="hidden" />
         <input name="Autonomo" value="true" type="hidden" />
-        <input type="image" value="CriarJogoAutonomo" src="~/images/btns/btn-jogar.png" class="BotaoJogar" />
-        <a asp-action="CriarJogo" class="BotaoModo"><img src="~/images/btns/btn-normal.png" /></a>
+        <input type="image" value="CriarJogoAutonomo" src="~/images/btns/btn-jogar.png" class="botaoJogar" />
+        <a asp-action="CriarJogo" class="botaoModo"><img src="~/images/btns/btn-normal.png" /></a>
     </div>
 </form>
 

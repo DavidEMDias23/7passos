@@ -34,7 +34,7 @@ img {
     width: 100%;
 }
 
-.rowBottun {
+.rowButton {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -57,20 +57,20 @@ img {
 }
 
 /*Botao iniciar jogo no index*/
-.BotaoIniciar {
+.botaoIniciar {
     height: 80%;
     width: 80%;
     filter: brightness(1.4);
     margin: 20px;
 }
 
-.BotaoIniciar:hover {
+.botaoIniciar:hover {
     height: 82%;
     width: 82%;
     filter: brightness(1.6);
 }
 
-.BotaoJogar {
+.botaoJogar {
     height: 17%;
     width: 17%;
     display:inline-block;
@@ -79,7 +79,7 @@ img {
     margin-right: 2%;
 }
 
-.BotaoModo {
+.botaoModo {
     height: 17%;
     width: 17%;
     display: inline-block;
@@ -87,7 +87,7 @@ img {
     margin-right: 2%;
 }
 
-.BotaoJogar:hover, .BotaoModo:hover {
+.botaoJogar:hover, .botaoModo:hover {
     filter: brightness(1.2);
 }
 
@@ -133,33 +133,24 @@ img {
    width: 20%;
    height: 20%;
 }
-.ArrangeChars {
+.arrangeChars {
     display: inline-block;
     margin-right: 2%;
     font-size: 70%;
 }
 
-.BotaoDisabled {
-    width: 55%;
-    height: 55%;
-    margin: 5px;
+.botaoSair {
     background: none;
     border-color: none;
     border-style: none;
 }
 
-.BotaoSair {
-    background: none;
-    border-color: none;
-    border-style: none;
-}
-
-.BotoesSair:hover {
+.botaoSair:hover {
     filter: brightness(1.4);
     opacity: 0.7;
 }
 
-.BotoesJogo {
+.botoesJogo {
     width: 50%;
     height:20%;
     margin: 1px;
@@ -167,19 +158,10 @@ img {
     border-color: none;
     border-style: none;
 }
-.BotoesJogo:hover {
-   filter: brightness(1.4);
-   opacity: 0.7;
-}
-
-label {
-    color: beige;
-    font-weight: bold;
-    padding: 2px;
-    text-transform: uppercase;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 75%;
-}
+    .botoesJogo:hover {
+        filter: brightness(1.4);
+        opacity: 0.7;
+    }
 
 
 /*Padding para não atingir as laterais da página*/
@@ -191,17 +173,17 @@ label {
 
 
 
-.carousel-inner .item img[src$=".svg"] {
+.carousel-inner .item img[src$=".svg"] {  /* CSS já estava por default. */
     width: 100%;
 }
-    
 
 
-#qrCode {
+
+#qrCode { /* CSS já estava por default. */
     margin: 15px;
 }
 
-
+/* Editar os radio buttons */
 input[type='radio'] {
     width: 20px;
     height: 20px;
@@ -255,7 +237,7 @@ input[type='radio'] {
 
 .validation-summary-errors {
     font-weight: bold;
-    margin-top:20px;
+    margin-top:10px;
 }
 
 .areajogo {
@@ -275,6 +257,11 @@ input[type='radio'] {
     left: 23%;
     z-index: -1;
     display:inline-block;
+}
+.skull {
+    width: 15%;
+    z-index: -1;
+    display: inline-block;
 }
 
 .areajogavel {
@@ -319,7 +306,7 @@ h4 {
 }
 
 /*tinhamos marign-top: 2px;*/
-.fundoJogo {
+.FundoJogo {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
@@ -353,55 +340,55 @@ h4 {
 }
 
 /*Mensagens de contexto*/
-.MensagemVidaPos {
+.mensagemVidaPos {
     color: chartreuse;
     font-family: Verdana;
     display: inline-block;
     font-size: 1.2vw;
     font-weight: bold;
 }
-.MensagemVidaNeg {
+.mensagemVidaNeg {
     color: deeppink;
     font-family: Verdana;
     display: inline-block;
     font-size: 1.2vw;
     font-weight: bold;
 }
-.MensagemPassarTempo {
+.mensagemPassarTempo {
     color:fuchsia;
     font-family: Verdana;
     font-size: 16px;
     margin-left: 0.7vw;
 }
-.MensagemOutro {
+.mensagemOutro {
     color: gold;
     font-family: Verdana;
     display: inline-block;
     font-size: 1.2vw;
     font-weight: bold;
 }
-.MensagemDano {
+.mensagemDano {
     color:deeppink;
     font-family: Verdana;
     font-size: 1.2vw;
     display: inline-block;
     font-weight:bold;
 }
-.MensagemMeuAtaque {
+.mensagemMeuAtaque {
     color:yellow;
     font-family: Verdana;
     font-size: 1vw;
     top:5px;
     text-shadow:1px 1px 1px black;
 }
-.MensagemAccao {
+.mensagemAccao {
     color:aliceblue;
     font-family: Verdana;
     font-size:1.05vw;
     top: 5px;
     text-shadow: 1px 1px 1px black;
 }
-.MensagemAccaoFuga {
+.mensagemAccaoFuga {
     color: khaki;
     font-family: Verdana;
     font-size: 1.1vw;
@@ -409,7 +396,7 @@ h4 {
     text-shadow: 1px 1px 1px black;
 }
 
-.MensagemAccaoMonstro {
+.mensagemAccaoMonstro {
     color: darksalmon;
     font-family: Verdana;
     font-size: 1.1vw;
@@ -417,12 +404,12 @@ h4 {
     text-shadow: 0.8px 0.8px 0.8px black;
 }
 
-.imagemblood {
+.imagemBlood {
     background-size: cover;
     opacity: 0.6;
     width:73%;
  }
-.puttop {
+.putTop {
     position:fixed;
     top: 25%;
     left: 20%;
@@ -430,8 +417,8 @@ h4 {
 }
 .danoNoMonstro {
     position:absolute;
-    left: 39%;
-    bottom:70%;
+    left: 37%;
+    bottom:60%;
     color:lavender;
     font-family: Verdana;
     font-size: 1.7vw;
@@ -447,7 +434,7 @@ h4 {
     display: inline-block;
     font-weight: bold;
 }
-.imagemgatopreto {
+.imagemGatoPreto {
     position: fixed;
     top: 57%;
     left: 60%;
@@ -463,7 +450,7 @@ h4 {
     z-index:3;
 }
 
-.MensagemBonus {
+.mensagemBonus {
     color: darksalmon;
     font-family: Verdana;
     font-size: 1vw;
