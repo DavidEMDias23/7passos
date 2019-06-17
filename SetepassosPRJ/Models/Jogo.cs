@@ -277,7 +277,7 @@ namespace SetepassosPRJ.Models
                         }
                         else
                         {
-                            if (PontosVida < 1.5 && PocoesVida > 0)
+                            if (PontosVida <= 1.9 && PocoesVida > 0)
                             {
                                 TomarAccao = PlayerAction.DrinkPotion;
                             }
