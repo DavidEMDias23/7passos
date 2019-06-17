@@ -297,7 +297,7 @@ namespace SetepassosPRJ.Models
             {
                 if (Sala != 7 && arraySalasExaminadas[Sala + 1] == false) //Estamos a andar para a frente
                 {
-                    if (PontosSorteMonstro < 5)
+                    if (PontosSorteMonstro < 4)
                     {
                         if (PontosAtaqueMonstro < 3)
                         {

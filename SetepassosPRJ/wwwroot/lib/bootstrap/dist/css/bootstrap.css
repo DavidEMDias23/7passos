@@ -2301,7 +2301,10 @@ th {
     background-color:rebeccapurple;
     padding: 5px;
 }
-.table-condensed > tbody > tr > td,
+.table-condensed > tbody > tr > td {
+    padding: 5px;
+    background-color:black;
+}
 .table-condensed > tfoot > tr > td {
   padding: 5px;
 }

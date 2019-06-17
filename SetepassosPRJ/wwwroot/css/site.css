@@ -11,7 +11,7 @@ body {
     padding-bottom: 10px;
     color: ghostwhite;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 1.1vw;
+    font-size: 1vw;
     letter-spacing: 0.7px;
     background-image: url('../images/Layout/Entrance v2.jpg');
     background-size:cover;
@@ -471,6 +471,10 @@ h4 {
 .small {
     font-size: 0.7vw;
 }
+.font-medium {
+    font-size: 0.9vw;
+}
+
 .lightbox {
     display: none;
     position: fixed;
