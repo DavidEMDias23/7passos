@@ -5,21 +5,14 @@ using System.Threading.Tasks;
 
 namespace SetepassosPRJ.Models
 {
-    public class RoundSummary
+    public class RondaFinal
     {
-        //Dados Ronda
-        public int NumeroRonda { get; set; }
-        public PlayerAction DecisaoTomada { get; set; }
-        public int Posicao { get; set; }
+        public List<RoundSummary> rsList { get; set; }
+        public int GameID { get; set; }
         public int NumInimigosDerrotados { get; set; }
         public int NumFugas { get; set; }
         public int NumItensEncontrados { get; set; }
         public bool Chave { get; set; }
-        public int MoedasOuro { get; set; }
-        public double PontosVida { get; set; }
-        public int PontosAtaque { get; set; }
-        public int PontosSorte { get; set; }
-        public int PocoesVida { get; set; }
         public int PocoesUsadas { get; set; }
         public int NumeroRondasJogadas { get; set; }
         public int MoedasOuroTotal { get; set; }
@@ -29,24 +22,18 @@ namespace SetepassosPRJ.Models
         public int TotalAtaques { get; set; }
         public double PercentagemAreasInvestigadas { get; set; }
 
-        public RoundSummary()
-        {
-        }
 
-        public RoundSummary(Jogo j)
+        public RondaFinal()
         {
-            NumeroRonda = j.RondaAtual;
-            DecisaoTomada = j.UltimaAccao;
-            Posicao = j.Sala;
+
+        }
+        public RondaFinal(Jogo j)
+        {
+            GameID = j.GameID;
             NumInimigosDerrotados = j.NumInimigosDerrotados;
             NumFugas = j.NumFugas;
             NumItensEncontrados = j.NumItensEncontrados;
             Chave = j.Chave;
-            MoedasOuro = j.MoedasOuro;
-            PontosVida = j.PontosVida;
-            PontosAtaque = j.PontosAtaque;
-            PontosSorte = j.PontosSorte;
-            PocoesVida = j.PocoesVida;
             PocoesUsadas = j.PocoesUsadas;
             NumeroRondasJogadas = j.RondaAtual;
             MoedasOuroTotal = j.MoedasOuroTotal;

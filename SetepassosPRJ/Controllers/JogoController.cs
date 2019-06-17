@@ -44,7 +44,7 @@ namespace SetepassosPRJ.Controllers
             if (ModelState.IsValid)
             {
                 Jogo JogoNovo = new Jogo(j.Nome, j.PerfilTipo, j.Autonomo);
-
+                List<RoundSummary> rsList = new List<RoundSummary>();
                 HttpClient client = NewGameHttpClient.Client;
                 string path = "/api/NewGame";
 
@@ -62,7 +62,6 @@ namespace SetepassosPRJ.Controllers
 
                 JogoNovo.AtualizarJogo(gs);
                 RepositorioJogos.AdicionarJogo(JogoNovo);
-
                 if (JogoNovo.Autonomo == false)
                 {
                     return View("JogoIniciado", JogoNovo);
@@ -73,7 +72,7 @@ namespace SetepassosPRJ.Controllers
                     while (gs.RoundNumber < JogoNovo.Rondas && 
                             (JogoNovo.Terminado == false))
                     {
-
+                            
                             HttpClient clientAuton = NewGameHttpClient.Client;
                             path = "/api/Play";
 
@@ -90,8 +89,11 @@ namespace SetepassosPRJ.Controllers
                             gs = JsonConvert.DeserializeObject<GameStateApi>(json_r);
 
                             JogoNovo.AtualizarJogo(gs);
-                            //RoundSummary rs = new RoundSummary(JogoNovo, gs.RoundNumber);
-                            //RepositorioRondas.AdicionarRonda(rs);
+                            RoundSummary rs = new RoundSummary(JogoNovo);
+                            rsList.Add(rs);
+
+                        //RoundSummary rs = new RoundSummary(JogoNovo, gs.RoundNumber);
+                        //RepositorioRondas.AdicionarRonda(rs);
                     }
                     if (gs.RoundNumber == JogoNovo.Rondas)
                     {
@@ -116,7 +118,9 @@ namespace SetepassosPRJ.Controllers
                         JogoNovo.ResultadoJogo = ResultadoJogo.Desistiu;
                         JogoNovo.Terminado = true;
                     }
-                    return View("DadosJogo", JogoNovo);
+                    RondaFinal rf = new RondaFinal(JogoNovo);
+                    rf.rsList = rsList;
+                    return View("DadosJogoAutonomo", rf);
                 }
             }
             else
