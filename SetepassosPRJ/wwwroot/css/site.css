@@ -11,7 +11,7 @@ body {
     padding-bottom: 10px;
     color: ghostwhite;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 1vw;
+    font-size: 1.1vw;
     letter-spacing: 0.7px;
     background-image: url('../images/Layout/Entrance v2.jpg');
     background-size:cover;
@@ -190,7 +190,7 @@ input[type='radio'] {
     background: black;
     border-radius: 1px;
     border: 1px solid black;
-    margin: 4px;
+    margin: 3px;
 }
 
 #tabela {
@@ -475,6 +475,9 @@ h4 {
     font-size: 0.9vw;
 }
 
+.font-large {
+    font-size: 1vw;
+}
 .lightbox {
     display: none;
     position: fixed;
