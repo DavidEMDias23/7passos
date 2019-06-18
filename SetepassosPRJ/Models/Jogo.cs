@@ -250,81 +250,58 @@ namespace SetepassosPRJ.Models
 
         public void AccaoAutonomo() //Metodo para estratégia do jogo autonomo
         {
-            // Estratégia que apenas tem em conta a nossa vida para beber poção, ataca todos os monstros, e procura todas as áreas, tenta ganhar com menos de 0.5 quando possível.
-            if (Monstro)
+            if (Monstro) // Sempre que existe monstro na view
             {
-                if (PontosAtaqueMonstro > 3) //Monstro Forte
+                if (Chave == false) //Se não temos a chave
                 {
-                    if ((PontosAtaqueMonstro > 3) && (PontosSorteMonstro >= PontosSorte) && (Sala == 1)) // Na primeira casa se monstro for muito forte não arriscamos
+                    if (CompararStatus() < -2 && Sala < 3) //Se a sala for inferior a 3 e os nossos status são muito inferiores aos do monstro, vamos fugir.
                     {
-                        TomarAccao = PlayerAction.Flee;
-                    }
-                    else
-                    {
-                        if (Chave) //Se já tivermos a chave
+                        if (PontosVida < 1.8 && PocoesVida > 0) //ver se não arriscamos morrer ao fugir.
                         {
-                            if (DetetarCansaço() == false)
+                            TomarAccao = PlayerAction.DrinkPotion;
+                        }
+                        else //fugir
+                        {
+                            TomarAccao = PlayerAction.Flee;
+                        }
+                    }
+                    else //Se os nossos status não forem mto inferiores ao do monstro na sala 1 ou 2, Ou se já estamos na sala 3 ou superior e sem chave temos de arriscar
+                    {
+                        if (CompararStatus() > 1 && DetetarCansaço() == false) //Antes de atacar vamos prevenir, se monstro for fraco e não tamos cansados.
+                        {
+                            if (PontosVida < 1 && PocoesVida > 0) // Podemos arriscar com 1 ponto de vida ou mais. Caso contrário bebemos poção.
                             {
-                                    if (PontosVida < 1.5 && PocoesVida > 0)
-                                    {
-                                        TomarAccao = PlayerAction.DrinkPotion;
-                                    }
-                                    else
-                                    {
-                                        TomarAccao = PlayerAction.Flee;
-                                    }
+                                TomarAccao = PlayerAction.DrinkPotion;
                             }
                             else
                             {
-                                if (PontosVida <= 1.9 && PocoesVida > 0)
-                                {
-                                    TomarAccao = PlayerAction.DrinkPotion;
-                                }
-                                else
-                                {
-                                    TomarAccao = PlayerAction.Flee;
-                                }
+                                TomarAccao = PlayerAction.Attack;
                             }
                         }
-                        else //Se não temos chave
+                        else // Se o monstro é forte ou se já tamos cansados
                         {
-                            if (PontosVida <= 2 && PocoesVida > 0) //Não arriscar morrer
+                            if (PontosVida < 1.8 && PocoesVida > 0) // Já só podemos arriscar com 1.8 ou mais de vida.
                             {
                                 TomarAccao = PlayerAction.DrinkPotion;
-
                             }
-                            else //Atacar
+                            else
                             {
                                 TomarAccao = PlayerAction.Attack;
                             }
                         }
                     }
                 }
-                else
+                else //Se existe monstro na view mas já temos a chave
                 {
-                    if (Chave) //Se tivermos chave e o monstro tem menos de 4 de força (é fraco)
+                    if (DetetarCansaço() == false) //Se nao tivermos cansados 
                     {
-                        if (DetetarCansaço() == false) //Se já temos a chave e não estamos a ser afetados pelo cansaço
+                        if (CompararStatus() > 1 && PontosVida > 1.7) // se o monstro for mais fraco e nós temos vida suficiente para arriscar
                         {
-                            if ((PontosVida > 1.8) && (PontosAtaqueMonstro == 1) && (PontosSorte > PontosSorteMonstro)) //Caso vida seja maior que 1.8 e monstro seja fraco., arriscamos tentar matar o monstro
-                            {
-                                TomarAccao = PlayerAction.Attack;
-                            }
-                            else //Se não temos muita vida ou o monstro é forte não vale a pena arriscar
-                            {
-                                if (PontosVida <= 1.1 && PocoesVida > 0)
-                                {
-                                    TomarAccao = PlayerAction.DrinkPotion;
-                                }
-                                else
-                                {
-                                    TomarAccao = PlayerAction.Flee;
-                                }
-                            }
+                            TomarAccao = PlayerAction.Attack; //atacamos
                         }
-                        else
+                        else //se o monstro é forte ou se não temos vida suficiente não vale a pena arriscar
                         {
-                            if (PontosVida <= 1.9 && PocoesVida > 0)
+                            if (PontosVida < 1.8 && PocoesVida > 0) //vamos garantir que conseguimos fugir, visto que já temos a chave
                             {
                                 TomarAccao = PlayerAction.DrinkPotion;
                             }
@@ -334,90 +311,45 @@ namespace SetepassosPRJ.Models
                             }
                         }
                     }
-                    else //Se não temos chave e o monstro tem menos de 4 de força (é fraco)
+                    else //se já tamos cansados, apesar de termos a chave, não vamos arriscar atacar o monstro por mto fraco que seja, pois o cansaço pode levarnos a gastar poções, poções são bonus altos.
                     {
-                        if (DetetarCansaço() == false)
+                        if (CompararStatus() > 2) //se o monstro for muito mais fraco podemos fugir desde que tenhamos 1.5 ou mais de vida.
                         {
-                            if (PontosVida <= 1.3 && PocoesVida > 0)
+                            if (PontosVida < 1.5 && PocoesVida > 0)
                             {
                                 TomarAccao = PlayerAction.DrinkPotion;
                             }
                             else
                             {
-                                TomarAccao = PlayerAction.Attack;
+                                TomarAccao = PlayerAction.Flee;
                             }
                         }
-                        else
+                        else //Se o monstro não for muito mais fraco, visto que já temos a chave, vamos garantir que conseguimos fugir, temos de ter pelo menos 1.8.
                         {
-                            if (PontosVida <= 1.7 && PocoesVida > 0)
+                            if (PontosVida < 1.8 && PocoesVida > 0)
                             {
                                 TomarAccao = PlayerAction.DrinkPotion;
                             }
                             else
                             {
-                                TomarAccao = PlayerAction.Attack;
+                                TomarAccao = PlayerAction.Flee;
                             }
                         }
                     }
 
                 }
             }
-            else
+            else //Se não existe monstro na view, tamos perante uma sala sem Monstro.
             {
-                if (arraySalasExaminadas[Sala] == false) //caso não exista monstro e sala não tenha sido examinada
+                if (arraySalasExaminadas[Sala] == false) //caso sala não tenha sido examinada
                 {
-                    if (Chave == false)
+                    if (Chave) //Se já temos a chave numa sala não examinada não vamos arriscar examinar e perder vida.
                     {
-                        if (PontosVida < 1.3 && PocoesVida > 0) //se tivermos pouca vida, bebemos primeiro poção
+                        if (Sala != 7) // Se a sala não for a última vamos garantir que conseguimos avançar sem morrer para o cansaço. Não vamos arriscar procurar.
                         {
-                            TomarAccao = PlayerAction.DrinkPotion;
-                        }
-                        else //examinamos area
-                        {
-                            TomarAccao = PlayerAction.SearchArea;
-                        }
-                    }
-                    else
-                    {
-                        if (Sala == 7) 
-                        {
-
-                                if (PontosVida % 1 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
-                                {
-                                    TomarAccao = PlayerAction.GoBack;
-                                }
-                                else //Se vida for inteira ou não tivermos mais de 1 ou se existir monstro na sala 6 vamos avançar para ganhar.
-                                {
-                                    TomarAccao = PlayerAction.GoForward;
-                                }
-
-                        }
-                        else //Avançamos sempre que sala está vazia
-                        {
-                            if (Sala < 6)
+                            if (DetetarCansaço() == false)
                             {
-                                if (DetetarCansaço() == false)
-                                {
-                                    if (PontosVida < 1.2 && PocoesVida > 0) //se tivermos pouca vida, bebemos primeiro poção
-                                    {
-                                        TomarAccao = PlayerAction.DrinkPotion;
-                                    }
-                                    else //examinamos area
-                                    {
-                                        TomarAccao = PlayerAction.SearchArea;
-                                    }
-                                }
-                                else
-                                {
-                                    if (PontosVida <= 0.5)
-                                    {
-                                        TomarAccao = PlayerAction.DrinkPotion;
-                                    }
-                                    else
-                                    {
-                                        TomarAccao = PlayerAction.GoForward;
-                                    }
-                                }
+                                TomarAccao = PlayerAction.GoForward;
                             }
                             else
                             {
@@ -431,15 +363,9 @@ namespace SetepassosPRJ.Models
                                 }
                             }
                         }
-                    }
-                }
-                else //Se sala já foi examinada
-                {
-                    if (Chave)
-                    {
-                        if (Sala == 7) //Se tivermos na ultima sala e não existe monstro
+                        else //se tivermos na ultima sala, visto que já temos chave, não vamos arriscar examinar sala e perder.
                         {
-                            if (PontosVida % 1 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
+                            if (PontosVida % 0.5 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
                             {
                                 TomarAccao = PlayerAction.GoBack;
                             }
@@ -448,43 +374,86 @@ namespace SetepassosPRJ.Models
                                 TomarAccao = PlayerAction.GoForward;
                             }
                         }
-                        else //Avançamos sempre que sala está vazia
+                    }
+                    else //Estamos numa sala não examinada, sem chave. Temos de arriscar examinar.
+                    {
+                        if (PontosVida < 1.8 && PocoesVida > 0) //prevenir morrer para itens que dão dano.
                         {
-                            if (PontosVida <= 0.5 && PocoesVida > 0) //Evitar morrer de cansaço
+                            TomarAccao = PlayerAction.DrinkPotion;
+                        }
+                        else
+                        {
+                            TomarAccao = PlayerAction.SearchArea;
+                        }
+                    }
+                }
+                else //Se estamos numa sala que já foi examinada e não tem monstro
+                {
+                    if (Chave) //já temos a chave, vamos tentar ganhar.
+                    {
+                        if (Sala == 7) // Se estamos na ultima sala, com chave vamos tentar ganhar.
+                        {
+                            if (PontosVida % 0.5 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
                             {
-                                TomarAccao = PlayerAction.DrinkPotion;
+                                TomarAccao = PlayerAction.GoBack;
+                            }
+                            else //Se vida for inteira ou não tivermos mais de 1 ou se existir monstro na sala 6 vamos avançar para ganhar.
+                            {
+                                TomarAccao = PlayerAction.GoForward;
+                            }
+
+                        }
+                        else //Se estamos numa sala que não a 7, já foi examinada e temos a chave, vamos avançar.
+                        {
+                            if (DetetarCansaço() == false)
+                            {
+                                TomarAccao = PlayerAction.GoForward;
                             }
                             else
                             {
-                                TomarAccao = PlayerAction.GoForward;
+                                if (PontosVida <= 0.5 && PocoesVida > 0) // prevenir morrer para cansaço)
+                                {
+                                    TomarAccao = PlayerAction.DrinkPotion;
+                                }
+                                else
+                                {
+                                    TomarAccao = PlayerAction.GoForward;
+                                }
                             }
                         }
                     }
-                    else //Se não temos chave e sala ja foi examinada vamos avançar
+                    else //Se ainda não temos chave
                     {
-                        if (Sala < 7)
+                        if (Sala == 7) //estamos na sala 7, já foi examinada e não temos chave, deixámos a chave numa das duas primeiras salas.
                         {
-                            if (PontosVida <= 0.5 && PocoesVida > 0) //Evitar morrer de cansaço
-                            {
-                                TomarAccao = PlayerAction.DrinkPotion;
-                            }
-                            else
+                                TomarAccao = PlayerAction.GoBack; //Vamos suicidar para o cansaço, visto que é preferivel suicidar com os pontos das poções do que tentar ir buscar a chave.
+                        }
+                        else // Se estamos numa sala que não é a 7, e não temos chave, e a sala já foi examinada, vamos avançar.
+                        {
+                            if (arraySalasExaminadas[7]) //Visto que a 7 já foi examinada, é porque estamos a tentar suicidar para cansaço.
                             {
                                 TomarAccao = PlayerAction.GoForward;
                             }
-                        }
-                        else //Se chegamos a situação de salar ter sido examinada e não temos chave na sala 7 é porque ficou na Sala 1, vamos desistir.
-                        {
-                            TomarAccao = PlayerAction.Quit;
+                            else //Se 7 ainda não foi examinada vamos prevenir morrer para cansaço e continuar a avançar.
+                            {
+                                if (DetetarCansaço() && PontosVida <= 0.5 && PocoesVida > 0) 
+                                {
+                                    TomarAccao = PlayerAction.DrinkPotion;
+                                }
+                                else
+                                {
+                                    TomarAccao = PlayerAction.GoForward;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
-        private bool DetetarMonstroSala6()
+        private bool DetetarMonstroSala6() //Este método para autónomo é usado na sala 7. Sempre que a ultima acção foi um flee, garantidamente existe monstro na sala 6.
         {
-            if (TomarAccao == PlayerAction.Flee)
+            if (UltimaAccao == PlayerAction.Flee)
             {
                 return true;
             }
@@ -492,6 +461,21 @@ namespace SetepassosPRJ.Models
             {
                 return false;
             }
+        }
+
+        private double CompararStatus() //método para autónomo que ajuda a calcular as diferenças de status (Sorte e Ataque) entre jogador e monstro para tomar melhores decisões.
+        {
+            double statusMonstro = 0;
+            double statusPlayer = 0;
+            double diferencaStatus = 0;
+            statusMonstro = PontosSorteMonstro + PontosAtaqueMonstro;
+            if (PontosAtaqueMonstro == 5) //Vamos ter cuidado especial com monstros de 5 de ataque porque dão muito dano.
+            {
+                statusMonstro = statusMonstro + 2;
+            }
+            statusPlayer = PontosSorte + PontosAtaque;
+            diferencaStatus = statusPlayer - statusMonstro;
+            return diferencaStatus; //Quanto mais positivo melhor os status do player comparativamente aos do monstro, e vice versa.
         }
 
         public virtual int CompareTo(object obj) // Verificar se é preciso e se é virtual???
