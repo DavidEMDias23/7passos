@@ -347,19 +347,47 @@ namespace SetepassosPRJ.Models
                     {
                         if (Sala != 7) // Se a sala não for a última vamos garantir que conseguimos avançar sem morrer para o cansaço. Não vamos arriscar procurar.
                         {
-                            if (DetetarCansaço() == false)
+                            if (Sala < 5) //antes da sala 5 não avale a pena arriscar para não ativar cansaço.
                             {
-                                TomarAccao = PlayerAction.GoForward;
-                            }
-                            else
-                            {
-                                if (PontosVida <= 0.5 && PocoesVida > 0)
+                                if (DetetarCansaço() == false)
                                 {
-                                    TomarAccao = PlayerAction.DrinkPotion;
+                                    TomarAccao = PlayerAction.GoForward;
                                 }
                                 else
                                 {
-                                    TomarAccao = PlayerAction.GoForward;
+                                    if (PontosVida <= 0.5 && PocoesVida > 0)
+                                    {
+                                        TomarAccao = PlayerAction.DrinkPotion;
+                                    }
+                                    else
+                                    {
+                                        TomarAccao = PlayerAction.GoForward;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (DetetarCansaço() == false) //podemos arriscar
+                                {
+                                    if (PontosVida > 3) //so nestas condições
+                                    {
+                                        TomarAccao = PlayerAction.SearchArea;
+                                    }
+                                    else
+                                    {
+                                        TomarAccao = PlayerAction.GoForward;
+                                    }
+                                }
+                                else //se já tamos no cansaço não vamos arriscar
+                                {
+                                    if (PontosVida <= 0.5 && PocoesVida > 0)
+                                    {
+                                        TomarAccao = PlayerAction.DrinkPotion;
+                                    }
+                                    else
+                                    {
+                                        TomarAccao = PlayerAction.GoForward;
+                                    }
                                 }
                             }
                         }
@@ -473,7 +501,12 @@ namespace SetepassosPRJ.Models
             {
                 statusMonstro = statusMonstro + 2;
             }
+
             statusPlayer = PontosSorte + PontosAtaque;
+            if (PontosAtaque > 3 && PontosSorte > 1 && PontosAtaqueMonstro < 3) //Situações em que temos 4 ou mais de ataque temos de aproveitar
+            {
+                statusPlayer = statusPlayer + 2;
+            }
             diferencaStatus = statusPlayer - statusMonstro;
             return diferencaStatus; //Quanto mais positivo melhor os status do player comparativamente aos do monstro, e vice versa.
         }
