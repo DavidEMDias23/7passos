@@ -281,7 +281,7 @@ namespace SetepassosPRJ.Models
                 {
                     if (Sala == 7)
                     {
-                        if (PontosVida % 1 != 0 && PontosVida > 1) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
+                        if (PontosVida % 0.5 != 0 && PontosVida > 1) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
                         {
                             TomarAccao = PlayerAction.GoBack;
                         }
@@ -466,7 +466,7 @@ namespace SetepassosPRJ.Models
             //            }
             //            else //se tivermos na ultima sala, visto que já temos chave, não vamos arriscar examinar sala e perder.
             //            {
-            //                if (PontosVida % 1 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
+            //                if (PontosVida % 0.5 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
             //                {
             //                    TomarAccao = PlayerAction.GoBack;
             //                }
@@ -494,7 +494,7 @@ namespace SetepassosPRJ.Models
             //        {
             //            if (Sala == 7) // Se estamos na ultima sala, com chave vamos tentar ganhar.
             //            {
-            //                if (PontosVida % 1 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
+            //                if (PontosVida % 0.5 != 0 && PontosVida > 1 && DetetarMonstroSala6() == false) //Caso vida não seja inteira e tivermos mais de 1 vamos tentar ganhar com menos de 0.5, desde que nao haja monstro na 6
             //                {
             //                    TomarAccao = PlayerAction.GoBack;
             //                }
