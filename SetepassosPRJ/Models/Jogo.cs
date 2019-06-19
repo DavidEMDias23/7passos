@@ -254,7 +254,7 @@ namespace SetepassosPRJ.Models
             {
                 if (Chave == false) //Se não temos a chave
                 {
-                    if (CompararStatus() < -2 && Sala < 3) //Se a sala for inferior a 3 e os nossos status são muito inferiores aos do monstro, vamos fugir.
+                    if (CompararStatus() < -1 && Sala < 3) //Se a sala for inferior a 3 e os nossos status são muito inferiores aos do monstro, vamos fugir.
                     {
                         if (PontosVida < 1.8 && PocoesVida > 0) //ver se não arriscamos morrer ao fugir.
                         {
@@ -280,7 +280,7 @@ namespace SetepassosPRJ.Models
                         }
                         else // Se o monstro é forte ou se já tamos cansados
                         {
-                            if (PontosVida < 1.8 && PocoesVida > 0) // Já só podemos arriscar com 1.8 ou mais de vida.
+                            if (PontosVida <= 1.9 && PocoesVida > 0) // Já só podemos arriscar com 1.9 ou mais de vida.
                             {
                                 TomarAccao = PlayerAction.DrinkPotion;
                             }
@@ -295,7 +295,7 @@ namespace SetepassosPRJ.Models
                 {
                     if (DetetarCansaço() == false) //Se nao tivermos cansados 
                     {
-                        if (CompararStatus() > 1 && PontosVida > 1.7) // se o monstro for mais fraco e nós temos vida suficiente para arriscar
+                        if (CompararStatus() > 2 && PontosVida > 2) // se o monstro for mais fraco e nós temos vida suficiente para arriscar
                         {
                             TomarAccao = PlayerAction.Attack; //atacamos
                         }
