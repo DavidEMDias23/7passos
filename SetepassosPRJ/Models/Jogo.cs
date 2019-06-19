@@ -250,6 +250,7 @@ namespace SetepassosPRJ.Models
 
         public void AccaoAutonomo() //Metodo para estratégia do jogo autonomo
         {
+            //estratégia Berserk
             if (Monstro)
             {
                 if (CompararStatus() < 0)
@@ -323,6 +324,7 @@ namespace SetepassosPRJ.Models
                 }
             }
 
+            // Estratégia ponderada.
             //if (Monstro) // Sempre que existe monstro na view
             //{
             //    if (Chave == false) //Se não temos a chave
@@ -527,7 +529,7 @@ namespace SetepassosPRJ.Models
             //        {
             //            if (Sala == 7) //estamos na sala 7, já foi examinada e não temos chave, deixámos a chave numa das duas primeiras salas.
             //            {
-            //                    TomarAccao = PlayerAction.GoBack; //Vamos suicidar para o cansaço, visto que é preferivel suicidar com os pontos das poções do que tentar ir buscar a chave.
+            //                TomarAccao = PlayerAction.GoBack; //Vamos suicidar para o cansaço, visto que é preferivel suicidar com os pontos das poções do que tentar ir buscar a chave.
             //            }
             //            else // Se estamos numa sala que não é a 7, e não temos chave, e a sala já foi examinada, vamos avançar.
             //            {
@@ -537,7 +539,7 @@ namespace SetepassosPRJ.Models
             //                }
             //                else //Se 7 ainda não foi examinada vamos prevenir morrer para cansaço e continuar a avançar.
             //                {
-            //                    if (DetetarCansaço() && PontosVida <= 0.5 && PocoesVida > 0) 
+            //                    if (DetetarCansaço() && PontosVida <= 0.5 && PocoesVida > 0)
             //                    {
             //                        TomarAccao = PlayerAction.DrinkPotion;
             //                    }
